@@ -1,20 +1,19 @@
-import { forwardRef } from "react";
-import Link from "next/link";
-import { HomeIcon, CreditCardIcon, UserIcon } from "@heroicons/react/24/solid";
-import { useRouter } from "next/router";
+import { forwardRef } from "react"
+import Link from "next/link"
+import { HomeIcon, CreditCardIcon, UserIcon } from "@heroicons/react/24/solid"
+import { useRouter } from "next/router"
 
 const SideBar = forwardRef(({ showNav }, ref) => {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <div ref={ref} className="fixed w-56 h-full bg-white shadow-sm">
       <div className="flex justify-center mt-6 mb-14">
-      <h1 class="text-4xl font-bold  text-purple-500">MyEvent</h1>
-
+        <h1 className="text-4xl font-bold  text-purple-500">MyEvent</h1>
       </div>
 
       <div className="flex flex-col">
-        <Link href="http://127.0.0.1:5501/Home/Home.html">
+        <Link href="/">
           <div
             className={`pl-6 py-3 mx-5 rounded text-center cursor-pointer mb-3 flex items-center transition-colors ${
               router.pathname == "/"
@@ -26,7 +25,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               <HomeIcon className="h-5 w-5" />
             </div>
             <div>
-              <p>Home</p>
+              <p>Account</p>
             </div>
           </div>
         </Link>
@@ -34,15 +33,15 @@ const SideBar = forwardRef(({ showNav }, ref) => {
           <div
             className={`pl-6 py-3 mx-5 rounded text-center cursor-pointer mb-3 flex items-center transition-colors ${
               router.pathname == "/account"
-              ? "bg-purple-100 text-purple-300"
-              : "text-gray-400 hover:bg-purple-100 hover:text-purple-300"
+                ? "bg-purple-100 text-purple-300"
+                : "text-gray-400 hover:bg-purple-100 hover:text-purple-300"
             }`}
           >
             <div className="mr-2">
               <UserIcon className="h-5 w-5" />
             </div>
             <div>
-              <p>Account</p>
+              <p>Home</p>
             </div>
           </div>
         </Link>
@@ -50,8 +49,8 @@ const SideBar = forwardRef(({ showNav }, ref) => {
           <div
             className={`pl-6 py-3 mx-5 rounded text-center cursor-pointer mb-3 flex items-center transition-colors ${
               router.pathname == "/billing"
-              ? "bg-purple-100 text-purple-300"
-              : "text-gray-400 hover:bg-purple-100 hover:text-purple-300"
+                ? "bg-purple-100 text-purple-300"
+                : "text-gray-400 hover:bg-purple-100 hover:text-purple-300"
             }`}
           >
             <div className="mr-2">
@@ -66,8 +65,8 @@ const SideBar = forwardRef(({ showNav }, ref) => {
           <div
             className={`pl-6 py-3 mx-5 rounded text-center cursor-pointer mb-3 flex items-center transition-colors ${
               router.pathname == "/requests"
-              ? "bg-purple-100 text-purple-300"
-              : "text-gray-400 hover:bg-purple-100 hover:text-purple-300"
+                ? "bg-purple-100 text-purple-300"
+                : "text-gray-400 hover:bg-purple-100 hover:text-purple-300"
             }`}
           >
             <div className="mr-2">
@@ -80,9 +79,9 @@ const SideBar = forwardRef(({ showNav }, ref) => {
         </Link>
       </div>
     </div>
-  );
-});
+  )
+})
 
-SideBar.displayName = "SideBar";
+SideBar.displayName = "SideBar"
 
-export default SideBar;
+export default SideBar

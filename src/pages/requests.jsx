@@ -6,22 +6,56 @@ import Layout from '@/components/Dashboard/Layout.jsx';
 import Grid from '@/components/Dashboard/Grid.jsx';
 
 const requests = () => {
+
+  
+const EventsManagers = () => {
+  const [eventManagers, setEventManagers] = useState([])
+  const [searchQuery, setSearchQuery] = useState("")
+
+  const fetchEventManagers = async () => {
+    const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
+    try {
+      const res = await fetch(`http://127.0.0.1:8000/api/eventManagers`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+
+      if (!res.ok) {
+        throw new Error("Réponse de l'API non valide")
+      }
+
+      const json = await res.json()
+      setEventManagers(json)
+    } catch (error) {
+      console.error("Une erreur s'est produite :", error)
+    }
+  }
+
+  useEffect(() => {
+    fetchEventManagers()
+  }, [])
+}
   return (
    <Layout>
     
       <div className='p-4'>
         <div className='w-full m-auto p-4 border rounded-lg bg-white overflow-y-auto'>
-          <div className='my-3 p-2 grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 items-center justify-between cursor-pointer'>
-            <span>Request</span>
+          <div className='p-2 grid grid-cols-6  items-center justify-between cursor-pointer'>
+            <span>Name</span>
+            <span>Event</span>
+            <span className='hidden md:grid'>Sector</span>
             <span className='sm:text-left text-right'>Status</span>
-            <span className='hidden md:grid'>Last request</span>
             <span className='hidden sm:grid'>Action</span>
           </div>
           <ul>
             {data.map((request, id) => (
               <li
                 key={id}
-                className='bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 items-center justify-between cursor-pointer'
+                className='bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-6 items-center justify-between'
               >
                 <div className='flex'>
                   <div className='bg-purple-100 p-3 rounded-lg'>
