@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import Layout from "@/components/Dashboard/Layout"
 import TopCards from "../components/Dashboard/TopCards"
 import BarChart from "../components/Dashboard/BarChart"
@@ -8,6 +8,35 @@ import Image from "next/image"
 import Link from "next/link"
 
 function Account() {
+  const [admin, setAdmin] = useState({})
+
+  const fetchAdmin = async () => {
+    const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
+    try {
+      const res = await fetch(`http://127.0.0.1:8000/api/admin`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+
+      if (!res.ok) {
+        throw new Error("Réponse de l'API non valide")
+      }
+
+      const json = await res.json()
+      setAdmin(json)
+    } catch (error) {
+      console.error("Une erreur s'est produite :", error)
+    }
+  }
+
+  useEffect(() => {
+    fetchAdmin()
+  }, [])
+
   return (
     <>
       <Head>
@@ -16,26 +45,34 @@ function Account() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="bg-white min-h-screen">
+      <main className="bg-purple-50 min-h-screen">
         <Layout>
-          <div className="justify-center">
-            <div className="mb-4 pl- text-center pr-100 ">
-              <Image
-                src="/images/adminProfile.jpg"
-                alt="User Profile"
-                width={200}
-                height={200}
-              />
-            </div>
-            <div className="lg:cols-span-3 md:col-span-4 bg-gray-100 rounded-lg shadow-lg p-6">
+          <div className="flex ">
+            <div className="lg:cols-span-3 md:col-span-4 bg-white rounded-lg shadow-lg p-6 mt-10">
+              <div className="mb-2 pl- text-center pr-100 ">
+                <Image
+                  src="/images/adminProfile.jpg"
+                  alt="User Profile"
+                  width={200}
+                  height={200}
+                />
+              </div>
               <h1 className="text-2xl font-bold text-gray-800">
-                Admin Profile
+                Admin Information
               </h1>
               <hr className="my-4" />
-              <p className="text-gray-600 p-3">First Name : Meriem</p>
-              <p className="text-gray-600 p-3">Last Name : MANSOURI</p>
-              <p className="text-gray-600 p-3">Email : meriem.mansouri@gmail.com</p>
-            
+              <p className="text-gray-600 p-3">First Name: {admin.lastName}</p>
+              <p className="text-gray-600 p-3">
+                <span className="font-bold">Last Name:</span> MANSOURI
+              </p>
+              <p className="text-gray-600 p-3">
+                <span className="font-bold">E-mail:</span>{" "}
+                meriem.mansouri@gmail.com
+              </p>
+              <p className="text-gray-600 p-3">
+                <span className="font-bold">Phone:</span>{" "}
+                meriem.mansouri@gmail.com
+              </p>
             </div>
           </div>
         </Layout>
@@ -45,5 +82,3 @@ function Account() {
 }
 
 export default Account
-
-
