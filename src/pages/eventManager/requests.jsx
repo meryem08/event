@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaShoppingBag } from 'react-icons/fa';
 import { BsThreeDotsVertical } from 'react-icons/bs';
-import { data } from '../data/data.js';
+import { data } from "@/data/data";
 
 const orders = () => {
   return (
@@ -29,9 +29,7 @@ const orders = () => {
                     <FaShoppingBag className='text-purple-800' />
                   </div>
                   <div className='pl-4'>
-                    <p className='text-gray-800 font-bold'>
-                      ${order.total.toLocaleString()}
-                    </p>
+                   
                     <p className='text-gray-800 text-sm'>{order.name.first}</p>
                   </div>
                 </div>

@@ -1,4 +1,4 @@
-import Sidebar from "@/components/sideBar"
+import Sidebar from "@/components/eventManager/sideBar"
 import { Button } from "@/components/ui/button"
 import { data } from "autoprefixer"
 import React, { useState, useEffect } from "react"
@@ -123,7 +123,7 @@ const Events = () => {
           
         </div>
         
-        <Link href='/createNewEvent'>
+        <Link href='/eventManager/createNewEvent'>
             <Button className='m-6'>
                Create Event
             </Button>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-import { fetchWithAuth } from '../pages/api/api'
+// import { fetchWithAuth } from '../pages/api/api'
 
 const TopCards = () => {
   const fetchExposants = async () => {

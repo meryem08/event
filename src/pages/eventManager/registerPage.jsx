@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { RegisterForm } from '../components/form'
+import { RegisterForm } from '@/components/eventManager/form'
 import Image from 'next/image'
 import { useState } from 'react'
 

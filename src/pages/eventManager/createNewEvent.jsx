@@ -1,11 +1,12 @@
-import React from 'react'
-import CreateEvent from '@/components/createEvent'
-import MyForm from '@/components/createEvent'
+import React from "react"
+import CreateEvent from "@/components/eventManager/createEvent"
+import MyForm from "@/components/eventManager/createEvent"
 
 function createNewEvent() {
   return (
-    <div>createNewEvent
-      <MyForm/>
+    <div>
+      createNewEvent
+      <MyForm />
     </div>
   )
 }

@@ -1,11 +1,13 @@
 import React from "react"
 import { useState } from "react";
 import { BsPersonFill, BsThreeDotsVertical } from "react-icons/bs";
-import { data } from "../data/data.js";
+import { data } from "@/data/data";
 import { Button } from "@/components/ui/button/index.jsx";
 
 const exposants = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [exposants, setExposants] = useState(data);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleDelete = (id) => {

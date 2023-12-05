@@ -3,7 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 
-function index() {
+function LandingPage() {
   return (
     <div className="w-[96%]">
       <div className="sticky">
@@ -21,7 +21,7 @@ function index() {
             <Link href={"/"} className="hover:text-purple-500">
               About Us
             </Link>
-            <Link href={"/eventManager/registerPage"} className="">
+            <Link href={"/eventManager/login"} className="">
               Log in
             </Link>
           </div>
@@ -209,4 +209,4 @@ function index() {
   )
 }
 
-export default index
+export default LandingPage

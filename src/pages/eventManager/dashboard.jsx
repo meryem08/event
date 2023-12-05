@@ -1,34 +1,27 @@
 import React from "react"
-import Header from "../components/header/NavBar"
-import  TopCards from "../components/topCards"
-import BarChart from "../components/barChar";
-import RecentOrders from "@/components/RecentOrders";
-import NavBar from "../components/header/NavBar";
-import Sidebar from "@/components/sideBar";
 
+import BarChart from "@/components/eventManager/barChar"
+import RecentOrders from "@/components/eventManager/RecentOrders"
 
-
+import Sidebar from "@/components/eventManager/sideBar"
+import Navbar from "@/components/header/NavBar"
+import TopCards from "@/components/eventManager/topCards"
 
 export default function Home() {
   return (
     <div>
-       
-      <main className=' bg-purple-50 min-h-screen w-full flex justify-between'>
-          
+      <main className=" bg-purple-50 min-h-screen w-full flex justify-between">
         <Sidebar />
-    
-        <div className="grid grid-col justify-between mr-6"> 
-          < NavBar/>
-          < TopCards/>
+
+        <div className="grid grid-col justify-between mr-6">
+          <Navbar />
+          <TopCards />
           <div className="flex justify-around m-2">
             <BarChart />
-             <RecentOrders/>
+            <RecentOrders />
           </div>
-          </div>
-        
-       </main>
+        </div>
+      </main>
     </div>
-    )
+  )
 }
-   
-

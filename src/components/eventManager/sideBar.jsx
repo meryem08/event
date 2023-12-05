@@ -36,27 +36,27 @@ import { useState } from 'react';
           </dir>
           <span className='border-b-[1px] border-gray-200 w-full p-1'></span>
           
-          <Link href='/dashboard'>
+          <Link href='/eventManager/dashboard'>
             <div className='p-2.5 mt-3 flex items-center rounded-xl px-4 duration-300 cursor-pointer hover:bg-purple-800 text-black' >
               <RxDashboard />
               <div className='text-[15px] ml-4 text-black'>Dashboard</div>
             </div>
             </Link>
             
-            <Link href='/account'>
+            <Link href='/eventManager/account'>
             <div className='p-2.5 mt-3 flex items-center rounded-xl px-4 duration-300 cursor-pointer  hover:bg-purple-800 text-black' >
               <RxPerson />
               <div className='text-[15px] ml-4 text-black'>Account</div>
             </div>
             </Link>
-            <Link href='/events'>
+            <Link href='/eventManager/events'>
             <div className='p-2.5 mt-3 flex items-center rounded-xl px-4 duration-300 cursor-pointer  hover:bg-purple-800 text-black' >
               <SiEventbrite />
               <div className='text-[15px] ml-4 text-black'>Events</div>
             </div>
             </Link>
 
-            <Link href='/exposants'>
+            <Link href='/eventManager/exposants'>
             <div className='p-2.5 mt-3 flex items-center rounded-xl px-4 duration-300 cursor-pointer  hover:bg-purple-800 text-black' >
              <BsCardChecklist/>
               <div className='text-[15px] ml-4 text-black'>Exposants</div>
