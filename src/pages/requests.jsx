@@ -1,60 +1,146 @@
-import React, { useState, useEffect } from 'react';
-import { FaShoppingBag } from 'react-icons/fa';
-import { BsThreeDotsVertical } from 'react-icons/bs';
-import { data } from '../data/data.js';
-import Layout from '@/components/Dashboard/Layout.jsx';
+import React, { useState, useEffect } from "react"
+import { FaShoppingBag } from "react-icons/fa"
+import { BsThreeDotsVertical } from "react-icons/bs"
+import { data } from "../data/data.js"
+import Layout from "@/components/Dashboard/Layout.jsx"
 
 const Requests = () => {
   // State for event managers
-  const [eventManagers, setEventManagers] = useState([]);
+  const [eventManagers, setEventManagers] = useState([])
+  const [events, setEvents] = useState([])
 
   // State for search query (if needed)
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("")
 
   // Fetch event managers on component mount
   useEffect(() => {
     const fetchEventManagers = async () => {
-      const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3";
+      const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
       try {
         const res = await fetch(`http://127.0.0.1:8000/api/eventManagers`, {
-          method: 'GET',
+          method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
+            "Content-Type": "application/json",
+            Accept: "application/json",
           },
-        });
+        })
 
         if (!res.ok) {
-          throw new Error("Réponse de l'API non valide");
+          throw new Error("Réponse de l'API non valide")
         }
 
-        const json = await res.json();
-        setEventManagers(json);
+        const json = await res.json()
+        setEventManagers(json)
       } catch (error) {
-        console.error("Une erreur s'est produite :", error);
+        console.error("Une erreur s'est produite :", error)
       }
-    };
+    }
 
-    fetchEventManagers();
-  }, []);
+    fetchEventManagers()
+  }, [])
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
+      try {
+        const res = await fetch(`http://127.0.0.1:8000/api/nonApprovedEvents`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        })
+
+        if (!res.ok) {
+          throw new Error("Réponse de l'API non valide")
+        }
+
+        const json = await res.json()
+        setEvents(json)
+      } catch (error) {
+        console.error("Une erreur s'est produite :", error)
+      }
+    }
+
+    fetchEvents()
+  }, [])
+
+  const handleApprove = async (id) => {
+    const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
+    try {
+      const res = await fetch(
+        `http://127.0.0.1:8000/api/admin/eventManager/approve/${id}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        },
+      )
+
+      if (!res.ok) {
+        throw new Error("Réponse de l'API pour l'approbation non valide")
+      }
+
+      // Rafraîchissez la liste des événements après l'approbation
+      fetchEvents()
+    } catch (error) {
+      console.error(
+        "Une erreur s'est produite lors de l'approbation de l'événement :",
+        error,
+      )
+    }
+  }
+
+  const handleReject = async (eventId) => {
+    const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
+    try {
+      const res = await fetch(
+        `http://127.0.0.1:8000/api/admin/eventManager/reject/${id}}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        },
+      )
+
+      if (!res.ok) {
+        throw new Error("Réponse de l'API pour le rejet non valide")
+      }
+
+      // Rafraîchissez la liste des événements après le rejet
+      fetchEvents()
+    } catch (error) {
+      console.error(
+        "Une erreur s'est produite lors du rejet de l'événement :",
+        error,
+      )
+    }
+  }
 
   return (
     <Layout>
-      <div className='p-4'>
-        <div className='w-full m-auto p-4 border rounded-lg bg-white overflow-y-auto'>
-          <div className='p-2 grid grid-cols-6 items-center justify-between cursor-pointer'>
-            <span>Name</span>
+      <div className="p-4">
+        <div className="w-full m-auto p-4 border rounded-lg bg-white overflow-y-auto">
+          <div className="p-2 grid grid-cols-6 items-center justify-between cursor-pointer">
+            <span>Event Manager ID</span>
             <span>Event</span>
-            <span className='hidden md:grid'>Sector</span>
-            <span className='sm:text-left text-right'>Status</span>
-            <span className='hidden sm:grid'>Action</span>
+            <span className="hidden md:grid">Sector</span>
+            <span className="sm:text-left text-right">Status</span>
+            <span className="hidden sm:grid">Action</span>
           </div>
           <ul>
-            {data.map((request, id) => (
+            {events.map((event) => (
               <li
                 key={id}
-                className='bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-6 items-center justify-between'
+                className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-6 items-center justify-between"
               >
                 {/* <div className='flex'>
                   <div className='bg-purple-100 p-3 rounded-lg'>
@@ -67,33 +153,33 @@ const Requests = () => {
                     <p className='text-gray-800 text-sm'>{request.name.first}</p>
                   </div>
                 </div> */}
-                 <p className='hidden md:flex'>{request.name.first + " " + request.name.last}</p>
-                 <p className='hidden md:flex'>{request.event}</p>
-                 <p className='hidden md:flex'>{request.sector}</p>
-                <p className='text-gray-600 sm:text-left text-right'>
+                <p className="hidden md:flex">{event.EventManager_id}</p>
+                <p className="hidden md:flex">{event.eventTitle}</p>
+                <p className="hidden md:flex">{event.sector}</p>
+                <p className="text-gray-600 sm:text-left text-right">
                   <span
                     className={
-                      request.status === 'Processing'
-                        ? 'bg-green-200 p-2 rounded-lg'
-                        : request.status === 'Completed'
-                        ? 'bg-blue-200 p-2 rounded-lg'
-                        : 'bg-yellow-200 p-2 rounded-lg'
+                      event.approved === "0"
+                        ? "bg-yellow-200 p-2 rounded-lg"
+                        : event.approved === "pending"
+                        ? "bg-blue-200 p-2 rounded-lg"
+                        : "bg-blue-200 p-2 rounded-lg"
                     }
                   >
-                    {request.status}
+                    {event.approved}
                   </span>
                 </p>
-                
-                <div className='sm:flex hidden justify-between items-center'>
+
+                <div className="sm:flex hidden justify-between items-center">
                   <button
-                    className='bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 w-24 m-3'
-                    // onClick={handleApprove}
+                    className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 w-24 m-3"
+                    onClick={() => handleApprove(event.id)}
                   >
                     Approve
                   </button>
                   <button
-                    className='bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 w-24'
-                    // onClick={handleReject}
+                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 w-24"
+                    onClick={() => handleReject(event.id)}
                   >
                     Reject
                   </button>
@@ -105,7 +191,7 @@ const Requests = () => {
         </div>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default Requests;
+export default Requests

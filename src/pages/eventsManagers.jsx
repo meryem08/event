@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { data } from "@/data/data"
 import { BsPersonFill, BsThreeDotsVertical } from "react-icons/bs"
 import Layout from "@/components/Dashboard/Layout.jsx"
 import DeleteButton from "@/components/Dashboard/DeleteButton.jsx"
@@ -31,10 +32,10 @@ const EventsManagers = () => {
       console.error("Une erreur s'est produite :", error)
     }
   }
-  const fetchEvents = async () => {
+  const fetchEvent = async (managerId) => {
     const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/EventCount`, {
+      const res = await fetch(`http://127.0.0.1:8000/api/events/${managerId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -42,25 +43,30 @@ const EventsManagers = () => {
           Accept: "application/json",
         },
       })
-      // console.log(res)
-      if (!res.ok) {
-        throw new Error("Réponse de l'API non valide")
-      }
-      const json = await res.json()
-      // console.log(json)
 
-      setEvents(json)
+      if (!res.ok) {
+        throw new Error("Réponse de l'API pour les événements non valide")
+      }
+
+      const eventsData = await res.json()
+      // Mettez à jour l'état des événements pour ce gestionnaire d'événements
+      setEvents((prevEvents) => ({
+        ...prevEvents,
+        [managerId]: eventsData,
+      }))
     } catch (error) {
-      console.error("Une erreur s'est produite :", error)
+      console.error(
+        "Une erreur s'est produite lors de la récupération des événements :",
+        error,
+      )
     }
   }
 
-  const [events, setEvents] = useState("")
- 
+  const [events, setEvents] = useState([])
 
   useEffect(() => {
     fetchEventManagers()
-    fetchEvents()
+    fetchEvent()
   }, [])
 
   const handleDelete = (id) => {
@@ -90,8 +96,6 @@ const EventsManagers = () => {
         .includes(searchQuery.toLowerCase()) ||
       eventsManager.last_name.toLowerCase().includes(searchQuery.toLowerCase()),
   )
-
-  
 
   return (
     <Layout>
@@ -130,8 +134,29 @@ const EventsManagers = () => {
                   {eventsManager.first_name + " " + eventsManager.last_name}
                 </p>
                 <p className="hidden md:flex">{eventsManager.email}</p>
-                <p className="pl-4">Event</p>
-                <p className="pl-4">1</p>
+                
+                {/* {events.map(event => (<>
+                  <p className="text-gray-600 sm:text-left text-right">
+                  {event.eventTitle}
+                </p></>
+              ))} */}
+
+                {/* {events[eventsManager.id] && (
+                  <React.Fragment key={eventsManager.id}>
+                    <p className="pl-4">
+                      Event Title: {events[eventsManager.id].eventTitle}
+                    </p>
+                    <p className="pl-4">
+                      Nombre Events: {events[eventsManager.id].length}
+                    </p>
+                  </React.Fragment>
+                )} */}
+               
+                    <p className="hidden md:flex">eventTitle</p>
+                    
+                 
+                <p className="hidden md:flex">1</p>
+
                 <div className="sm:flex hidden justify-between items-center">
                   <DeleteButton
                     onClick={() => confirmDelete(eventsManager.id)}

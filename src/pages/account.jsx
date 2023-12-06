@@ -8,9 +8,9 @@ import Image from "next/image"
 import Link from "next/link"
 
 function Account() {
-  const [admin, setAdmin] = useState({})
+  const [admins, setAdmins] = useState([])
 
-  const fetchAdmin = async () => {
+  const fetchAdmins = async () => {
     const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
     try {
       const res = await fetch(`http://127.0.0.1:8000/api/admin`, {
@@ -27,14 +27,14 @@ function Account() {
       }
 
       const json = await res.json()
-      setAdmin(json)
+      setAdmins(json)
     } catch (error) {
       console.error("Une erreur s'est produite :", error)
     }
   }
 
   useEffect(() => {
-    fetchAdmin()
+    fetchAdmins()
   }, [])
 
   return (
@@ -48,7 +48,7 @@ function Account() {
       <main className="bg-purple-50 min-h-screen">
         <Layout>
           <div className="flex ">
-            <div className="lg:cols-span-3 md:col-span-4 bg-white rounded-lg shadow-lg p-6 mt-10">
+            <div className="lg:cols-span-3 md:col-span-4 bg-white rounded-lg shadow-lg p-6 mt-10 flex">
               <div className="mb-2 pl- text-center pr-100 ">
                 <Image
                   src="/images/adminProfile.jpg"
@@ -57,22 +57,30 @@ function Account() {
                   height={200}
                 />
               </div>
-              <h1 className="text-2xl font-bold text-gray-800">
+              <h1 className="text-2xl font-bold text-gray-800 mt-10 ">
                 Admin Information
               </h1>
-              <hr className="my-4" />
-              <p className="text-gray-600 p-3">First Name: {admin.lastName}</p>
-              <p className="text-gray-600 p-3">
-                <span className="font-bold">Last Name:</span> MANSOURI
-              </p>
-              <p className="text-gray-600 p-3">
-                <span className="font-bold">E-mail:</span>{" "}
-                meriem.mansouri@gmail.com
-              </p>
-              <p className="text-gray-600 p-3">
-                <span className="font-bold">Phone:</span>{" "}
-                meriem.mansouri@gmail.com
-              </p>
+              <hr className="my-4" />{" "}
+              {admins.map((admin) => (
+                <>
+                  {" "}
+                  <p className="text-gray-600 p-3 mt-10">
+                    {" "}
+                    <span className="font-bold">First Name:</span>{" "}
+                    {admin.firstName}
+                  </p>
+                  <p className="text-gray-600 p-3 mt-10">
+                    <span className="font-bold">Last Name: </span>
+                    {admin.lastName}
+                  </p>
+                  <p className="text-gray-600 p-3 mt-10">
+                    <span className="font-bold">E-mail:</span> {admin.email}
+                  </p>
+                  <p className="text-gray-600 p-3 mt-10">
+                    <span className="font-bold">Phone:</span> {admin.phone}
+                  </p>
+                </>
+              ))}
             </div>
           </div>
         </Layout>
