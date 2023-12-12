@@ -2,21 +2,26 @@ import React, { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
-// import {  CalendarForm } from '@/components/ui/calendar'
+import Packages from './packages'
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popOver"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
-  
+
+ import Sidebar from './sideBar'
 
 
-//   function CreateEvent() {
+//   
 
 //   const [eventTitle, setEventTitle] = useState('')
 //   const [organization, setOrganization] = useState('')
@@ -249,60 +254,78 @@ import {
 
 // export default CreateEvent
 
-
-
 function MyForm() {
-  const [formData, setFormData] = useState({
-          eventTitle : '',
-          organization: '',
-          country: '',
-          tags: '',
-          sector: '',
-          summary: '',
-          description: '',
-          startingDate: '',
-          endingDate: '',
-          photo: '',
-    // Add other fields as needed
-  });
-   const token = "2|RV9PdKpfS1J7Mfkfcfau9PA0l2PTveLVMMTvoVcu0558ccf0"
-   const handleInputChange = (e) => {
-    const { name, value, type, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'file' ? files[0] : value, // Handle file input separately
+
+
+const [formData, setFormData] = useState({
+  eventTitle: '',
+  country: '',
+  tags: '',
+  sector: '',
+  summary: '',
+  description: '',
+  startingDate: '',
+  endingDate: '',
+  photo: null, // Use null for file input
+  // Add other fields as needed
+});
+
+const handleInputChange = (e) => {
+  const { name, value, type, files } = e.target;
+  setFormData((prevData) => ({
+    ...prevData,
+    [name]: type === 'file' ? files[0] : value,
+  }));
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  console.log(formData);
+
+  try {
+    const formDataToSend = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      formDataToSend.append(key, value);
     });
-  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(formData); 
+    const response = await fetch('http://127.0.0.1:8000/api/createEvent', {
+      method: 'POST',
+      // headers: {
+      //   'Authorization': `Bearer ${token}`,
+      // },
+      body: formDataToSend,
+    });
 
-    try {
-      const response = await fetch('http://127.0.0.1:8000/api/createEvent', {
-        method: 'POST',
-        headers: {
-            Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-          'Accept' : 'application/json'
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        window.location.href = '/pending'
-      } else {
-        // Handle error response
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
+    if (response.ok) {
+      // Redirect or handle success as needed
+      window.location.href = '/eventManager/pending';
+    } else {
+      // Handle error response
+      // const errorData = await response.json();
+      // setError(errorData.error);
+      console.error('Error submitting form:', response.statusText);
     }
-  };
+  } catch (error) {
+    console.error('Error submitting form:', error.message);
+  }
+};
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        {/* <Label htmlFor="eventTitle">Event title</Label> */}
+    <div className='flex justify-between'>
+      <Sidebar className="relative"/>
+  <div  className='flex justify-around border border-stone-400 rounded-3xl w-[80%] m-12'>
+        <div className='w-[50%] p-12 border border-stone-400 rounded-3xl bg-gradient-to-tr from-pink-300 via-sky-300 via-40% to-purple-300 '>
+          <p className='text-3xl mt-40'>
+          Provide us with more informations
+           <span > about your event !</span>
+
+          </p>
+        </div>
+
+    <form onSubmit={handleSubmit} className='p-6'>
+    
+      <div className=''>
+        <Label htmlFor="eventTitle">Event title</Label>
         <Input
           className="w-full"
           required
@@ -314,25 +337,9 @@ function MyForm() {
           type="text"
         />
         </div>
-
-       <div className="grid w-full items-center gap-1.5">
-         <Label htmlFor="organization">Organization</Label>
-        <Input
-          className="w-full"
-          required
-          value={formData.organization}
-          // onChange={(e) => setOrganization(e.target.value)}
-          onChange={handleInputChange}
-          id="organization"
-          name="organization"
-          type="text"
-        />
-      </div>
-        
-        
       
       <div className="grid w-full items-center gap-1.5">
-        {/* <Label htmlFor="country">Country</Label> */}
+        <Label htmlFor="country">Country</Label>
         <Input
           className="w-full"
           required
@@ -345,7 +352,8 @@ function MyForm() {
           
         />
       </div>
-
+      <div>
+      <Label htmlFor="sector">Sector</Label>
       <select         
               name='sector'
               required
@@ -353,7 +361,7 @@ function MyForm() {
               value={formData.sector}
               onChange={handleInputChange}
           >   
-              <option defaultValue>
+              <option value='Education'>
                   Education
               </option>
               <option value='food'>
@@ -370,18 +378,17 @@ function MyForm() {
               </option>
 
           </select>
-          
+          </div>
 
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="photo">Photo</Label>
         <Input
           placeholder ="chose a file"
           className="w-full"
-          
-          value={formData.photo}
+          // value={formData.photo}
           onChange={handleInputChange}
           // onChange={(e) => setPhoto(e.target.value)}
-          id="photo"
+          // id="photo"
           name="photo"
           type="file"
         />
@@ -402,7 +409,7 @@ function MyForm() {
             </div>
             
       <div className="grid w-full items-center gap-1.5">
-        {/* <Label htmlFor="summary">Summary</Label> */}
+        <Label htmlFor="summary">Summary</Label>
         <Input
           className="w-full"
           value={formData.summary}
@@ -414,7 +421,7 @@ function MyForm() {
       </div>
 
       <div className="grid w-full items-center gap-1.5">
-        {/* <Label htmlFor="description" id="Description">Description</Label> */}
+        <Label htmlFor="description" id="Description">Description</Label>
         <Input
           className="w-full"
           required
@@ -463,6 +470,12 @@ function MyForm() {
 
           <Label htmlFor='agreeToTerms'>I Agree to Terms of Services</Label>
         </div> */}
+        <Popover>
+          <PopoverTrigger>Submit</PopoverTrigger>
+          <PopoverContent>
+            <Packages/>
+          </PopoverContent>
+        </Popover>
 
         <Button type="submit">Submit</Button>
 
@@ -485,6 +498,8 @@ function MyForm() {
       {/* Add other form fields as needed */}
       
     </form>
+    </div>
+    </div>
   );
 }
 

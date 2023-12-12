@@ -11,14 +11,15 @@ import { useState } from 'react'
 
 
 export const RegisterForm = () => {
-  const [first_name, setFisrtName] = useState('')
+  const [first_name, setFirstName] = useState('')
   const [last_name, setLastName] = useState('')
   const [birthday, setBirthday] = useState('')
   const [gender, setGender] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
+  const [organization, setOrganization] = useState('')
   const [password, setPassword] = useState('')
-  const [Cpassword, setCpassword] = useState('')
+  const [password_confirmation, setPassword_confirmation] = useState('')
   const [error, setError] = useState(null)
 
   const handleCheckboxChange = (e) => {
@@ -38,7 +39,8 @@ export const RegisterForm = () => {
           email,
           phone,
           password,
-          Cpassword,
+          organization,
+          password_confirmation,
           
         }),
         headers: {
@@ -48,13 +50,16 @@ export const RegisterForm = () => {
 
       })
       if (res.ok) {
-        window.location.href = '/dashboard'
+        window.location.href = '/eventManager/dashboard'
       } else {
         setError((await res.json()).error)
       }
     } catch (error) {
       setError(error?.message)
     }
+    console.log(  
+      RegisterForm 
+      )
   }
 
   return (
@@ -66,7 +71,7 @@ export const RegisterForm = () => {
           className="w-full"
           required
           value={first_name}
-          onChange={(e) => setFisrtName(e.target.value)}
+          onChange={(e) => setFirstName(e.target.value)}
           id="first_name"
           type="text"
         />
@@ -93,7 +98,7 @@ export const RegisterForm = () => {
           value={birthday}
           onChange={(e) => setBirthday(e.target.value)}
           id="birthday"
-          type="birthday"     
+          type="date"     
           
         />
       </div>
@@ -108,6 +113,20 @@ export const RegisterForm = () => {
           type="email"
         />
       </div>
+
+      <div className="grid w-full items-center gap-1.5">
+        <Label htmlFor="email">Organization</Label>
+        <Input
+          className="w-full"
+          required
+          value={organization}
+          onChange={(e) => setOrganization(e.target.value)}
+          id="organization"
+          type="text"
+        />
+      </div>
+
+
       <div className="flex justify-between w-1/3">
       <Label>
         <input
@@ -139,6 +158,7 @@ export const RegisterForm = () => {
           onChange={(e) => setPhone(e.target.value)}
           id="phone"
           type="number"
+          
         />
       </div>
 
@@ -156,13 +176,13 @@ export const RegisterForm = () => {
             </div>
             
             <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="Cpassword">Confirm your password</Label>
+        <Label htmlFor="password_confirmation">Confirm your password</Label>
         <Input
           className="w-full"
           required
-          value={Cpassword}
-          onChange={(e) => setCpassword(e.target.value)}
-          id="Cpassword"
+          value={password_confirmation}
+          onChange={(e) => setPassword_confirmation(e.target.value)}
+          id="password_confirmation"
           type="password"
         />
       </div>

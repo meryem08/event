@@ -45,10 +45,30 @@ const TopCards = () => {
       // console.log(json)
 
       setEvents(json)
-    } catch (error) {
-      console.error("Une erreur s'est produite :", error)
+   
+    // catch (error) {
+    //   console.error("Une erreur s'est produite :", error)
+    // }
+    const expo = await fetch(`http://127.0.0.1:8000/api/exposantCount`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    });
+
+    if (!expo.ok) {
+      throw new Error('Réponse de l\'API non valide pour la table liée');
     }
+
+    const exposantCount = await expo.json();
+    setExposants(exposantCount);
+    
+  } catch (error) {
+    console.error('Une erreur s\'est produite :', error);
+    // Handle the error, for example, setEvent({}) and setRelatedData({}) or display an error message
   }
+  } 
   const [exposants, setExposants] = useState("")
   const [events, setEvents] = useState("")
   //console.log(managers)
@@ -65,30 +85,30 @@ const TopCards = () => {
                 <p className='text-2xl font-bold'>{events}</p>
                 <p className='text-gray-600'>Events</p>
             </div>
-            <p className='bg-green-200 flex justify-center items-center p-2 rounded-lg'>
+            {/* <p className='bg-green-200 flex justify-center items-center p-2 rounded-lg'>
                 <span className='text-green-700 text-lg'>+18%</span>
-            </p>
+            </p> */}
         </div>
         <div className='lg:col-span-2 col-span-1 bg-white flex justify-between w-full border p-4 rounded-lg'>
             <div className='flex flex-col w-full pb-4'>
-                <p className='text-2xl font-bold'>$1,437,876</p>
-                <p className='text-gray-600'>YTD Revenue</p>
+                <p className='text-2xl font-bold'>$100</p>
+                <p className='text-gray-600'>daily Revenue</p>
             </div>
-            <p className='bg-green-200 flex justify-center items-center p-2 rounded-lg'>
+            {/* <p className='bg-green-200 flex justify-center items-center p-2 rounded-lg'>
                 <span className='text-green-700 text-lg'>+11%</span>
-            </p>
+            </p> */}
         </div>
         <div className='bg-white flex justify-between w-full border p-4 rounded-lg'>
             <div className='flex flex-col w-full pb-4'>
-                <p className='text-2xl font-bold'>11,437</p>
-                <p className='text-gray-600'>Customers</p>
+                <p className='text-2xl font-bold'>{exposants}</p>
+                <p className='text-gray-600'>Exposant</p>
             </div>
-            <p className='bg-green-200 flex justify-center items-center p-2 rounded-lg'>
+            {/* <p className='bg-green-200 flex justify-center items-center p-2 rounded-lg'>
                 <span className='text-green-700 text-lg'>+17%</span>
-            </p>
+            </p> */}
         </div>
     </div>
   )
-}
+  }
 
 export default TopCards

@@ -1,46 +1,60 @@
-import React from 'react'
-import { BsCheckLg } from 'react-icons/bs'
-
+import React, { useState, useEffect } from 'react';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 function Packages() {
+  const [packages, setPackages] = useState([]);
+
+  const fetchPackages = async () => {
+    try {
+      const res = await fetch('http://127.0.0.1:8000/api/showPackages', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("Réponse de l'API non valide");
+      }
+
+      const json = await res.json();
+      // console.log(json);
+      setPackages(json);
+    } catch (error) {
+      console.error("Une erreur s'est produite :", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPackages();
+  }, []);
+
   return (
-    <div >
-         <div className='text-center font-bold m-4 p-4'>chose a package :</div>
-    <div className='flex justify-around'>
-        <div className=' p-3 m-3 border '>
-            <div className='flex justify-center p-3 text-lg font-bold'>silver
-            </div>
-            
-            <ul >
-                <li className='flex justify-around'><BsCheckLg size={15} className='from-neutral-300 text-green-600'/> 42 seats</li>
-                <li className='flex justify-around'><BsCheckLg size={15} className='from-neutral-300 text-green-600'/> 500 miters</li>
-                <li className='flex justify-around'><BsCheckLg size={15} className='from-neutral-300 text-green-600'/> 10 tables</li>
-            </ul>
-        </div>
-        <div className=' p-3 m-3 border '>
-            <div className='flex justify-center p-3 text-lg font-bold'>golden
-            </div>
-            
-            <ul >
-                <li className='flex justify-around'><BsCheckLg size={15} className='from-neutral-300 text-green-600'/> 42 seats</li>
-                <li className='flex justify-around'><BsCheckLg size={15} className='from-neutral-300 text-green-600'/> 500 miters</li>
-                <li className='flex justify-around'><BsCheckLg size={15} className='from-neutral-300 text-green-600'/> 10 tables</li>
-            </ul>
-        </div>
-        <div className=' p-3 m-3 border '>
-            <div className='flex justify-center p-3 text-lg font-bold'>platinium
-            </div>
-            
-            <ul >
-                <li className='flex justify-around'><BsCheckLg size={15} className='from-neutral-300 text-green-600'/> 42 seats</li>
-                <li className='flex justify-around'><BsCheckLg size={15} className='from-neutral-300 text-green-600'/> 500 miters</li>
-                <li className='flex justify-around'><BsCheckLg size={15} className='from-neutral-300 text-green-600'/> 10 tables</li>
-            </ul>
-        </div>
+    <div>
+      {packages.map((packageItem) => (
+        <Card key={packageItem.id}>
+          <CardHeader>
+            <CardTitle>{packageItem.title}</CardTitle>
+            <CardDescription>{packageItem.s}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {packageItem.service}
+          </CardContent>
+          <CardFooter>
+            {packageItem.price}
+          </CardFooter>
+        </Card>
+      ))}
     </div>
-        
-    </div>
-  )
+  );
 }
 
-export default Packages
+export default Packages;

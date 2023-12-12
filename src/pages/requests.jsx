@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from "react"
-import { FaShoppingBag } from "react-icons/fa"
-import { BsThreeDotsVertical } from "react-icons/bs"
-import { data } from "../data/data.js"
-import Layout from "@/components/Dashboard/Layout.jsx"
+import React, { useState, useEffect } from "react";
+import { FaShoppingBag } from "react-icons/fa";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import Layout from "@/components/Dashboard/Layout.jsx";
 
 const Requests = () => {
-  // State for event managers
-  const [eventManagers, setEventManagers] = useState([])
-  const [events, setEvents] = useState([])
+  const [eventManagers, setEventManagers] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  // State for search query (if needed)
-  const [searchQuery, setSearchQuery] = useState("")
-
-  // Fetch event managers on component mount
   useEffect(() => {
     const fetchEventManagers = async () => {
-      const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
+      const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3";
       try {
         const res = await fetch(`http://127.0.0.1:8000/api/eventManagers`, {
           method: "GET",
@@ -24,54 +19,54 @@ const Requests = () => {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-        })
+        });
 
         if (!res.ok) {
-          throw new Error("Réponse de l'API non valide")
+          throw new Error("Réponse de l'API non valide");
         }
 
-        const json = await res.json()
-        setEventManagers(json)
+        const json = await res.json();
+        setEventManagers(json);
       } catch (error) {
-        console.error("Une erreur s'est produite :", error)
+        console.error("Une erreur s'est produite :", error);
       }
-    }
+    };
 
-    fetchEventManagers()
-  }, [])
-
-  useEffect(() => {
     const fetchEvents = async () => {
-      const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
+      const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3";
       try {
-        const res = await fetch(`http://127.0.0.1:8000/api/nonApprovedEvents`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        })
+        const res = await fetch(
+          `http://127.0.0.1:8000/api/nonApprovedEvents/show`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          }
+        );
 
         if (!res.ok) {
-          throw new Error("Réponse de l'API non valide")
+          throw new Error("Réponse de l'API non valide");
         }
 
-        const json = await res.json()
-        setEvents(json)
+        const json = await res.json();
+        setEvents(json);
       } catch (error) {
-        console.error("Une erreur s'est produite :", error)
+        console.error("Une erreur s'est produite :", error);
       }
-    }
+    };
 
-    fetchEvents()
-  }, [])
+    fetchEventManagers();
+    fetchEvents();
+  }, []); // Run the effect once on component mount
 
   const handleApprove = async (id) => {
-    const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
+    const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3";
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/api/admin/eventManager/approve/${id}`,
+        `http://127.0.0.1:8000/api/admin/event/approve/${id}`,
         {
           method: "POST",
           headers: {
@@ -79,28 +74,28 @@ const Requests = () => {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-        },
-      )
+        }
+      );
 
       if (!res.ok) {
-        throw new Error("Réponse de l'API pour l'approbation non valide")
+        throw new Error("Réponse de l'API pour l'approbation non valide");
       }
 
       // Rafraîchissez la liste des événements après l'approbation
-      fetchEvents()
+      fetchEvents();
     } catch (error) {
       console.error(
         "Une erreur s'est produite lors de l'approbation de l'événement :",
-        error,
-      )
+        error
+      );
     }
-  }
+  };
 
-  const handleReject = async (eventId) => {
-    const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
+  const handleReject = async (id) => {
+    const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3";
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/api/admin/eventManager/reject/${id}}`,
+        `http://127.0.0.1:8000/api/admin/eventManager/reject/${id}`,
         {
           method: "POST",
           headers: {
@@ -108,22 +103,22 @@ const Requests = () => {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-        },
-      )
+        }
+      );
 
       if (!res.ok) {
-        throw new Error("Réponse de l'API pour le rejet non valide")
+        throw new Error("Réponse de l'API pour le rejet non valide");
       }
 
       // Rafraîchissez la liste des événements après le rejet
-      fetchEvents()
+      fetchEvents();
     } catch (error) {
       console.error(
         "Une erreur s'est produite lors du rejet de l'événement :",
-        error,
-      )
+        error
+      );
     }
-  }
+  };
 
   return (
     <Layout>
@@ -139,20 +134,9 @@ const Requests = () => {
           <ul>
             {events.map((event) => (
               <li
-                key={id}
+                key={event.id}
                 className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-6 items-center justify-between"
               >
-                {/* <div className='flex'>
-                  <div className='bg-purple-100 p-3 rounded-lg'>
-                    <FaShoppingBag className='text-purple-800' />
-                  </div>
-                  <div className='pl-4'>
-                    <p className='text-gray-800 font-bold'>
-                      {request.event.toLocaleString()}
-                    </p>
-                    <p className='text-gray-800 text-sm'>{request.name.first}</p>
-                  </div>
-                </div> */}
                 <p className="hidden md:flex">{event.EventManager_id}</p>
                 <p className="hidden md:flex">{event.eventTitle}</p>
                 <p className="hidden md:flex">{event.sector}</p>
@@ -191,7 +175,7 @@ const Requests = () => {
         </div>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default Requests
+export default Requests;

@@ -37,7 +37,10 @@ function LandingPage() {
             Exercitationem voluptatem fugit suscipit?
           </p>
           <div className="p-7">
+            <Link href={"/eventManager/registerPage"}>
             <Button className="w-28">Sing Up</Button>
+            </Link>
+            
           </div>
         </div>
 

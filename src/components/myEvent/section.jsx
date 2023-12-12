@@ -5,7 +5,7 @@ function section() {
     const fetchEvents = async () => {
         const token = "3|3eCy9WR53QvH7awnoEpB4fOoyo96bdi5GIm0VMOqa590ddd6"
         try {
-          const res = await fetch(`http://127.0.0.1:8000/api/showEvent/1`, {
+          const res = await fetch(`http://127.0.0.1:8000/api/ShowEvent/6`, {
             method: "GET",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -38,12 +38,12 @@ function section() {
     
   return (
     <div className=''>
-        {events.map(event => (
-            <div key={event.id}>
+        {/* {events.map(event => (
+            <div key={event.id}> */}
 
            
         <div className='text-center font-bold text-4xl p-5 m-5'>
-            {event.eventTitle}
+            {events.eventTitle}
             Educteck – Salon de l&apos;education et 
             des technologies de la connaissance
         </div>
@@ -51,12 +51,12 @@ function section() {
             <Image src={'/pic2.jpg'} width={120} height={150} className='w-[90%]  rounded-lg' />
         </div>
         <div className='flex justify-around m-10 text-xs font-medium'>
-            <div className='bg-gray-300 p-1 rounded-md'>#{event.tags}</div>
+            <div className='bg-gray-300 p-1 rounded-md'>#{events.tags}</div>
             <div className='bg-gray-300 p-1 rounded-md'>#Formations</div>
             <div className='bg-gray-300 p-1 rounded-md'>#Tech</div>
         </div>
         <div className='text-center  text-xl p-5 m-5'>
-            {event.desciption}
+            {events.desciption}
         {/* EDUCTECK - Salon de l'education et des
         technologies de la connaissance
         Quam quo saepe fugit accusantium  */}
@@ -72,20 +72,20 @@ function section() {
             </div>
             <div className='w-48 m-2 h-24 p-3 rounded-md text-sm  font-bold bg-purple-200'>timing
             <ul className='font-semibold m-2'>
-                    <li>{event.startingDate}</li>
-                    <li>{event.endingDate}</li>
+                    <li>{events.startingDate}</li>
+                    <li>{events.endingDate}</li>
                 </ul>
             </div>
             <div className='w-48 m-2 h-24 p-3 rounded-md text-sm  font-bold bg-purple-200'>Created by
             <ul className='font-semibold m-2'>
                     <li></li>
-                    <li>{event.orgsnization}</li>
+                    <li>{events.orgsnization}</li>
                 </ul>
             </div>
         </div>
          </div>
-        ))}
-    </div>
+        // ))}
+    // </div>
   )
 }
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link';
 // //import Link from 'next/link'
 
 // function login() {
@@ -73,7 +74,7 @@ function Login() {
 
       if (response.ok) {
         // Authentification réussie : redirigez l'utilisateur
-        window.location.href = '/dashboard'; // Redirigez vers la page du tableau de bord
+        window.location.href = '/eventManager/dashboard'; // Redirigez vers la page du tableau de bord
       } else {
         // Authentification échouée : affichez le message d'erreur
         const errorMessage = await response.text(); // Récupérez le message d'erreur depuis la réponse
@@ -137,6 +138,10 @@ function Login() {
               >
                 Sign In
               </button>
+
+              <Link href="/eventManager/registerPage" className=''> 
+               create account 
+              </Link>
             </form>
           </section>
         </main>

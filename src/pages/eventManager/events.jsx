@@ -4,6 +4,13 @@ import { data } from "autoprefixer"
 import React, { useState, useEffect } from "react"
 import { BsPersonFill, BsThreeDotsVertical } from "react-icons/bs"
 import Link from "next/link"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import EventInfo from "./eventInfo"
+
 // Importez la data.js si nécessaire
 // import { data } from "../data/data.js";
 
@@ -81,22 +88,25 @@ const Events = () => {
       <div className="p-4 pl-60 absolute top-5 w-full">
         <div className="w-full m-auto p-4 border rounded-lg bg-white overflow-y-auto">
 
-          <div className=" p-2 grid grid-cols-5 items-center justify-between cursor-pointer">
+          <div className=" p-2 grid grid-cols-5 items-center justify-around cursor-pointer">
             <span>Identifiant</span>
             <span className="hidden md:grid">Event Title</span>
-            <span className="hidden md:grid">Sector</span>
+            <span className="hidden md:grid ">Sector</span>
             <span className="hidden md:grid">Nombre exposants</span>
+            <span className="hidden sm:grid"></span>
             <span className="hidden sm:grid"></span>
           </div>
 
           <ul>
           {events.map(event => (
+            
               <li 
                 key={event.id}
                 className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-5 items-center justify-between"
               >
                 <div className="flex items-center">
                   <div className="bg-purple-100 p-3 rounded-lg">
+                    
                     <BsPersonFill className="text-purple-800" />
                   </div>
                  
@@ -112,9 +122,25 @@ const Events = () => {
                 <p className="pl-4">
                   n
                 </p>
-                <p className="pl-4">
-                  b
+                
+                <div className="flex ">
+                  <p className="pl-4">
+                  <Button>Delete</Button>
                 </p>
+                <p className="pl-4">
+                <Popover>
+                    <PopoverTrigger>
+                      <Button>view</Button> 
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      <EventInfo/>
+                    </PopoverContent>
+                </Popover>
+
+                  
+                </p>
+                </div>
+                
                 <div className="sm:flex hidden justify-between items-center">
               </div>
               </li>

@@ -1,87 +1,56 @@
+// // import { signIn } from 'next-auth/react'
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
+export const EditForm = () => {
+  const [first_name, setFisrtName] = useState('');
+  const [last_name, setLastName] = useState('');
+  const [birthday, setBirthday] = useState('');
+  // const [gender, setGender] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [password_confirmation, setPassword_confirmation] = useState('');
 
-'use client'
-
-// import { Alert } from '@/components/ui/alert'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-// import { Calendar } from 'lucide-react'
-// import { signIn } from 'next-auth/react'
-import { useState } from 'react'
-
-
-export const EditForm = () => { 
-  
-  const [first_name, setFisrtName] = useState('')
-  const [last_name, setLastName] = useState('')
-  const [birthday, setBirthday] = useState('')
-  const [gender, setGender] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [password, setPassword] = useState('')
-  const [Cpassword, setCpassword] = useState('')
-  
-  const [error, setError] = useState(null)
-
-
-  //   const token = "2|RV9PdKpfS1J7Mfkfcfau9PA0l2PTveLVMMTvoVcu0558ccf0"
-  //   try {
-  //     const res = await fetch(`http://127.0.0.1:8000/api/updateEvent/1`, {
-  //       method: "POST",
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //         "Content-Type": "application/json",
-  //         Accept: "application/json",
-  //       },
-  //     })
-  //     // console.log(res)
-  //     if (!res.ok) {
-  //       throw new Error("Réponse de l'API non valide")
-  //     }
-  //     const json = await res.json()
-  //     // console.log(json)
-
-  //     setExposants(json)
-  //   } catch (error) {
-  //     console.error("Une erreur s'est produite :", error)
-  //   }
-  // }
-  
+  const [error, setError] = useState(null);
 
   const onSubmit = async (e) => {
-    e.preventDefault()
-    const token = "2|RV9PdKpfS1J7Mfkfcfau9PA0l2PTveLVMMTvoVcu0558ccf0"
+    e.preventDefault();
+    // Uncomment the next line and replace the token value
+    // const token = "your_access_token_here";
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/updateEvent/1`, {
-        method: "POST",
+      const res = await fetch(`http://127.0.0.1:8000/api/update/1`, {
+        method: 'POST',
         body: JSON.stringify({
           first_name,
           last_name,
           birthday,
-          gender,
+          // gender,
           email,
           phone,
           password,
-          Cpassword,
-          
+          password_confirmation,
         }),
         headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-      })
+      });
       if (res.ok) {
-        window.location.href = '/dashboard'
+        window.location.href = '/eventManager/account';
       } else {
-        setError((await res.json()).error)
+        setError((await res.json()).error);
       }
     } catch (error) {
-      setError(error?.message)
+      setError(error?.message);
     }
-  }
+    console.log(error)
+  };
+  
   return (
     <div>
         
@@ -150,7 +119,7 @@ export const EditForm = () => {
 
       <div className="flex align-items space-x-2">
         <div className="grid w-full items-center gap-1.5">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">New Password</Label>
                 <Input
                 className="w-full"
                 required
@@ -162,21 +131,17 @@ export const EditForm = () => {
             </div>
             
             <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="Cpassword">Confirm your password</Label>
+        <Label htmlFor=" password_confirmation">Confirm your new password</Label>
         <Input
           className="w-full"
           required
-          value={Cpassword}
-          onChange={(e) => setCpassword(e.target.value)}
-          id="Cpassword"
+          value={ password_confirmation}
+          onChange={(e) => setPassword_confirmation(e.target.value)}
+          id=" password_confirmation"
           type="password"
         />
       </div>
       </div>
-
-        
-
-      
 
       {/* {error && <Alert>{error}</Alert>} */}
       <div className="w-full">
