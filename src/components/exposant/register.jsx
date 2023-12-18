@@ -19,8 +19,6 @@ function register() {
             type="text"
             />
         </div>
-    
-    
 
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="email">Email</Label>
