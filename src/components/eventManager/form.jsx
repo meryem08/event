@@ -57,9 +57,9 @@ export const RegisterForm = () => {
     } catch (error) {
       setError(error?.message)
     }
-    console.log(  
-      RegisterForm 
-      )
+    // console.log(  
+    //   RegisterForm 
+    //   )
   }
 
   return (
