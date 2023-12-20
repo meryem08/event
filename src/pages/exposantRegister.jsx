@@ -1,9 +1,9 @@
 import React from 'react'
-import register from '@/components/exposant/register'
+import Register from '@/components/exposant/register'
 
 function exposantRegister() {
   return (
-    <div><register/></div>
+    <div><Register/></div>
   )
 }
 
