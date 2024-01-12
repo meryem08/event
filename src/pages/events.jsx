@@ -110,40 +110,57 @@ const EventsManagers = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
 
-          <div className="grid grid-cols-7 items-center justify-between cursor-pointer">
-            <span className="col-span-1">Identifiant</span>
-            <span className="col-span-1">Name</span>
-            <span className="hidden md:grid col-span-1">Email</span>
-            <span className="col-span-1">Birthday</span>
-            <span className="hidden md:grid col-span-1">Phone</span>
-            <span className="hidden md:grid col-span-1">Organisation</span>
-            <span className="hidden sm:grid col-span-1">Delete</span>
+          <div className=" p-2 grid grid-cols-9 items-center justify-between cursor-pointer">
+            <span>Identifiant</span>
+            <span className="">Event Title</span>
+            <span className="hidden md:grid">Name Event Manager</span>
+            <span className="hidden md:grid">Email</span>
+            <span className="hidden md:grid">Sector</span>
+            <span className="hidden md:grid">Country</span>
+            <span className="hidden md:grid">Starting Date</span>
+            <span className="hidden md:grid">Ending Date</span>
+            <span className="hidden sm:grid">Delete</span>
           </div>
-
           <ul>
             {filteredEventManagers.map((eventsManager) => (
               <li
                 key={eventsManager.id}
-                className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-7 items-center justify-between"
+                className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-9 items-center justify-between"
               >
-                <div className="flex items-center col-span-1">
+                <div className="flex items-center">
                   <div className="bg-purple-100 p-3 rounded-lg">
                     <BsPersonFill className="text-purple-800" />
                   </div>
                   <p className="pl-4">{eventsManager.id}</p>
                 </div>
-                <p className="col-span-1 text-gray-600">
+                <p className="hidden md:flex">fashion event</p>
+                <p className="text-gray-600 sm:text-left text-right">
                   {eventsManager.first_name + " " + eventsManager.last_name}
                 </p>
-                <p className="hidden md:flex col-span-1">
-                  {eventsManager.email}
-                </p>
-                <p className="col-span-1">{eventsManager.birthday}</p>
-                <p className="hidden md:flex col-span-1">
-                  {eventsManager.phone}
-                </p>
-                <p className="hidden md:flex col-span-1">organisation</p>
-                <div className="hidden sm:flex col-span-1 justify-between items-center">
+                <p className="hidden md:flex">{eventsManager.email + "  "}</p>
+                <p className="hidden md:flex pr-15">{"   "}fashion</p>
+                <p className="hidden md:flex">Algeria</p>
+                <p className="hidden md:flex">2024-01-04</p>
+                <p className="hidden md:flex">2024-01-10</p>
+
+                {/* {events.map(event => (<>
+                  <p className="text-gray-600 sm:text-left text-right">
+                  {event.eventTitle}
+                </p></>
+              ))} */}
+
+                {/* {events[eventsManager.id] && (
+                  <React.Fragment key={eventsManager.id}>
+                    <p className="pl-4">
+                      Event Title: {events[eventsManager.id].eventTitle}
+                    </p>
+                    <p className="pl-4">
+                      Nombre Events: {events[eventsManager.id].length}
+                    </p>
+                  </React.Fragment>
+                )} */}
+
+                <div className="sm:flex hidden justify-between items-center">
                   <DeleteButton
                     onClick={() => confirmDelete(eventsManager.id)}
                   />
@@ -158,77 +175,3 @@ const EventsManagers = () => {
 }
 
 export default EventsManagers
-
-// import React, { useState, useEffect } from "react"
-// import { BsPersonFill, BsThreeDotsVertical } from "react-icons/bs"
-// import Layout from "@/components/Dashboard/Layout.jsx"
-// import DeleteButton from "@/components/Dashboard/DeleteButton.jsx"
-
-// const EventsManagers = () => {
-//   const [eventsManagers, setEventsManagers] = useState([])
-
-//   useEffect(() => {
-//     fetchData()
-//   }, [])
-
-//   const fetchData = async () => {
-//     try {
-//       const response = await fetch("http://127.0.0.1:8000/api//eventManagers")
-//       if (response.ok) {
-//         const data = await response.json()
-//         setEventsManagers(data)
-//       } else {
-//         console.error("Erreur lors de la récupération des données de l'API.")
-//       }
-//     } catch (error) {
-//       console.error("Une erreur s'est produite lors de la demande.", error)
-//     }
-//   }
-
-//   const handleDelete = (id) => {
-
-//     console.log("Suppression de l'élément avec l'ID : ", id)
-//   }
-
-//   return (
-//     <Layout>
-//       <div className="p-4">
-//         <div className="w-full m-auto p-4 beventsManager rounded-lg bg-white overflow-y-auto">
-//           <div className="my-3 p-2 grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 items-center justify-between cursor-pointer">
-//             <span>Identifiant</span>
-//             <span className="sm:text-left text-right">Name</span>
-//             <span className="hidden md:grid">Email</span>
-//             <span className="hidden sm:grid">Delete</span>
-//           </div>
-//           <ul>
-//             {eventsManagers.map((eventsManager) => (
-//               <li
-//                 key={eventsManager.id}
-//                 className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 items-center justify-between cursor-pointer"
-//               >
-//                 <div className="flex items-center">
-//                   <div className="bg-purple-100 p-3 rounded-lg">
-//                     <BsPersonFill className="text-purple-800" />
-//                   </div>
-//                   <p className="pl-4">{eventsManager.id}</p>
-//                 </div>
-//                 <p className="text-gray-600 sm:text-left text-right">
-//                   {eventsManager.first_name}
-//                 </p>
-//                 <p className="hidden md:flex">{eventsManager.email}</p>
-//                 <div className="sm:flex hidden justify-between items-center">
-//                   <DeleteButton
-//                     onClick={() => handleDelete(eventsManager.id)}
-//                   />
-//                   <BsThreeDotsVertical />
-//                 </div>
-//               </li>
-//             ))}
-//           </ul>
-//         </div>
-//       </div>
-//     </Layout>
-//   )
-// }
-
-// export default EventsManagers

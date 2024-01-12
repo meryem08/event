@@ -66,18 +66,18 @@ function Account() {
                   {" "}
                   <p className="text-gray-600 p-3 mt-10">
                     {" "}
-                    <span className="font-bold">First Name: Meriem</span>{" "}
+                    <span className="font-bold">First Name: </span>{" "}
                     {admin.firstName}
                   </p>
                   <p className="text-gray-600 p-3 mt-10">
-                    <span className="font-bold">Last Name: MANSOURI </span>
+                    <span className="font-bold">Last Name: </span>
                     {admin.lastName}
                   </p>
                   <p className="text-gray-600 p-3 mt-10">
-                    <span className="font-bold">E-mail: meriem.mansouri@gmail.com</span> {admin.email}
+                    <span className="font-bold">E-mail: </span> {admin.email}
                   </p>
                   <p className="text-gray-600 p-3 mt-10">
-                    <span className="font-bold">Phone: 0558540533</span> {admin.phone}
+                    <span className="font-bold">Phone: </span> {admin.phone}
                   </p>
                 </>
               ))}

@@ -1,15 +1,15 @@
-import { Fragment } from "react";
+import { Fragment } from "react"
 import {
   Bars3CenterLeftIcon,
   PencilIcon,
   ChevronDownIcon,
   CreditCardIcon,
   Cog8ToothIcon,
-} from "@heroicons/react/24/solid";
-import { AiOutlineLogout } from 'react-icons/ai';
-import { BellIcon, CheckIcon } from "@heroicons/react/24/outline";
-import { Menu, Transition, Popover } from "@headlessui/react";
-import Link from "next/link";
+} from "@heroicons/react/24/solid"
+import { AiOutlineLogout } from "react-icons/ai"
+import { BellIcon, CheckIcon } from "@heroicons/react/24/outline"
+import { Menu, Transition, Popover } from "@headlessui/react"
+import Link from "next/link"
 
 export default function TopBar({ showNav, setShowNav }) {
   return (
@@ -60,45 +60,6 @@ export default function TopBar({ showNav, setShowNav }) {
                       </p>
                     </div>
                   </div>
-                  {/* <div className="flex">
-                    <div className="rounded-full shrink-0 bg-green-200 h-8 w-8 flex items-center justify-center">
-                      <CheckIcon className="h-4 w-4 text-green-600" />
-                    </div>
-                    <div className="ml-4">
-                      <p className="font-medium text-gray-700">
-                        Notification Title
-                      </p>
-                      <p className="text-sm text-gray-500 truncate">
-                        Test Notification text for design
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex">
-                    <div className="rounded-full shrink-0 bg-green-200 h-8 w-8 flex items-center justify-center">
-                      <CheckIcon className="h-4 w-4 text-green-600" />
-                    </div>
-                    <div className="ml-4">
-                      <p className="font-medium text-gray-700">
-                        Notification Title
-                      </p>
-                      <p className="text-sm text-gray-500 truncate">
-                        Test Notification text for design
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex">
-                    <div className="rounded-full shrink-0 bg-green-200 h-8 w-8 flex items-center justify-center">
-                      <CheckIcon className="h-4 w-4 text-green-600" />
-                    </div>
-                    <div className="ml-4">
-                      <p className="font-medium text-gray-700">
-                        Notification Title
-                      </p>
-                      <p className="text-sm text-gray-500 truncate">
-                        Test Notification text for design
-                      </p>
-                    </div>
-                  </div> */}
                 </div>
               </div>
             </Popover.Panel>
@@ -155,7 +116,7 @@ export default function TopBar({ showNav, setShowNav }) {
                     className="flex hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"
                   >
                     <AiOutlineLogout className="h-4 w-4 mr-2" />
-                   Log out
+                    Log out
                   </Link>
                 </Menu.Item>
               </div>
@@ -164,5 +125,5 @@ export default function TopBar({ showNav, setShowNav }) {
         </Menu>
       </div>
     </div>
-  );
+  )
 }

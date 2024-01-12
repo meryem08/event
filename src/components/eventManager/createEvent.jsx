@@ -269,6 +269,8 @@ const [formData, setFormData] = useState({
   photo: null, // Use null for file input
   // Add other fields as needed
 });
+console.log("hello");
+console.log(formData);
 
 const handleInputChange = (e) => {
   const { name, value, type, files } = e.target;
@@ -281,6 +283,7 @@ const handleInputChange = (e) => {
 const handleSubmit = async (e) => {
   e.preventDefault();
   console.log(formData);
+  const token = "4|OTqutePv5Qgfh5bBRMyKaJGMnO7HZJ8kI4huoDNiee3a94bc"
 
   try {
     const formDataToSend = new FormData();
@@ -288,11 +291,11 @@ const handleSubmit = async (e) => {
       formDataToSend.append(key, value);
     });
 
-    const response = await fetch('http://127.0.0.1:8000/api/createEvent', {
+    const response = await fetch('http://127.0.0.1:8000/api/eventCreate', {
       method: 'POST',
-      // headers: {
-      //   'Authorization': `Bearer ${token}`,
-      // },
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
       body: formDataToSend,
     });
 
@@ -470,12 +473,12 @@ const handleSubmit = async (e) => {
 
           <Label htmlFor='agreeToTerms'>I Agree to Terms of Services</Label>
         </div> */}
-        <Popover>
+        {/* <Popover>
           <PopoverTrigger>Submit</PopoverTrigger>
           <PopoverContent>
             <Packages/>
           </PopoverContent>
-        </Popover>
+        </Popover> */}
 
         <Button type="submit">Submit</Button>
 

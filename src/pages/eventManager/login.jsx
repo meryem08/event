@@ -1,5 +1,5 @@
-import React from 'react'
-import Link from 'next/link';
+import React from "react"
+import Link from "next/link"
 // //import Link from 'next/link'
 
 // function login() {
@@ -36,8 +36,6 @@ import Link from 'next/link';
 //         </section>
 //     </main>
 
-  
-
 //     <footer className="max-w-lg mx-auto flex justify-center text-white">
 //     <span className="text-white">© 2023 My event. All Rights Reserved.</span>
 //     </footer>
@@ -48,41 +46,44 @@ import Link from 'next/link';
 
 // export default login
 
-import { useState } from 'react';
+import { useState } from "react"
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     // Les données à envoyer à l'API
     const data = {
       email,
       password,
-    };
+    }
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/eventManager/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        "http://127.0.0.1:8000/api/eventManager/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
         },
-        body: JSON.stringify(data),
-      });
+      )
 
       if (response.ok) {
         // Authentification réussie : redirigez l'utilisateur
-        window.location.href = '/eventManager/dashboard'; // Redirigez vers la page du tableau de bord
+        window.location.href = "/eventManager/dashboard" // Redirigez vers la page du tableau de bord
       } else {
         // Authentification échouée : affichez le message d'erreur
-        const errorMessage = await response.text(); // Récupérez le message d'erreur depuis la réponse
-        const errorMessageElement = document.getElementById('error-message');
-        errorMessageElement.textContent = errorMessage;
+        const errorMessage = await response.text() // Récupérez le message d'erreur depuis la réponse
+        const errorMessageElement = document.getElementById("error-message")
+        errorMessageElement.textContent = errorMessage
       }
     } catch (error) {
-      console.error('Une erreur s\'est produite lors de la demande.', error);
+      console.error("Une erreur s'est produite lors de la demande.", error)
     }
   }
 
@@ -91,7 +92,9 @@ function Login() {
       <div className="bg-purple-500 min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0">
         <header className="max-w-lg mx-auto">
           <a href="#">
-            <h1 className="text-4xl font-bold text-white text-center">My Event</h1>
+            <h1 className="text-4xl font-bold text-white text-center">
+              My Event
+            </h1>
           </a>
         </header>
 
@@ -104,7 +107,12 @@ function Login() {
           <section className="mt-10">
             <form className="flex flex-col" onSubmit={handleLogin}>
               <div className="mb-6 pt-3 rounded bg-gray-200">
-                <label className="block text-gray-700 text-sm font-bold mb-2 ml-3" htmlFor="username">Email</label>
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2 ml-3"
+                  htmlFor="username"
+                >
+                  Email
+                </label>
                 <input
                   type="text"
                   id="email"
@@ -114,7 +122,12 @@ function Login() {
                 />
               </div>
               <div className="mb-6 pt-3 rounded bg-gray-200">
-                <label className="block text-gray-700 text-sm font-bold mb-2 ml-3" htmlFor="password">Password</label>
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2 ml-3"
+                  htmlFor="password"
+                >
+                  Password
+                </label>
                 <input
                   type="password"
                   id="password"
@@ -127,7 +140,7 @@ function Login() {
                 <a
                   href="mailto:myevents@gmail.com?subject=Password%20Reset&body=Hello,%0A%0AI forgot my password. Could you please provide me with a new password?%0A%0AKind regards,%0AYourName"
                   className="text-sm text-purple-600 hover:text-purple-700 hover:underline mb-6"
-                  title='Contact us to receive a new password.'
+                  title="Contact us to receive a new password."
                 >
                   Forgot your password?
                 </a>
@@ -139,19 +152,21 @@ function Login() {
                 Sign In
               </button>
 
-              <Link href="/eventManager/registerPage" className=''> 
-               create account 
+              <Link href="/eventManager/registerPage" className="">
+                create account
               </Link>
             </form>
           </section>
         </main>
 
         <footer className="max-w-lg mx-auto flex justify-center text-white">
-          <span className="text-white">© 2023 My event. All Rights Reserved.</span>
+          <span className="text-white">
+            © 2023 My event. All Rights Reserved.
+          </span>
         </footer>
       </div>
     </>
-  );
+  )
 }
 
-export default Login;
+export default Login
