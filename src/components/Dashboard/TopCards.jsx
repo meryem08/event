@@ -4,14 +4,14 @@ import Link from "next/link"
 
 const TopCards = () => {
   const fetchManagers = async () => {
-    const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
+    
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/api/ApprovedEventsManager`,
+        `http://127.0.0.1:8000/api/approvedEventManagersCount`,
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
             "Content-Type": "application/json",
             Accept: "application/json",
           },
@@ -22,20 +22,17 @@ const TopCards = () => {
         throw new Error("Réponse de l'API non valide")
       }
       const json = await res.json()
-      // console.log(json)
-
       setManagers(json)
     } catch (error) {
       console.error("Une erreur s'est produite :", error)
     }
   }
   const fetchEvents = async () => {
-    const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
     try {
       const res = await fetch(`http://127.0.0.1:8000/api/EventCount`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
           "Content-Type": "application/json",
           Accept: "application/json",
         },
@@ -53,12 +50,11 @@ const TopCards = () => {
     }
   }
   const fetchNonApprovedEvents = async () => {
-    const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/nonApproved`, {
+      const res = await fetch(`http://127.0.0.1:8000/api/requestCount`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
           "Content-Type": "application/json",
           Accept: "application/json",
         },

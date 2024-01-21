@@ -3,6 +3,7 @@ import { data } from "@/data/data"
 import { BsPersonFill, BsThreeDotsVertical } from "react-icons/bs"
 import Layout from "@/components/Dashboard/Layout.jsx"
 import DeleteButton from "@/components/Dashboard/DeleteButton.jsx"
+import Link from "next/link"
 // Importez la data.js si nécessaire
 // import { data } from "../data/data.js";
 
@@ -11,12 +12,11 @@ const EventsManagers = () => {
   const [searchQuery, setSearchQuery] = useState("")
 
   const fetchEventManagers = async () => {
-    const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/eventManagers`, {
+      const res = await fetch(`http://127.0.0.1:8000/api/approvedEventManagers`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
           "Content-Type": "application/json",
           Accept: "application/json",
         },
@@ -32,13 +32,12 @@ const EventsManagers = () => {
       console.error("Une erreur s'est produite :", error)
     }
   }
-  const fetchEvent = async (managerId) => {
-    const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
+  const fetchEvent = async () => {
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/events/${managerId}`, {
+      const res = await fetch(`http://127.0.0.1:8000/api/eventsOfUser/${id}`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
           "Content-Type": "application/json",
           Accept: "application/json",
         },
@@ -130,7 +129,11 @@ const EventsManagers = () => {
                   <div className="bg-purple-100 p-3 rounded-lg">
                     <BsPersonFill className="text-purple-800" />
                   </div>
-                  <p className="pl-4">{eventsManager.id}</p>
+                  <p className="pl-4">
+                  <Link href={`/eventsOfUser/${eventsManager.id}`}>
+                    {eventsManager.id}
+                  </Link>
+                  </p>
                 </div>
                 <p className="col-span-1 text-gray-600">
                   {eventsManager.first_name + " " + eventsManager.last_name}
@@ -142,7 +145,7 @@ const EventsManagers = () => {
                 <p className="hidden md:flex col-span-1">
                   {eventsManager.phone}
                 </p>
-                <p className="hidden md:flex col-span-1">organisation</p>
+                <p className="hidden md:flex col-span-1">{eventsManager.organization}</p>
                 <div className="hidden sm:flex col-span-1 justify-between items-center">
                   <DeleteButton
                     onClick={() => confirmDelete(eventsManager.id)}

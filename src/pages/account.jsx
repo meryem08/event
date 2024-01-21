@@ -2,23 +2,24 @@ import React, { useState, useEffect } from "react"
 import Layout from "@/components/Dashboard/Layout"
 import TopCards from "../components/Dashboard/TopCards"
 import BarChart from "../components/Dashboard/BarChart"
+import { EditAdminForm } from "@/components/Dashboard/EditAdminForm"
 // import RecentOrders from "../components/Dashboard/RecentOrders";
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 
 function Account() {
-  const [admins, setAdmins] = useState([])
+  const [user, setUser] = useState([])
 
-  const fetchAdmins = async () => {
-    const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
+  const fetchUser = async () => {
+    // const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/admin`, {
+      const res = await fetch(`http://127.0.0.1:8000/api/showUser`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
           "Content-Type": "application/json",
-          Accept: "application/json",
+          "Accept": "application/json",
         },
       })
 
@@ -27,14 +28,14 @@ function Account() {
       }
 
       const json = await res.json()
-      setAdmins(json)
+      setUser(json)
     } catch (error) {
       console.error("Une erreur s'est produite :", error)
     }
   }
 
   useEffect(() => {
-    fetchAdmins()
+    fetchUser()
   }, [])
 
   return (
@@ -60,31 +61,36 @@ function Account() {
               <h1 className="text-2xl font-bold text-gray-800 mt-10 ">
                 Admin Information
               </h1>
+              <br></br>
               <hr className="my-4" />{" "}
-              {admins.map((admin) => (
+              
                 <>
                   {" "}
                   <p className="text-gray-600 p-3 mt-10">
                     {" "}
                     <span className="font-bold">First Name: </span>{" "}
-                    {admin.firstName}
+                    {user.first_name}
                   </p>
                   <p className="text-gray-600 p-3 mt-10">
                     <span className="font-bold">Last Name: </span>
-                    {admin.lastName}
+                    {user.last_name}
                   </p>
                   <p className="text-gray-600 p-3 mt-10">
-                    <span className="font-bold">E-mail: </span> {admin.email}
+                    <span className="font-bold">E-mail: </span> {user.email}
                   </p>
                   <p className="text-gray-600 p-3 mt-10">
-                    <span className="font-bold">Phone: </span> {admin.phone}
+                    <span className="font-bold">Phone: </span> {user.phone}
                   </p>
                 </>
-              ))}
+             
             </div>
           </div>
+          <div className="p-6 mt-4 mb-4 bg-white rounded-lg shadow-xl min-h-screen">
+            <h2 className="text-2xl font-bold text-gray-800 mt-4 p-4">Edit your infos</h2>
+            <EditAdminForm/>
+          </div>
         </Layout>
-      </main>
+      </main>  
     </>
   )
 }

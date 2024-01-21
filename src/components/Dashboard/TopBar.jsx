@@ -1,4 +1,4 @@
-import { Fragment } from "react"
+import { Fragment, useEffect , useState} from "react"
 import {
   Bars3CenterLeftIcon,
   PencilIcon,
@@ -12,7 +12,76 @@ import { Menu, Transition, Popover } from "@headlessui/react"
 import Link from "next/link"
 
 export default function TopBar({ showNav, setShowNav }) {
-  return (
+  const handleLogOut = async (e) => {
+    e.preventDefault();
+    // console.log(formData);
+
+      const response = await fetch('http://127.0.0.1:8000/api/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Corrected content-type
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      if (response.ok) {
+        // Redirect or handle success as needed
+        window.location.href = '/index';
+      } else {
+        console.error('Error submitting form:', response.statusText);
+      }
+  };
+  const fetchNotificationCount = async (e) => {
+      try{ 
+      const response = await fetch('http://127.0.0.1:8000/api/notifCount', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json', // Corrected content-type
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Accept :  'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Réponse de l'API non valide")
+      }
+      const json = await response.json()
+      setNotificationCount(json)
+    } catch (error) {
+      console.error("Une erreur s'est produite :", error)
+    }
+  };
+  const fetchNotifications = async (e) => {
+    try{ 
+    const response = await fetch('http://127.0.0.1:8000/api/notifs', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json', // Corrected content-type
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Accept :  'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Réponse de l'API non valide")
+    }
+    const json = await response.json()
+    setNotifications(json)
+  } catch (error) {
+    console.error("Une erreur s'est produite :", error)
+  }
+};
+  const [NotificationCount, setNotificationCount] = useState("")
+  const [Notifications, setNotifications] = useState("")
+
+  useEffect(() => {
+    fetchNotificationCount()
+    fetchNotifications()
+    console.log('Notifications:', Notifications);
+
+  
+  }, [])
+    return (
     <div
       className={`fixed w-full h-16 flex justify-between items-center bg-purple-300 transition-all duration-[400ms] ${
         showNav ? "pl-56" : ""
@@ -41,11 +110,14 @@ export default function TopBar({ showNav, setShowNav }) {
             <Popover.Panel className="absolute -right-16 sm:right-4 z-50 mt-2 bg-white shadow-sm rounded max-w-xs sm:max-w-sm w-screen">
               <div className="relative p-3">
                 <div className="flex justify-between items-center w-full">
-                  <p className="text-gray-700 font-medium">Notifications</p>
+                  <p className="text-gray-700 font-medium">Notifications {NotificationCount}</p>
                   <a className="text-sm text-orange-500" href="#">
                     Mark all as read
                   </a>
                 </div>
+                <ul>
+                  {Notifications.map((Notification) => ( 
+                <li key = {Notification.id}>
                 <div className="mt-4 grid gap-4 grid-cols-1 overflow-hidden">
                   <div className="flex">
                     <div className="rounded-full shrink-0 bg-green-200 h-8 w-8 flex items-center justify-center">
@@ -53,7 +125,7 @@ export default function TopBar({ showNav, setShowNav }) {
                     </div>
                     <div className="ml-4">
                       <p className="font-medium text-gray-700">
-                        Notification Title
+                        {Notification.data.first_name} {Notification.data.last_name}
                       </p>
                       <p className="text-sm text-gray-500 truncate">
                         Test Notification text for design
@@ -61,6 +133,9 @@ export default function TopBar({ showNav, setShowNav }) {
                     </div>
                   </div>
                 </div>
+                </li>
+                ))}
+                </ul>
               </div>
             </Popover.Panel>
           </Transition>
@@ -116,7 +191,10 @@ export default function TopBar({ showNav, setShowNav }) {
                     className="flex hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"
                   >
                     <AiOutlineLogout className="h-4 w-4 mr-2" />
-                    Log out
+                    <button onClick={handleLogOut}>
+                       Log out
+                    </button>
+                   
                   </Link>
                 </Menu.Item>
               </div>

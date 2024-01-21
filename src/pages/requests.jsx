@@ -5,20 +5,20 @@ import Layout from "@/components/Dashboard/Layout.jsx"
 import EventsManagers from "./eventsManagers"
 
 const Requests = () => {
+
   const [eventManagers, setEventManagers] = useState([])
   const [events, setEvents] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
 
   useEffect(() => {
     const fetchEventManagers = async () => {
-      const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
       try {
         const res = await fetch(
-          `http://127.0.0.1:8000/api/nonApprovedEventsManager`,
+          `http://127.0.0.1:8000/api/requestEventManagers`,
           {
             method: "GET",
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
               "Content-Type": "application/json",
               Accept: "application/json",
             },
@@ -36,45 +36,18 @@ const Requests = () => {
       }
     }
 
-    // const fetchEvents = async () => {
-    //   const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3";
-    //   try {
-    //     const res = await fetch(
-    //       `http://127.0.0.1:8000/api/nonApprovedEvents/show`,
-    //       {
-    //         method: "GET",
-    //         headers: {
-    //           Authorization: `Bearer ${token}`,
-    //           "Content-Type": "application/json",
-    //           Accept: "application/json",
-    //         },
-    //       }
-    //     );
-
-    //     if (!res.ok) {
-    //       throw new Error("Réponse de l'API non valide");
-    //     }
-
-    //     const json = await res.json();
-    //     setEvents(json);
-    //   } catch (error) {
-    //     console.error("Une erreur s'est produite :", error);
-    //   }
-    // };
-
     fetchEventManagers()
     // fetchEvents();
   }, []) // Run the effect once on component mount
 
   const handleApprove = async (id) => {
-    const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/api/admin/eventManager/approve/${id}`,
+        `http://127.0.0.1:8000/api/approveEventManager/${id}`,
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
             "Content-Type": "application/json",
             Accept: "application/json",
           },
@@ -96,14 +69,13 @@ const Requests = () => {
   }
 
   const handleReject = async (id) => {
-    const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/api/admin/eventManager/reject/${id}`,
+        `http://127.0.0.1:8000/api/rejectEventManager/${id}`,
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
             "Content-Type": "application/json",
             Accept: "application/json",
           },
@@ -194,6 +166,11 @@ const Requests = () => {
                     Reject
                   </button>
                 </div>
+
+
+               
+
+
               </li>
             ))}
           </ul>

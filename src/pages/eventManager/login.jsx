@@ -63,17 +63,22 @@ function Login() {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/eventManager/login",
+        "http://127.0.0.1:8000/api/login",
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
           },
           body: JSON.stringify(data),
         },
       )
 
       if (response.ok) {
+        const result = await response.json();
+        const token = result.token;
+        localStorage.setItem('token', token);
+  
         // Authentification réussie : redirigez l'utilisateur
         window.location.href = "/eventManager/dashboard" // Redirigez vers la page du tableau de bord
       } else {

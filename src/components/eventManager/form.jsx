@@ -4,10 +4,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-// import { Calendar } from 'lucide-react'
-// import { signIn } from 'next-auth/react'
 import { useState } from "react"
-// import { Alert } from '../components/ui/alert'
 
 export const RegisterForm = () => {
   const [first_name, setFirstName] = useState("")
@@ -18,7 +15,7 @@ export const RegisterForm = () => {
   const [phone, setPhone] = useState("")
   const [organization, setOrganization] = useState("")
   const [password, setPassword] = useState("")
-  const [Cpassword, setCpassword] = useState("")
+  const [passwordConfirmation, setPasswordConfirmation] = useState("")
   const [error, setError] = useState(null)
 
   const handleCheckboxChange = (e) => {
@@ -41,7 +38,7 @@ export const RegisterForm = () => {
             phone,
             password,
             organization,
-            Cpassword,
+            passwordConfirmation,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -57,7 +54,7 @@ export const RegisterForm = () => {
     } catch (error) {
       setError(error?.message)
     }
-    console.log(RegisterForm)
+    // console.log()
   }
 
   return (
@@ -165,13 +162,13 @@ export const RegisterForm = () => {
         </div>
 
         <div className="grid w-full items-center gap-1.5">
-          <Label htmlFor="Cpassword">Confirm your password</Label>
+          <Label htmlFor="passwordConfirmation">Confirm your password</Label>
           <Input
             className="w-full"
             required
-            value={Cpassword}
-            onChange={(e) => setCpassword(e.target.value)}
-            id="Cpassword"
+            value={passwordConfirmation}
+            onChange={(e) => setPasswordConfirmation(e.target.value)}
+            id=""
             type="password"
           />
         </div>
