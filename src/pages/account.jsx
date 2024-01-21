@@ -12,9 +12,9 @@ function Account() {
   const [user, setUser] = useState([])
 
   const fetchUser = async () => {
-    // const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
+    
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/showUser`, {
+      const res = await fetch(`http://127.0.0.1:8000/api/showAdmin`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,

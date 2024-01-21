@@ -72,12 +72,12 @@ export default function TopBar({ showNav, setShowNav }) {
   }
 };
   const [NotificationCount, setNotificationCount] = useState("")
-  const [Notifications, setNotifications] = useState("")
+  const [Notifications, setNotifications] = useState([])
 
   useEffect(() => {
     fetchNotificationCount()
     fetchNotifications()
-    console.log('Notifications:', Notifications);
+    // console.log('Notifications:', Notifications);
 
   
   }, [])
@@ -128,7 +128,7 @@ export default function TopBar({ showNav, setShowNav }) {
                         {Notification.data.first_name} {Notification.data.last_name}
                       </p>
                       <p className="text-sm text-gray-500 truncate">
-                        Test Notification text for design
+                      {Notification.data.first_name} {Notification.data.last_name} registerd at {Notification.created_at} 
                       </p>
                     </div>
                   </div>
@@ -169,7 +169,7 @@ export default function TopBar({ showNav, setShowNav }) {
               <div className="p-1">
                 <Menu.Item>
                   <Link
-                    href="#"
+                    href="/account"
                     className="flex hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"
                   >
                     <PencilIcon className="h-4 w-4 mr-2" />

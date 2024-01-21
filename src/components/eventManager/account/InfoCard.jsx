@@ -34,8 +34,8 @@ function InfoCard() {
   }
 
   return (
-    <div className='w-screen h-full p-5 ml-24'>
-      <div className='w-[96%] h-56 bg-white p-4 border-solid border-2 border-gray-100 rounded-md'>
+    <div className=' h-full '>
+      <div className='h-56 bg-white p-4 border-solid border-2 border-gray-100 rounded-md'>
         <div className='flex justify-between'>
           <div className='flex justify-start'>
             <div className='m-5'>

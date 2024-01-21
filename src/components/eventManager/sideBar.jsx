@@ -23,9 +23,9 @@ import { useState } from 'react';
      <div className={`h-screen ${isSidebarExpanded ? 'w-42' : 'w-12'}`}>
      <div className='fixed h-screen p-6 m-1 bg-white border rounded-2xl flex flex-col justify-between'>
         <div className='flex flex-col'>
-        <button onClick={toggleSidebar}>
+        {/* <button onClick={toggleSidebar}>
           {isSidebarExpanded ? < FiSettings/> : <FiSettings />}
-        </button>
+        </button> */}
           <dir className="flex flex-row hover:bg-purple-700">
           <Link href='/'>
             <div className='bg-purple-800 text-white p-3 rounded-lg inline-block'>

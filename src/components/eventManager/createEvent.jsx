@@ -20,240 +20,6 @@ import {
 
  import Sidebar from './sideBar'
 
-
-//   
-
-//   const [eventTitle, setEventTitle] = useState('')
-//   const [organization, setOrganization] = useState('')
-//   const [country, setCountry] = useState('')
-//   const [tags, setTags] = useState('')
-//   const [sector, setSector] = useState('')
-//   const [summary, setSummary] = useState('')
-//   const [description, setDescription] = useState('')
-//   const [startingDate, setStartingDate] = useState('')
-//   const [endingDate, setEndingDate] = useState('')
-//   const [photo, setPhoto]=useState('')
-//   const [agreeToTerms, setAgreeToTerms]=useState('')
-//   const [error, setError] = useState(null)
-
-//   const onSubmit = async (e) => {
-//     e.preventDefault()
-//    const token = "2|RV9PdKpfS1J7Mfkfcfau9PA0l2PTveLVMMTvoVcu0558ccf0"
-   
-//    const agreeToTermsBool = agreeToTerms === 'on';
-//     try {
-//       const res = await fetch('http://127.0.0.1:8000/api/createEvent', {
-//         method: 'POST',
-//         body: JSON.stringify({
-//           eventTitle,
-//           organization,
-//           country,
-//           tags,
-//           sector,
-//           summary,
-//           description,
-//           startingDate,
-//           endingDate,
-//           photo,
-//           // agreeToTerms: agreeToTermsBool, 
-          
-//         }),
-//         headers: {
-//             Authorization: `Bearer ${token}`,
-//           'Content-Type': 'application/json',
-//           'Accept' : 'application/json'
-//         },
-
-//       })
-//       if (res.ok) {
-//         window.location.href = '/pending'
-//       } else {
-//         setError((await res.json()).error)
-//       }
-//     } catch (error) {
-//       setError(error?.message)
-//     }
-//   }
-
-
-//   return (
-//     <div className='w-[96%] m-6'>
-//       <div className='absolute w-40 h-40 opacity-50 blur-3xl rounded-3xl bg-blue-500'></div>
-//       <div className='absolute top-2/4 right-1/3 w-40 h-40 opacity-50 blur-3xl rounded-3xl bg-purple-500'></div>
-//         <div className='w-full flex justify-around border border-stone-400 rounded-3xl'>
-//       <div className='w-[50%] p-12 border border-stone-400 rounded-3xl '>
-//         <div>
-
-//         </div>
-//       </div>
-//         <form onSubmit={onSubmit} className='w-[50%] m-6 p-6 bg-white'>
-
-//         <div className="grid w-full items-center gap-1.5">
-//         <Label htmlFor="eventTitle">Event title</Label>
-//         <Input
-//           className="w-full"
-//           required
-//           value={eventTitle}
-//           onChange={(e) => setEventTitle(e.target.value)}
-//           id="eventTitle"
-//           name="eventTitle"
-//           type="text"
-//         />
-//         </div>
-//       <div className="grid w-full items-center gap-1.5">
-//         <Label htmlFor="organization">Organization</Label>
-//         <Input
-//           className="w-full"
-//           required
-//           value={organization}
-//           onChange={(e) => setOrganization(e.target.value)}
-//           id="organization"
-//           name="organization"
-//           type="text"
-//         />
-//       </div>
-        
-        
-      
-//       <div className="grid w-full items-center gap-1.5">
-//         <Label htmlFor="country">Country</Label>
-//         <Input
-//           className="w-full"
-//           required
-//           value={country}
-//           onChange={(e) => setCountry(e.target.value)}
-//           id="Country"
-//           name="country"
-//           type="text" 
-          
-//         />
-//       </div>
-
-
-//       <div className="grid w-full items-center gap-1.5">
-//         <Label htmlFor="sector"> Sector</Label>
-//       <Select className='' name="sector">
-//       <SelectTrigger className="w-[180px] rounded-3xl">
-//         <SelectValue placeholder="Select a sector" onChange={(e) => setSector(e.target.value)} />
-//       </SelectTrigger>
-//       <SelectContent name="sector">
-//         <SelectGroup>
-//           <SelectLabel>Sector</SelectLabel>
-//           <SelectItem  value="Education" name="Education">Education</SelectItem>
-//           <SelectItem value="Technology" name ="Technology">Technology</SelectItem>
-//           <SelectItem value="Food" name ="Food">Food</SelectItem>
-//           <SelectItem value="Culture" name ="Culture">Culture</SelectItem>
-//         </SelectGroup>
-//       </SelectContent>
-//     </Select>
-//       </div>
-
-
-//       <div className="grid w-full items-center gap-1.5">
-//         <Label htmlFor="photo">Photo</Label>
-//         <Input
-//           placeholder ="chose a file"
-//           className="w-full"
-          
-//           value={photo}
-//           onChange={(e) => setPhoto(e.target.value)}
-//           id="photo"
-//           name="photo"
-//           type="file"
-//         />
-//       </div>
-
-//         <div className="grid w-full items-center gap-1.5">
-//                 <Label htmlFor="tags">Tags</Label>
-//                 <Input
-//                 className="w-full"
-//                 required
-//                 value={tags}
-//                 onChange={(e) => setTags(e.target.value)}
-//                 id="tags"
-//                 name = "tags"
-//                 type="text"
-//                 />
-//             </div>
-            
-//       <div className="grid w-full items-center gap-1.5">
-//         <Label htmlFor="summary">Summary</Label>
-//         <Input
-//           className="w-full"
-//           required
-//           value={summary}
-//           onChange={(e) => setSummary(e.target.value)}
-//           id="summary"
-//           name ="summary"
-//           type="text"
-//         />
-//       </div>
-
-//       <div className="grid w-full items-center gap-1.5">
-//         <Label htmlFor="description" id="Description">Description</Label>
-//         <Input
-//           className="w-full"
-//           required
-//           value={description}
-//           onChange={(e) => setDescription(e.target.value)}
-//           id="Description"
-//           name="description"
-//           type="text"
-//         />
-//       </div>
-
-//       <div className="grid w-full items-center gap-1.5">
-//         <Label htmlFor="startingDate">Starting Date</Label>
-//         <Input required
-//           value={startingDate}
-//           onChange={(e) => setStartingDate(e.target.value)}
-//           id="startingDate"
-//           name="startingDate"
-//           type="date"/>
-          
-//       </div>
-
-//       <div className="grid w-full items-center gap-1.5">
-//         <Label htmlFor="endingDate">Ending Date</Label>
-//         <Input required
-//           value={endingDate}
-//           onChange={(e) => setEndingDate(e.target.value)}
-//           id="endingDate"
-//           name = "endingDate"
-//           type="date"/>
-//       </div>
-
-
-//         {/* <div className='my-1 flex items-center'>
-//         <input
-//             type='checkbox'
-//             name='agreeToTerms'
-//             id='agreeToTerms'
-//             checked={agreeToTerms}
-//             onChange={(e) => setAgreeToTerms(e.target.checked)}
-//             className="border-spacing-0"
-//         />
-
-//           <Label htmlFor='agreeToTerms'>I Agree to Terms of Services</Label>
-//         </div> */}
-
-//         <Button type="submit">Submit</Button>
-
-      
-      
-      
-//         <div className="w-full">
-     
-//       </div>
-            
-//         </form>
-//       </div> 
-//     </div>
-//   )
-// }
-
-// export default CreateEvent
-
 function MyForm() {
 
 
@@ -269,8 +35,33 @@ const [formData, setFormData] = useState({
   photo: null, // Use null for file input
   // Add other fields as needed
 });
-console.log("hello");
-console.log(formData);
+// console.log("hello");
+// console.log(formData);
+const [eventManagers, setEventManagers] = useState([])
+
+const fetchEventManagers = async () => {
+  try {
+    const res = await fetch(`http://127.0.0.1:8000/api/showUser`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+
+    if (!res.ok) {
+      throw new Error("Réponse de l'API non valide")
+    }
+
+    const json = await res.json()
+    setEventManagers(json)
+    console.log(json)
+  } catch (error) {
+    setError(error.message)
+    console.error("Une erreur s'est produite :", error)
+  }
+}
 
 const handleInputChange = (e) => {
   const { name, value, type, files } = e.target;
@@ -283,7 +74,6 @@ const handleInputChange = (e) => {
 const handleSubmit = async (e) => {
   e.preventDefault();
   console.log(formData);
-  const token = "4|OTqutePv5Qgfh5bBRMyKaJGMnO7HZJ8kI4huoDNiee3a94bc"
 
   try {
     const formDataToSend = new FormData();
@@ -294,7 +84,9 @@ const handleSubmit = async (e) => {
     const response = await fetch('http://127.0.0.1:8000/api/eventCreate', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: formDataToSend,
     });
@@ -328,17 +120,14 @@ const handleSubmit = async (e) => {
     <form onSubmit={handleSubmit} className='p-6'>
     
       <div className=''>
-        <Label htmlFor="eventTitle">Event title</Label>
-        <Input
-          className="w-full"
-          required
-          value={formData.eventTitle}
-          // onChange={(e) => setEventTitle(e.target.value)}
-          // id="eventTitle"
-          onChange={handleInputChange}
-          name="eventTitle"
-          type="text"
-        />
+        <Label htmlFor="eventTitle">id</Label>
+
+        <select id="id" name="id">
+  <option value="eventManagers.id">{eventManagers.id}</option>
+  </select>
+
+
+
         </div>
       
       <div className="grid w-full items-center gap-1.5">
