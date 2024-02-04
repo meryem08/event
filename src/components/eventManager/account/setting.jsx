@@ -194,7 +194,7 @@ export const EditForm = () => {
         },
       });
       if (res.ok) {
-        window.location.href = '/account';
+        window.location.href = '/eventManager/account';
       } else {
         setError((await res.json()).error);
       }
@@ -213,7 +213,6 @@ export const EditForm = () => {
         <Label htmlFor="first_name">First Name</Label>
         <Input
           className="w-full"
-          required
           value={first_name}
           onChange={(e) => setFisrtName(e.target.value)}
           id="first_name"
@@ -224,7 +223,6 @@ export const EditForm = () => {
         <Label htmlFor="last_name">Last Name</Label>
         <Input
           className="w-full"
-          required
           value={last_name}
           onChange={(e) => setLastName(e.target.value)}
           id="last_name"
@@ -238,7 +236,6 @@ export const EditForm = () => {
         <Label htmlFor="birthday">Birthday</Label>
         <Input
           className="w-full"
-          required
           value={birthday}
           onChange={(e) => setBirthday(e.target.value)}
           id="birthday"
@@ -250,7 +247,6 @@ export const EditForm = () => {
         <Label htmlFor="email">Email</Label>
         <Input
           className="w-full"
-          required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           id="email"
@@ -262,7 +258,7 @@ export const EditForm = () => {
         <Label htmlFor="phone">Phone</Label>
         <Input
           className="w-full"
-          required
+          
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           id="phone"
@@ -275,7 +271,6 @@ export const EditForm = () => {
                 <Label htmlFor="password">New Password</Label>
                 <Input
                 className="w-full"
-                required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 id="password"
@@ -287,7 +282,6 @@ export const EditForm = () => {
         <Label htmlFor=" password_confirmation">Confirm your new password</Label>
         <Input
           className="w-full"
-          required
           value={ password_confirmation}
           onChange={(e) => setPassword_confirmation(e.target.value)}
           id=" password_confirmation"

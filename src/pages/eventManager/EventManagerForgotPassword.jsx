@@ -2,25 +2,21 @@ import React from 'react'
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-
 import { useState } from 'react';
-import Link from 'next/link';
 
-function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+function EventManagerForgotPassword() {
 
-  const handleLogin = async (e) => {
+    const [email, setEmail] = useState('');
+
+  const handleForgotPassword = async (e) => {
     e.preventDefault();
-  
     // Les données à envoyer à l'API
     const data = {
-      email,
-      password,
+      email
     };
   
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/login', {
+      const response = await fetch('http://127.0.0.1:8000/api/forgot-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -29,12 +25,12 @@ function Login() {
         body: JSON.stringify(data),
       });
         if (response.ok) {
-        const result = await response.json();
-        const token = result.token;
-        localStorage.setItem('token', token);
+        // const result = await response.json();
+        // const token = result.token;
+        // localStorage.setItem('token', token);
   
         // Authentification réussie : redirigez l'utilisateur
-        window.location.href = '/dashboard'; // Redirigez vers la page du tableau de bord
+        window.location.href = '/eventManager/EventManagerResetPassword'; // Redirigez vers la page du tableau de bord
       } else {
         // Authentification échouée : affichez le message d'erreur
         const errorMessage = await response.text(); // Récupérez le message d'erreur depuis la réponse
@@ -55,18 +51,18 @@ function Login() {
             height={150}
             className="absolute w-screen h-screen "
           />
-      <div className=" min-h-screen pt-8 md:pt-6 pb-6 px-2 md:px-0">
+      <div className=" min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0">
       
 
         <main className="bg-opacity-25 backdrop-blur-sm max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl border border-2">
           <section>
-            <h3 className="font-bold  text-2xl text-white ml-4">Welcome Back !</h3>
+            <h3 className="font-bold  text-xl text-white ml-4">Enter Your Email To Recieve a Code !</h3>
             {/* <p className="text-gray-600 pt-2">Sign in to your account.</p> */}
           </section>
 
-          <section className="mt-2">
+          <section className="mt-10">
             <form className="flex flex-col" 
-                  onSubmit={handleLogin}>
+                  onSubmit={handleForgotPassword}>
               <div className="m-4 pt-3 rounded ">
                 {/* <Label className="block text-sm font-bold mb-2 ml-3" htmlFor="username">Email</Label> */}
                 <input
@@ -78,42 +74,13 @@ function Login() {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <div className="m-4 pt-3 rounded">
-                {/* <Label className="block text-gray-700 text-sm font-bold mb-2 ml-3" htmlFor="password">Password</Label> */}
-                <input
-                  placeholder='password'
-                  type="password"
-                  id="password"
-                  className="p-2 bg-transparent rounded w-full focus:outline-none border-b-2 border-white focus:border-purple-600 transition duration-500 px-3 pb-3 text-white"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-           
-              <div className="flex justify-between">
-                <Link
-                  href="/ForgotPassword"
-                  className="text-sm text-purple-600 hover:text-purple-700 hover:underline mb-6"
-                  title='Contact us to receive a new password.'
-                >
-                  Forgot your password?
-                </Link> 
-                {/* <a
-                  href="mailto:myevents@gmail.com?subject=Password%20Reset&body=Hello,%0A%0AI forgot my password. Could you please provide me with a new password?%0A%0AKind regards,%0AYourName"
-                  className="text-sm text-purple-600 hover:text-purple-700 hover:underline mb-6"
-                  title='Contact us to receive a new password.'
-                >
-                  Sign up
-                </a> */}
-              </div>
               
-               
            
               <Button
                 className="m-4 bg-gradient-to-r from-purple-300 to-pink-400 hover:bg-gradient-to-l from-purple-400 to-pink-400 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
                 type="submit"
               >
-                Sign In
+                Send a code
               </Button>
             </form>
           </section>
@@ -125,7 +92,7 @@ function Login() {
       </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Login;
+export default EventManagerForgotPassword

@@ -20,91 +20,130 @@ import {
 
  import Sidebar from './sideBar'
 
+// function MyForm() {
+
+
+// const [formData, setFormData] = useState({
+//   eventTitle: '',
+//   country: '',
+//   tags: '',
+//   sector: '',
+//   summary: '',
+//   description: '',
+//   startingDate: '',
+//   endingDate: '',
+//   photo: null, // Use null for file input
+  
+// });
+
+// const handleInputChange = (e) => {
+//   const { name, value, type, files } = e.target;
+
+//   if (type === 'file') {
+//     // Handle file input separately
+//     const selectedFile = files[0];
+//     setFormData((prevData) => ({
+//       ...prevData,
+//       [name]: selectedFile,
+//       // photoName: selectedFile ? selectedFile.name : '', // Store the file name
+//     }));
+//   } else {
+//     // Handle other input types
+//     setFormData((prevData) => ({
+//       ...prevData,
+//       [name]: value,
+//     }));
+//   }
+// };
+
+
+// const handleSubmit = async (e) => {
+//   e.preventDefault();
+
+//   try {
+//     const res = await fetch("http://127.0.0.1:8000/api/eventCreate", {
+//       method: "POST",
+//       body: JSON.stringify(formData),
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${localStorage.getItem("token")}`,
+//       },
+//     });
+
+//     if (res.ok) {
+//       window.location.href = "/eventManager/dashboard";
+//     } else {
+//       const errorData = await res.json();
+//       setError(errorData.error);
+//     }
+//   } catch (error) {
+//     console.error("Error submitting form:", error.message);
+//     // Handle other errors if needed
+//   }
+// };
+
+// // console.log(formData);
 function MyForm() {
+  const [formData, setFormData] = useState({
+    eventTitle: '',
+    country: '',
+    tags: '',
+    sector: '',
+    summary: '',
+    description: '',
+    startingDate: '',
+    endingDate: '',
+    photo: null,
+  });
 
-
-const [formData, setFormData] = useState({
-  eventTitle: '',
-  country: '',
-  tags: '',
-  sector: '',
-  summary: '',
-  description: '',
-  startingDate: '',
-  endingDate: '',
-  photo: null, // Use null for file input
-  // Add other fields as needed
-});
-// console.log("hello");
-// console.log(formData);
-const [eventManagers, setEventManagers] = useState([])
-
-const fetchEventManagers = async () => {
-  try {
-    const res = await fetch(`http://127.0.0.1:8000/api/showUser`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-
-    if (!res.ok) {
-      throw new Error("Réponse de l'API non valide")
-    }
-
-    const json = await res.json()
-    setEventManagers(json)
-    console.log(json)
-  } catch (error) {
-    setError(error.message)
-    console.error("Une erreur s'est produite :", error)
-  }
-}
-
-const handleInputChange = (e) => {
-  const { name, value, type, files } = e.target;
-  setFormData((prevData) => ({
-    ...prevData,
-    [name]: type === 'file' ? files[0] : value,
-  }));
-};
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  console.log(formData);
-
-  try {
-    const formDataToSend = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      formDataToSend.append(key, value);
-    });
-
-    const response = await fetch('http://127.0.0.1:8000/api/eventCreate', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: formDataToSend,
-    });
-
-    if (response.ok) {
-      // Redirect or handle success as needed
-      window.location.href = '/eventManager/pending';
+  const handleInputChange = (e) => {
+    const { name, type } = e.target;
+  
+    if (type === 'file') {
+      const selectedFile = e.target.files[0];
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: selectedFile,
+      }));
     } else {
-      // Handle error response
-      // const errorData = await response.json();
-      // setError(errorData.error);
-      console.error('Error submitting form:', response.statusText);
+      const { value } = e.target;
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
     }
-  } catch (error) {
-    console.error('Error submitting form:', error.message);
-  }
-};
+  };
+  
+  
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const formDataToSend = new FormData();
+      Object.keys(formData).forEach((key) => {
+        formDataToSend.append(key, formData[key]);
+      });
+
+      const res = await fetch("http://127.0.0.1:8000/api/eventCreate", {
+        method: "POST",
+        body: formDataToSend,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (res.ok) {
+        window.location.href = "/eventManager/dashboard";
+      } else {
+        const errorData = await res.json();
+        console.error("Error submitting form:", errorData.error);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error.message);
+    }
+  };
+ 
   return (
     <div className='flex justify-between'>
       <Sidebar className="relative"/>
@@ -117,19 +156,21 @@ const handleSubmit = async (e) => {
           </p>
         </div>
 
-    <form onSubmit={handleSubmit} className='p-6'>
+    <form onSubmit={handleSubmit} encType="multipart/form-data" className='p-6'>
     
-      <div className=''>
-        <Label htmlFor="eventTitle">id</Label>
-
-        <select id="id" name="id">
-  <option value="eventManagers.id">{eventManagers.id}</option>
-  </select>
-
-
-
-        </div>
-      
+    <div className="grid w-full items-center gap-1.5">
+        <Label htmlFor="eventTitle">Event title</Label>
+        <Input
+          className="w-full"
+          required
+          value={formData.eventTitle}
+          onChange={handleInputChange}
+          id="eventTitle"
+          name="eventTitle"
+          type="text" 
+          
+        />
+      </div>
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="country">Country</Label>
         <Input
@@ -137,7 +178,6 @@ const handleSubmit = async (e) => {
           required
           value={formData.country}
           onChange={handleInputChange}
-          // onChange={(e) => setCountry(e.target.value)}
           id="Country"
           name="country"
           type="text" 
@@ -177,7 +217,7 @@ const handleSubmit = async (e) => {
         <Input
           placeholder ="chose a file"
           className="w-full"
-          // value={formData.photo}
+          value={formData.photo}
           onChange={handleInputChange}
           // onChange={(e) => setPhoto(e.target.value)}
           // id="photo"
@@ -249,45 +289,11 @@ const handleSubmit = async (e) => {
           type="date"/>
       </div>
 
-
-        {/* <div className='my-1 flex items-center'>
-        <input
-            type='checkbox'
-            name='agreeToTerms'
-            id='agreeToTerms'
-            checked={agreeToTerms}
-            onChange={(e) => setAgreeToTerms(e.target.checked)}
-            className="border-spacing-0"
-        />
-
-          <Label htmlFor='agreeToTerms'>I Agree to Terms of Services</Label>
-        </div> */}
-        {/* <Popover>
-          <PopoverTrigger>Submit</PopoverTrigger>
-          <PopoverContent>
-            <Packages/>
-          </PopoverContent>
-        </Popover> */}
-
         <Button type="submit">Submit</Button>
 
-      
-      
-      
         <div className="w-full">
      
       </div>
-
-    
-        {/* Field 2:
-        <input
-          type="text"
-          name="field2"
-          value={formData.field2}
-          onChange={handleInputChange}
-        />
-      
-      {/* Add other form fields as needed */}
       
     </form>
     </div>

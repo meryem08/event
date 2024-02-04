@@ -47,6 +47,10 @@ export const RegisterForm = () => {
         },
       )
       if (res.ok) {
+        const result = await res.json();
+        const token = result.token;
+        localStorage.setItem('token', token);
+  
         window.location.href = "/eventManager/dashboard"
       } else {
         setError((await res.json()).error)
@@ -116,7 +120,7 @@ export const RegisterForm = () => {
           type="text"
         />
       </div>
-      <div className="flex justify-between w-1/3">
+      {/* <div className="flex justify-between w-1/3">
         <Label>
           <input
             type="checkbox"
@@ -136,7 +140,7 @@ export const RegisterForm = () => {
           />
           Female
         </Label>
-      </div>
+      </div> */}
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="phone">Phone</Label>
         <Input

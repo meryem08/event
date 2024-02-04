@@ -28,7 +28,7 @@ const Navbar = () => {
     e.preventDefault();
     // console.log(formData);
 
-      const response = await fetch('http://127.0.0.1:8000/api/logout', {
+      const response = await fetch('http://127.0.0.1:8000/api/logoutEventManager', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json', // Corrected content-type
@@ -38,18 +38,67 @@ const Navbar = () => {
 
       if (response.ok) {
         // Redirect or handle success as needed
-        window.location.href = '/index';
+        window.location.href = '/';
       } else {
         console.error('Error submitting form:', response.statusText);
       }
   };
 
+  const fetchNotificationCount = async (e) => {
+    try{ 
+    const response = await fetch('http://127.0.0.1:8000/api/eventManagerNotifCount', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json', // Corrected content-type
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Accept :  'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Réponse de l'API non valide")
+    }
+    const json = await response.json()
+    setNotificationCount(json)
+  } catch (error) {
+    console.error("Une erreur s'est produite :", error)
+  }
+};
+const fetchNotifications = async (e) => {
+  try{ 
+  const response = await fetch('http://127.0.0.1:8000/api/eventManagerNotifs', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json', // Corrected content-type
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Accept :  'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Réponse de l'API non valide")
+  }
+  const json = await response.json()
+  setNotifications(json)
+} catch (error) {
+  console.error("Une erreur s'est produite :", error)
+}
+};
+const [NotificationCount, setNotificationCount] = useState("")
+const [Notifications, setNotifications] = useState([])
+
+useEffect(() => {
+  fetchNotificationCount()
+  fetchNotifications()
+  // console.log('Notifications:', Notifications);
+
+
+}, [])
+
   return (
     <div className='flex justify-end w-full'>
-    <div className=' flex flex-row justify-between mr-12 mt-6 '>
-
-
-    <Popover className="relative">
+   <div className="flex items-center pr-4 md:pr-16">
+        <Popover className="relative">
           <Popover.Button className="outline-none mr-5 md:mr-8 cursor-pointer text-gray-700">
             <BellIcon className="h-6 w-6" />
           </Popover.Button>
@@ -62,23 +111,17 @@ const Navbar = () => {
             leaveFrom="transform scale-100"
             leaveTo="transform scale-95"
           >
-      <div className="pl-4 md:pl-16">
-        <Bars3CenterLeftIcon
-          className="h-8 w-8 text-gray-700 cursor-pointer"
-          onClick={() => setShowNav(!showNav)}
-        />
-      </div>
             <Popover.Panel className="absolute -right-16 sm:right-4 z-50 mt-2 bg-white shadow-sm rounded max-w-xs sm:max-w-sm w-screen">
               <div className="relative p-3">
                 <div className="flex justify-between items-center w-full">
-                  <p className="text-gray-700 font-medium">Notifications </p>
+                  <p className="text-gray-700 font-medium">Notifications {NotificationCount} </p>
                   <a className="text-sm text-orange-500" href="#">
                     Mark all as read
                   </a>
                 </div>
                 <ul>
-                  {/* {Notifications.map((Notification) => (  */}
-                {/* <li key = {Notification.id}> */}
+                  {Notifications.map((Notification) => ( 
+                <li key = {Notification.id}>
                 <div className="mt-4 grid gap-4 grid-cols-1 overflow-hidden">
                   <div className="flex">
                     <div className="rounded-full shrink-0 bg-green-200 h-8 w-8 flex items-center justify-center">
@@ -86,34 +129,27 @@ const Navbar = () => {
                     </div>
                     <div className="ml-4">
                       <p className="font-medium text-gray-700">
-                        {/* {Notification.data.first_name} {Notification.data.last_name} */}
+                        {Notification.data.first_name} {Notification.data.last_name}
                       </p>
                       <p className="text-sm text-gray-500 truncate">
-                        Test Notification text for design
+                      {Notification.data.first_name} {Notification.data.last_name} registerd at {Notification.created_at} 
                       </p>
                     </div>
                   </div>
                 </div>
-                {/* </li> */}
-                {/* // ))} */}
+                </li>
+                ))}
                 </ul>
               </div>
             </Popover.Panel>
           </Transition>
-    </Popover>
-
-    <Menu as="div" className="relative inline-block text-left">
+        </Popover>
+        <Menu as="div" className="relative inline-block text-left">
           <div>
             <Menu.Button className="inline-flex w-full justify-center items-center">
-              {/* <picture>
-                <img
-                  src=""
-                  className="rounded-full h-8 md:mr-4 border-2 border-orange-200 shadow-sm"
-                  alt="profile picture"
-                />
-              </picture> */}
+             
               <span className="hidden md:block font-medium text-gray-700">
-                Event Manager
+                EventManager
               </span>
               <ChevronDownIcon className="ml-2 h-4 w-4 text-gray-700" />
             </Menu.Button>
@@ -135,20 +171,10 @@ const Navbar = () => {
                     className="flex hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"
                   >
                     <PencilIcon className="h-4 w-4 mr-2" />
-                    <button>
-                       Edit
-                    </button>
+                    Edit
                   </Link>
                 </Menu.Item>
-                {/* <Menu.Item>
-                  <Link
-                    href="#"
-                    className="flex hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"
-                  >
-                    <CreditCardIcon className="h-4 w-4 mr-2" />
-                    Billing
-                  </Link>
-                </Menu.Item> */}
+               
                 <Menu.Item>
                   <Link
                     href="#"
@@ -164,8 +190,8 @@ const Navbar = () => {
               </div>
             </Menu.Items>
           </Transition>
-    </Menu>
-    </div>
+        </Menu>
+      </div>
     </div>
   );
 };

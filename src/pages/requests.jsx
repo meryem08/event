@@ -97,86 +97,141 @@ const Requests = () => {
   }
 
   return (
-    <Layout>
-      <div className="p-4">
-        <div className="w-full m-auto p-4 border rounded-lg bg-white overflow-y-auto max-w-full overflow-x-auto">
-          {/* Ajoutez un champ de recherche */}
-          <input
-            type="text"
-            placeholder="Rechercher par nom..."
-            className="w-full p-2 border rounded-md mb-4"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+    // <Layout>
+    //   <div className="p-4">
+    //     <div className="w-full m-auto p-4 border rounded-lg bg-white overflow-y-auto max-w-full overflow-x-auto">
+    //       {/* Ajoutez un champ de recherche */}
+    //       <input
+    //         type="text"
+    //         placeholder="Rechercher par nom..."
+    //         className="w-full p-2 border rounded-md mb-4"
+    //         value={searchQuery}
+    //         onChange={(e) => setSearchQuery(e.target.value)}
+    //       />
 
-          <div className="grid grid-cols-8 items-center justify-between cursor-pointer">
-            <span className="col-span-1">Identifiant</span>
-            <span className="col-span-1">Name</span>
-            <span className="hidden md:grid col-span-1">Email</span>
-            <span className="col-span-1">Birthday</span>
-            <span className="hidden md:grid col-span-1">Phone</span>
-            <span className="hidden md:grid col-span-1">Organisation</span>
-            <span className="hidden md:grid col-span-1">Status</span>
-            <span className="hidden sm:grid col-span-1">Action</span>
-          </div>
+    //       <div className="grid grid-cols-7 items-center justify-between cursor-pointer">
+    //         <span className="col-span-1">Identifiant</span>
+    //         <span className="col-span-1">Name</span>
+    //         <span className="hidden md:grid col-span-1">Email</span>
+    //         <span className="col-span-1">Birthday</span>
+    //         <span className="hidden md:grid col-span-1">Phone</span>
+    //         <span className="hidden md:grid col-span-1">Organisation</span>
+    //         <span className="hidden sm:grid col-span-1">Action</span>
+    //       </div>
 
-          <ul>
-            {eventManagers.map((eventsManager) => (
-              <li
-                key={eventsManager.id}
-                className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-8 items-center justify-between"
-              >
-                <p className="col-span-1">{eventsManager.id}</p>
-                <p className="col-span-1">
-                  {eventsManager.first_name + " " + eventsManager.last_name}
-                </p>
-                <p className="hidden md:flex col-span-1">
-                  {eventsManager.email}
-                </p>
-                <p className="col-span-1">{eventsManager.birthday}</p>
-                <p className="hidden md:flex col-span-1">
-                  {eventsManager.phone}
-                </p>
-                <p className="hidden md:flex col-span-1">organisation</p>
-                <p className="hidden md:flex col-span-1">
-                  <span
-                    className={
-                      eventsManager.approved === "0"
-                        ? "bg-yellow-200 p-2 rounded-lg"
-                        : eventsManager.approved === "pending"
-                        ? "bg-blue-200 p-2 rounded-lg"
-                        : "bg-blue-200 p-2 rounded-lg"
-                    }
-                  >
-                    {eventsManager.approved}
-                  </span>
-                </p>
+    //       <ul>
+    //         {eventManagers.map((eventsManager) => (
+    //           <li
+    //             key={eventsManager.id}
+    //             className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-8 items-center justify-between"
+    //           >
+    //             <p className="col-span-1">{eventsManager.id}</p>
+    //             <p className="col-span-1">
+    //               {eventsManager.first_name + " " + eventsManager.last_name}
+    //             </p>
+    //             <p className="hidden md:flex col-span-1">
+    //               {eventsManager.email}
+    //             </p>
+    //             <p className="col-span-1">{eventsManager.birthday}</p>
+    //             <p className="hidden md:flex col-span-1">
+    //               {eventsManager.phone}
+    //             </p>
+    //             <p className="hidden md:flex col-span-1">{eventsManager.organization}</p>
+             
 
-                <div className="hidden sm:flex justify-between items-center col-span-1 pr-30 text-lright">
-                  <button
-                    className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 w-24 m-3"
-                    onClick={() => handleApprove(eventsManager.id)}
-                  >
-                    Approve
-                  </button>
-                  <button
-                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 w-24"
-                    onClick={() => handleReject(eventsManager.id)}
-                  >
-                    Reject
-                  </button>
-                </div>
+    //             <div className="hidden sm:flex justify-between items-center col-span-1 pr-30 text-lright">
+    //               <button
+    //                 className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 w-24 m-3"
+    //                 onClick={() => handleApprove(eventsManager.id)}
+    //               >
+    //                 Approve
+    //               </button>
+    //               <button
+    //                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 w-24"
+    //                 onClick={() => handleReject(eventsManager.id)}
+    //               >
+    //                 Reject
+    //               </button>
+    //             </div>
 
 
                
 
 
-              </li>
-            ))}
-          </ul>
-        </div>
+    //           </li>
+    //         ))}
+    //       </ul>
+    //     </div>
+    //   </div>
+    // </Layout>
+    <Layout>
+  <div className="p-4">
+    <div className="w-full m-auto p-4 border rounded-lg bg-white overflow-y-auto max-w-full overflow-x-auto">
+      {/* Search input */}
+      <input
+        type="text"
+        placeholder="Rechercher par nom..."
+        className="w-full p-2 border rounded-md mb-4"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+
+      {/* Table header */}
+      <div className="grid grid-cols-7 items-center justify-between cursor-pointer">
+        {/* <span className="col-span-1/2">Identifiant</span> */}
+        <span className="col-span-1">Name</span>
+        <span className="hidden md:grid col-span-1">Email</span>
+        <span className="col-span-1">Birthday</span>
+        <span className="hidden md:grid col-span-1">Phone</span>
+        <span className="hidden md:grid col-span-1">Organisation</span>
+        {/* <span className="hidden sm:grid col-span-1">Actions</span> */}
       </div>
-    </Layout>
+
+      {/* Table content */}
+      <ul>
+        {eventManagers.map((eventsManager) => (
+          <li
+            key={eventsManager.id}
+            className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-7 items-center justify-between"
+          >
+            {/* Data columns */}
+            {/* <span className="col-span-1">{eventsManager.id}</span> */}
+            <span className="col-span-1">
+              {eventsManager.first_name + " " + eventsManager.last_name}
+            </span>
+            <span className="hidden md:flex col-span-1">
+              {eventsManager.email}
+            </span>
+            <span className="col-span-1">{eventsManager.birthday}</span>
+            <span className="hidden md:flex col-span-1">
+              {eventsManager.phone}
+            </span>
+            <span className="hidden md:flex col-span-1">
+              {eventsManager.organization}
+            </span>
+
+            {/* Action buttons */}
+            <div className="hidden sm:flex justify-between items-center col-span-1 pr-4">
+              <button
+                className="bg-green-300 text-white px-4 py-2 rounded hover:bg-green-500 m-3"
+                onClick={() => handleApprove(eventsManager.id)}
+              >
+                Approve
+              </button>
+              <button
+                className="bg-red-300 text-white px-4 py-2 rounded hover:bg-red-500"
+                onClick={() => handleReject(eventsManager.id)}
+              >
+                Reject
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</Layout>
+
   )
 }
 
