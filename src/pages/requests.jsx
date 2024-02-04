@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react"
 import { FaShoppingBag } from "react-icons/fa"
-import { BsThreeDotsVertical } from "react-icons/bs"
+
+import { BsPersonFill, BsThreeDotsVertical } from "react-icons/bs"
 import Layout from "@/components/Dashboard/Layout.jsx"
 import EventsManagers from "./eventsManagers"
 
 const Requests = () => {
-
   const [eventManagers, setEventManagers] = useState([])
-  const [events, setEvents] = useState([])
+  // const [events, setEvents] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const Requests = () => {
           {
             method: "GET",
             headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
               "Content-Type": "application/json",
               Accept: "application/json",
             },
@@ -30,6 +30,7 @@ const Requests = () => {
         }
 
         const json = await res.json()
+        console.log(json)
         setEventManagers(json)
       } catch (error) {
         console.error("Une erreur s'est produite :", error)
@@ -47,7 +48,7 @@ const Requests = () => {
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
             Accept: "application/json",
           },
@@ -75,7 +76,7 @@ const Requests = () => {
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
             Accept: "application/json",
           },
@@ -98,8 +99,8 @@ const Requests = () => {
 
   return (
     <Layout>
-      <div className="p-4">
-        <div className="w-full m-auto p-4 border rounded-lg bg-white overflow-y-auto max-w-full overflow-x-auto">
+      <div className="p-4 border rounded-lg bg-white mt-4">
+        <div>
           {/* Ajoutez un champ de recherche */}
           <input
             type="text"
@@ -109,7 +110,7 @@ const Requests = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
 
-          <div className="grid grid-cols-8 items-center justify-between cursor-pointer">
+          <div className="grid grid-cols-9 items-center justify-between cursor-pointer">
             <span className="col-span-1">Identifiant</span>
             <span className="col-span-1">Name</span>
             <span className="hidden md:grid col-span-1">Email</span>
@@ -117,16 +118,25 @@ const Requests = () => {
             <span className="hidden md:grid col-span-1">Phone</span>
             <span className="hidden md:grid col-span-1">Organisation</span>
             <span className="hidden md:grid col-span-1">Status</span>
-            <span className="hidden sm:grid col-span-1">Action</span>
+            <span className="hidden sm:grid col-span-1"></span>
           </div>
 
           <ul>
             {eventManagers.map((eventsManager) => (
               <li
                 key={eventsManager.id}
-                className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-8 items-center justify-between"
+                className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 grid grid-cols-9 items-center justify-between"
               >
-                <p className="col-span-1">{eventsManager.id}</p>
+                  <div className="flex items-center col-span-1 pl-2">
+                  <div className="bg-purple-100 p-3 rounded-lg">
+                    <BsPersonFill className="text-purple-800" />
+                  </div>
+                  <p className="pl-4">
+                   
+                      {eventsManager.id}
+                    
+                  </p>
+                </div>
                 <p className="col-span-1">
                   {eventsManager.first_name + " " + eventsManager.last_name}
                 </p>
@@ -137,40 +147,35 @@ const Requests = () => {
                 <p className="hidden md:flex col-span-1">
                   {eventsManager.phone}
                 </p>
-                <p className="hidden md:flex col-span-1">organisation</p>
+                <p className="hidden md:flex col-span-1">
+                  {eventsManager.organization}
+                </p>
                 <p className="hidden md:flex col-span-1">
                   <span
                     className={
                       eventsManager.approved === "0"
-                        ? "bg-yellow-200 p-2 rounded-lg"
-                        : eventsManager.approved === "pending"
-                        ? "bg-blue-200 p-2 rounded-lg"
-                        : "bg-blue-200 p-2 rounded-lg"
+                        ? "bg-yellow-100 p-2 rounded-lg"
+                        : "bg-yellow-100 p-2 rounded-lg"
                     }
                   >
-                    {eventsManager.approved}
+                    Pending
                   </span>
                 </p>
 
-                <div className="hidden sm:flex justify-between items-center col-span-1 pr-30 text-lright">
+                <div className="hidden sm:flex justify-between items-center col-span-1 pr-30 ">
                   <button
-                    className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 w-24 m-3"
+                    className="bg-green-300 text-white px-4 py-2 rounded hover:bg-green-400 w-24 m-3"
                     onClick={() => handleApprove(eventsManager.id)}
                   >
                     Approve
                   </button>
                   <button
-                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 w-24"
+                    className="bg-red-300 text-white px-4 py-2 rounded hover:bg-red-400 w-24"
                     onClick={() => handleReject(eventsManager.id)}
                   >
                     Reject
                   </button>
                 </div>
-
-
-               
-
-
               </li>
             ))}
           </ul>

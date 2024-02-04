@@ -13,14 +13,17 @@ const EventsManagers = () => {
 
   const fetchEventManagers = async () => {
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/approvedEventManagers`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-          "Content-Type": "application/json",
-          Accept: "application/json",
+      const res = await fetch(
+        `http://127.0.0.1:8000/api/approvedEventManagers`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
         },
-      })
+      )
 
       if (!res.ok) {
         throw new Error("Réponse de l'API non valide")
@@ -37,7 +40,7 @@ const EventsManagers = () => {
       const res = await fetch(`http://127.0.0.1:8000/api/eventsOfUser/${id}`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
           Accept: "application/json",
         },
@@ -89,11 +92,11 @@ const EventsManagers = () => {
 
   // Fonction pour filtrer les EventManagers en fonction de la recherche
   const filteredEventManagers = eventManagers.filter(
-    (eventsManager) =>
-      eventsManager.first_name
+    (eventManager) =>
+      eventManager.first_name
         .toLowerCase()
         .includes(searchQuery.toLowerCase()) ||
-      eventsManager.last_name.toLowerCase().includes(searchQuery.toLowerCase()),
+      eventManager.last_name.toLowerCase().includes(searchQuery.toLowerCase()),
   )
 
   return (
@@ -120,9 +123,9 @@ const EventsManagers = () => {
           </div>
 
           <ul>
-            {filteredEventManagers.map((eventsManager) => (
+            {filteredEventManagers.map((eventManager) => (
               <li
-                key={eventsManager.id}
+                key={eventManager.id}
                 className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-7 items-center justify-between"
               >
                 <div className="flex items-center col-span-1">
@@ -130,25 +133,27 @@ const EventsManagers = () => {
                     <BsPersonFill className="text-purple-800" />
                   </div>
                   <p className="pl-4">
-                  <Link href={`/eventsOfUser/${eventsManager.id}`}>
-                    {eventsManager.id}
-                  </Link>
+                    <Link href={`/eventsOfUser/${eventManager.id}`}>
+                      {eventManager.id}
+                    </Link>
                   </p>
                 </div>
                 <p className="col-span-1 text-gray-600">
-                  {eventsManager.first_name + " " + eventsManager.last_name}
+                  {eventManager.first_name + " " + eventManager.last_name}
                 </p>
                 <p className="hidden md:flex col-span-1">
-                  {eventsManager.email}
+                  {eventManager.email}
                 </p>
-                <p className="col-span-1">{eventsManager.birthday}</p>
+                <p className="col-span-1">{eventManager.birthday}</p>
                 <p className="hidden md:flex col-span-1">
-                  {eventsManager.phone}
+                  {eventManager.phone}
                 </p>
-                <p className="hidden md:flex col-span-1">{eventsManager.organization}</p>
+                <p className="hidden md:flex col-span-1">
+                  {eventManager.organization}
+                </p>
                 <div className="hidden sm:flex col-span-1 justify-between items-center">
                   <DeleteButton
-                    onClick={() => confirmDelete(eventsManager.id)}
+                    onClick={() => confirmDelete(eventManager.id)}
                   />
                 </div>
               </li>

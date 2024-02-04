@@ -11,12 +11,12 @@ const EventsManagers = () => {
   const [searchQuery, setSearchQuery] = useState("")
 
   const fetchEventManagers = async () => {
-    const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
+    // const token = "1|1D3xR0TYhixGNT64W4752rly4Lqsgb47XAc9LdUo8cf6e7c3"
     try {
       const res = await fetch(`http://127.0.0.1:8000/api/eventManagers`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
           Accept: "application/json",
         },
