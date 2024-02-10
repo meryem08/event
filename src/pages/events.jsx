@@ -6,13 +6,13 @@ import DeleteButton from "@/components/Dashboard/DeleteButton.jsx"
 // Importez la data.js si nécessaire
 // import { data } from "../data/data.js";
 
-const EventsManagers = () => {
-  const [eventManagers, setEventManagers] = useState([])
+const Events = () => {
+  const [events, setEvents] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
 
-  const fetchEventManagers = async () => {
+  const fetchEvents = async () => {
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/approvedEventManagers`, {
+      const res = await fetch(`http://127.0.0.1:8000/api/allevents`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -26,52 +26,51 @@ const EventsManagers = () => {
       }
 
       const json = await res.json()
-      setEventManagers(json)
+      setEvents(json)
     } catch (error) {
       console.error("Une erreur s'est produite :", error)
     }
   }
-  const fetchEvent = async (managerId) => {
-    try {
-      const res = await fetch(`http://127.0.0.1:8000/api/events/${managerId}`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      })
+  // const fetchEvent = async (managerId) => {
+  //   try {
+  //     const res = await fetch(`http://127.0.0.1:8000/api/events/${managerId}`, {
+  //       method: "GET",
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem('token')}`,
+  //         "Content-Type": "application/json",
+  //         Accept: "application/json",
+  //       },
+  //     })
 
-      if (!res.ok) {
-        throw new Error("Réponse de l'API pour les événements non valide")
-      }
+  //     if (!res.ok) {
+  //       throw new Error("Réponse de l'API pour les événements non valide")
+  //     }
 
-      const eventsData = await res.json()
-      // Mettez à jour l'état des événements pour ce gestionnaire d'événements
-      setEvents((prevEvents) => ({
-        ...prevEvents,
-        [managerId]: eventsData,
-      }))
-    } catch (error) {
-      console.error(
-        "Une erreur s'est produite lors de la récupération des événements :",
-        error,
-      )
-    }
-  }
+  //     const eventsData = await res.json()
+  //     // Mettez à jour l'état des événements pour ce gestionnaire d'événements
+  //     setEvents((prevEvents) => ({
+  //       ...prevEvents,
+  //       [managerId]: eventsData,
+  //     }))
+  //   } catch (error) {
+  //     console.error(
+  //       "Une erreur s'est produite lors de la récupération des événements :",
+  //       error,
+  //     )
+  //   }
+  // }
 
-  const [events, setEvents] = useState([])
 
   useEffect(() => {
-    fetchEventManagers()
-    fetchEvent()
+    // fetchEventManagers()
+    fetchEvents()
   }, [])
 
   const handleDelete = (id) => {
-    const updatedEventManagers = eventManagers.filter(
-      (eventsManager) => eventsManager.id !== id,
+    const updatedEvents = events.filter(
+      (events) => event.id !== id,
     )
-    setEventManagers(updatedEventManagers)
+    setEvents(updatedEvents)
     alert("L'élément a été supprimé !")
   }
 
@@ -87,13 +86,13 @@ const EventsManagers = () => {
   }
 
   // Fonction pour filtrer les EventManagers en fonction de la recherche
-  const filteredEventManagers = eventManagers.filter(
-    (eventsManager) =>
-      eventsManager.first_name
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase()) ||
-      eventsManager.last_name.toLowerCase().includes(searchQuery.toLowerCase()),
-  )
+  // const filteredEvents = events.filter(
+  //   (event) =>
+  //     event.eventTitle
+  //       .toLowerCase()
+  //       .includes(searchQuery.toLowerCase()) ||
+  //     event.last_name.toLowerCase().includes(searchQuery.toLowerCase()),
+  // )
 
   return (
     <Layout>
@@ -108,59 +107,43 @@ const EventsManagers = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
 
-          <div className=" p-2 grid grid-cols-9 items-center justify-between cursor-pointer">
+          <div className=" p-2 grid grid-cols-6 items-center justify-between cursor-pointer">
             <span>Identifiant</span>
             <span className="">Event Title</span>
-            <span className="hidden md:grid">Name Event Manager</span>
+            <span className="hidden md:grid">Event Manager</span>
             <span className="hidden md:grid">Email</span>
             <span className="hidden md:grid">Sector</span>
-            <span className="hidden md:grid">Country</span>
-            <span className="hidden md:grid">Starting Date</span>
-            <span className="hidden md:grid">Ending Date</span>
-            <span className="hidden sm:grid">Delete</span>
+            {/* <span className="hidden md:grid">Country </span> */}
+            {/* <span className="hidden md:grid">Starting Date</span>
+            <span className="hidden md:grid">Ending Date</span> */}
+            <span className="hidden sm:grid"></span>
           </div>
           <ul>
-            {filteredEventManagers.map((eventsManager) => (
+            {events.map((event) => (
               <li
-                key={eventsManager.id}
-                className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-9 items-center justify-between"
+                key={event.id}
+                className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-6 items-center justify-between"
               >
                 <div className="flex items-center">
                   <div className="bg-purple-100 p-3 rounded-lg">
                     <BsPersonFill className="text-purple-800" />
                   </div>
-                  <p className="pl-4">{eventsManager.id}</p>
+                  <p className="pl-4">{event.id}</p>
                 </div>
-                <p className="hidden md:flex">fashion event</p>
+                <p className="hidden md:flex">{event.event.eventTitle}</p>
                 <p className="text-gray-600 sm:text-left text-right">
-                  {eventsManager.first_name + " " + eventsManager.last_name}
+                  {event?.eventManager?.first_name + " " + event?.eventManager.last_name}
                 </p>
-                <p className="hidden md:flex">{eventsManager.email + "  "}</p>
-                <p className="hidden md:flex pr-15">{"   "}fashion</p>
-                <p className="hidden md:flex">Algeria</p>
-                <p className="hidden md:flex">2024-01-04</p>
-                <p className="hidden md:flex">2024-01-10</p>
+                <p className="hidden md:flex">{event?.eventManager?.email + "  "}</p>
+                <p className="hidden md:flex pr-15">{event?.event?.sector}</p>
+                {/* <p className="hidden md:flex"> {event?.event?.country}</p> */}
+                {/* <p className="hidden md:flex"></p> */}
+                {/* <p className="hidden md:flex">{event?.event?.endingDate}</p> */}
 
-                {/* {events.map(event => (<>
-                  <p className="text-gray-600 sm:text-left text-right">
-                  {event.eventTitle}
-                </p></>
-              ))} */}
-
-                {/* {events[eventsManager.id] && (
-                  <React.Fragment key={eventsManager.id}>
-                    <p className="pl-4">
-                      Event Title: {events[eventsManager.id].eventTitle}
-                    </p>
-                    <p className="pl-4">
-                      Nombre Events: {events[eventsManager.id].length}
-                    </p>
-                  </React.Fragment>
-                )} */}
 
                 <div className="sm:flex hidden justify-between items-center">
                   <DeleteButton
-                    onClick={() => confirmDelete(eventsManager.id)}
+                    onClick={() => confirmDelete(events.id)}
                   />
                 </div>
               </li>
@@ -172,4 +155,4 @@ const EventsManagers = () => {
   )
 }
 
-export default EventsManagers
+export default Events

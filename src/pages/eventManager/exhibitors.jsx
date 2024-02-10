@@ -5,6 +5,7 @@ import { data } from "@/data/data";
 import { Button } from "@/components/ui/button/index.jsx";
 import Sidebar from "@/components/eventManager/sideBar";
 import Link from "next/link";
+import Layout from "@/components/eventManager/layout";
 
 const Exhibitors = () => {
 
@@ -64,11 +65,9 @@ const Exhibitors = () => {
 
 
   return (   
-    
-    <div className="relative">
-      <Sidebar className='absolute'/>
+    <Layout> 
 
-      <div className="p-4 pl-60 absolute top-5 w-full">
+      <div className="p-4 mt-4 w-full">
         <div className="w-full m-auto p-4 border rounded-lg bg-white overflow-y-auto">
 
           <div className=" p-2 grid grid-cols-5 items-center justify-around cursor-pointer">
@@ -82,7 +81,7 @@ const Exhibitors = () => {
 
           <ul>
           {exhibitors?.map(exhibitor => (
-             <li key={event.id}  
+             <li key={exhibitor.id}  
               className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-5 items-center justify-between"
 
              >
@@ -104,7 +103,8 @@ const Exhibitors = () => {
                  {exhibitor.organization}
                 </p>
                 <p className="pl-4">
-                  n
+                {exhibitor.email}
+
                 </p>
                 
                 <div className="flex ">
@@ -112,7 +112,7 @@ const Exhibitors = () => {
                     <Button onClick={() => confirmDelete(exhibitor.id)}>Delete</Button>
                   </div>
                   <div className="pl-4">
-                    <Button onClick={() => handleShow(exhibitor.id)}>Show</Button>
+                    {/* <Button onClick={() => handleShow(exhibitor.id)}>Show</Button> */}
                   </div>
 
                 {/* <p className="pl-4">
@@ -144,7 +144,7 @@ const Exhibitors = () => {
         
       </div>
       
-    </div>
+      </Layout>
   );
 };
 

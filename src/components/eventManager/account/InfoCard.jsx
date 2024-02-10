@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 function InfoCard() {
   const [eventManagerData, setEventManagerData] = useState(null);
@@ -29,16 +30,24 @@ function InfoCard() {
     fetchEventManagerData();
   }, ); // Added dependency to re-run the effect when the token changes
 
-  if (!eventManagerData) {
-    return <div>Loading...</div>;
-  }
+  // if (!eventManagerData) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
-    <div className=' h-full '>
+    <div className=' h-full m-10'>
       <div className='h-56 bg-white p-4 border-solid border-2 border-gray-100 rounded-md'>
         <div className='flex justify-between'>
           <div className='flex justify-start'>
-            <div className='m-5'>
+          <div className="mb-2 pl- text-center pr-100 ">
+                <Image
+                  src="/images/adminProfile.jpg"
+                  alt="User Profile"
+                  width={200}
+                  height={200}
+                />
+              </div>
+            <div className='m-5 pt-9'>
               <div className='font-bold text-lg'>
                 {eventManagerData.first_name} {eventManagerData.last_name}
               </div>

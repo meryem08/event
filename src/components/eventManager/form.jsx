@@ -15,7 +15,7 @@ export const RegisterForm = () => {
   const [phone, setPhone] = useState("")
   const [organization, setOrganization] = useState("")
   const [password, setPassword] = useState("")
-  const [passwordConfirmation, setPasswordConfirmation] = useState("")
+  const [password_confirmation, setPassword_confirmation] = useState("")
   const [error, setError] = useState(null)
 
   const handleCheckboxChange = (e) => {
@@ -38,7 +38,7 @@ export const RegisterForm = () => {
             phone,
             password,
             organization,
-            passwordConfirmation,
+            password_confirmation,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -170,8 +170,8 @@ export const RegisterForm = () => {
           <Input
             className="w-full"
             required
-            value={passwordConfirmation}
-            onChange={(e) => setPasswordConfirmation(e.target.value)}
+            value={password_confirmation}
+            onChange={(e) => setPassword_confirmation(e.target.value)}
             id=""
             type="password"
           />
