@@ -1,5 +1,5 @@
 import React from 'react'
-import Register from '@/components/exposant/register'
+import Register from '@/components/exhibitor/RegisterExhibitor'
 
 function exposantRegister() {
   return (

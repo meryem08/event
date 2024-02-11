@@ -15,7 +15,7 @@ export const RegisterForm = () => {
   const [phone, setPhone] = useState("")
   const [organization, setOrganization] = useState("")
   const [password, setPassword] = useState("")
-  const [passwordConfirmation, setPasswordConfirmation] = useState("")
+  const [password_confirmation, setPassword_confirmation] = useState("")
   const [error, setError] = useState(null)
 
   const handleCheckboxChange = (e) => {
@@ -38,7 +38,7 @@ export const RegisterForm = () => {
             phone,
             password,
             organization,
-            passwordConfirmation,
+            password_confirmation,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -47,6 +47,10 @@ export const RegisterForm = () => {
         },
       )
       if (res.ok) {
+        const result = await res.json()
+        const token = result.token
+        localStorage.setItem("token", token)
+
         window.location.href = "/eventManager/dashboard"
       } else {
         setError((await res.json()).error)
@@ -116,7 +120,7 @@ export const RegisterForm = () => {
           type="text"
         />
       </div>
-      <div className="flex justify-between w-1/3">
+      {/* <div className="flex justify-between w-1/3">
         <Label>
           <input
             type="checkbox"
@@ -136,7 +140,7 @@ export const RegisterForm = () => {
           />
           Female
         </Label>
-      </div>
+      </div> */}
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="phone">Phone</Label>
         <Input
@@ -166,8 +170,8 @@ export const RegisterForm = () => {
           <Input
             className="w-full"
             required
-            value={passwordConfirmation}
-            onChange={(e) => setPasswordConfirmation(e.target.value)}
+            value={password_confirmation}
+            onChange={(e) => setPassword_confirmation(e.target.value)}
             id=""
             type="password"
           />

@@ -49,9 +49,9 @@ const TopCards = () => {
       console.error("Une erreur s'est produite :", error)
     }
   }
-  const fetchNonApprovedEvents = async () => {
+  const fetchRequests = async () => {
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/requestCount`, {
+      const res = await fetch('http://127.0.0.1:8000/api/managerRequestCount', {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -66,19 +66,19 @@ const TopCards = () => {
       const json = await res.json()
       // console.log(json)
 
-      setNonApprovedEvents(json)
+      setRequests(json)
     } catch (error) {
       console.error("Une erreur s'est produite :", error)
     }
   }
   const [managers, setManagers] = useState("")
   const [events, setEvents] = useState("")
-  const [nonApprovedEvents, setNonApprovedEvents] = useState("")
+  const [requests, setRequests] = useState("")
   //console.log(managers)
   useEffect(() => {
     fetchManagers()
     fetchEvents()
-    fetchNonApprovedEvents()
+    fetchRequests()
   }, [])
 
   return (
@@ -108,7 +108,7 @@ const TopCards = () => {
       <div className=" bg-white flex justify-between w-full border p-4 rounded-lg">
         <Link href="/requests">
           <div className="flex flex-col w-full pb-4">
-            <p className="text-2xl font-bold">{nonApprovedEvents}</p>
+            <p className="text-2xl font-bold">{requests}</p>
             <p className="text-gray-600">Requests</p>
           </div>
         </Link>

@@ -1,101 +1,69 @@
-import React from "react";
+import React from "react"
 import { useState , useEffect } from "react";
+import { BsPersonFill, BsThreeDotsVertical } from "react-icons/bs";
+import { data } from "@/data/data";
+import { Button } from "@/components/ui/button/index.jsx";
 import Sidebar from "@/components/eventManager/sideBar";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-const Requests = () => {
+const Exhibitors = () => {
 
-  const [exhibitors, setExhibitors] = useState([])
-  const [events, setEvents] = useState([])
-  const [searchQuery, setSearchQuery] = useState("")
+  const [exhibitors, setExhibitors] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const fetchExhibitors = async () => {
+    try {
+      const res = await fetch(`http://127.0.0.1:8000/api/approvedExibitors`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+      // console.log(res)
+      if (!res.ok) {
+        throw new Error("Réponse de l'API non valide")
+      }
+      const json = await res.json()
+      console.log(json)
+
+      setExhibitors(json)
+    } catch (error) {
+      console.error("Une erreur s'est produite :", error)
+    }
+  }
+  // const [exhibitors, setEvents] = useState([])
+
 
   useEffect(() => {
-    const fetchRequests = async () => {
-      try {
-        const res = await fetch(
-          `http://127.0.0.1:8000/api/exhibitors/requests`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          },
-        )
+    
+    fetchExhibitors()
+  }, [])
 
-        if (!res.ok) {
-          throw new Error("Réponse de l'API non valide")
-        }
+  const handleDelete = (id) => {
+    const updatedExhibitors = exhibitors.filter((exhibitor) => exhibitor.id !== id);
+    setExhibitors(updatedExhibitors);
+    alert("L'élément a été supprimé !");
+  };
 
-        const json = await res.json()
-        setExhibitors(json)
-      } catch (error) {
-        console.error("Une erreur s'est produite :", error)
-      }
+  const confirmDelete = (id) => {
+    const confirmation = window.confirm("Êtes-vous sûr de vouloir supprimer cet élément ?");
+    if (confirmation) {
+      handleDelete(id);
+    } else {
+      alert("ignored deleting");
     }
+  };
 
-    fetchRequests()
-    // fetchEvents();
-  }, []) // Run the effect once on component mount
+  // Fonction pour filtrer les EventManagers en fonction de la recherche
+  // const filteredExhibitors = exhibitors.filter((exhibitor) =>
+  // exhibitor.name.first.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  // exhibitor.name.last.toLowerCase().includes(searchQuery.toLowerCase())
+  // );
 
-  const handleApprove = async (id) => {
-    try {
-      const res = await fetch(
-        `http://127.0.0.1:8000/api/approveEventManager/${id}`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        },
-      )
 
-      if (!res.ok) {
-        throw new Error("Réponse de l'API pour l'approbation non valide")
-      }
-
-      // Rafraîchissez la liste des événements après l'approbation
-      fetchEventManagers()
-    } catch (error) {
-      console.error(
-        "Une erreur s'est produite lors de l'approbation de l'événement :",
-        error,
-      )
-    }
-  }
-
-  const handleReject = async (id) => {
-    try {
-      const res = await fetch(
-        `http://127.0.0.1:8000/api/rejectEventManager/${id}`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        },
-      )
-
-      if (!res.ok) {
-        throw new Error("Réponse de l'API pour le rejet non valide")
-      }
-
-      // Rafraîchissez la liste des événements après le rejet
-      fetchEventManagers()
-    } catch (error) {
-      console.error(
-        "Une erreur s'est produite lors du rejet de l'événement :",
-        error,
-      )
-    }
-  }
-
-  return ( 
+  return (   
     
     <div className="relative">
       <Sidebar className='absolute'/>
@@ -123,7 +91,7 @@ const Requests = () => {
                 <div className="flex items-center">
                   <div className="bg-purple-100 p-3 rounded-lg">
                     
-                    {/* <BsPersonFill className="text-purple-800" /> */}
+                    <BsPersonFill className="text-purple-800" />
                   </div>
                  
                 </div>
@@ -180,4 +148,4 @@ const Requests = () => {
   );
 };
 
-export default Requests
+export default Exhibitors

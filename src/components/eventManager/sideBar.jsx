@@ -56,10 +56,16 @@ import { useState } from 'react';
             </div>
             </Link>
 
-            <Link href='/eventManager/exposants'>
+            <Link href='/eventManager/exhibitors'>
             <div className='p-2.5 mt-3 flex items-center rounded-xl px-4 duration-300 cursor-pointer  hover:bg-purple-800 text-black' >
              <BsCardChecklist/>
-              <div className='text-[15px] ml-4 text-black'>Exposants</div>
+              <div className='text-[15px] ml-4 text-black'>Exhibitors</div>
+            </div>
+            </Link>
+            <Link href='/eventManager/requests'>
+            <div className='p-2.5 mt-3 flex items-center rounded-xl px-4 duration-300 cursor-pointer  hover:bg-purple-800 text-black' >
+             <BsCardChecklist/>
+              <div className='text-[15px] ml-4 text-black'>Requests</div>
             </div>
             </Link>
 

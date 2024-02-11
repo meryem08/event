@@ -9,22 +9,20 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import EventInfo from "./eventInfo"
+import EventInfo from "../eventInfo"
 
-// Importez la data.js si nécessaire
-// import { data } from "../data/data.js";
 
 const Events = () => {
   const [searchQuery, setSearchQuery] = useState("")
+  const [deleting , setDeleting] = useState('')
  
 
   const fetchEvents = async () => {
-    const token = "2|RV9PdKpfS1J7Mfkfcfau9PA0l2PTveLVMMTvoVcu0558ccf0"
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/approvedEvents`, {
+      const res = await fetch(`http://127.0.0.1:8000/api/events`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
           "Content-Type": "application/json",
           Accept: "application/json",
         },
@@ -41,7 +39,6 @@ const Events = () => {
       console.error("Une erreur s'est produite :", error)
     }
   }
-
   const [events, setEvents] = useState([])
 
 
@@ -50,40 +47,46 @@ const Events = () => {
     fetchEvents()
   }, [])
 
-  // const handleDelete = (id) => {
-  //   const updatedEvents = events.filter(
-  //     (events) => events.id !== id,
-  //   )
-  //   setEvents(updatedEvents)
-  //   alert("L'élément a été supprimé !")
-  // }
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/event/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
 
-  // const confirmDelete = (id) => {
-  //   const confirmation = window.confirm(
-  //     "Êtes-vous sûr de vouloir supprimer cet élément ?",
-  //   )
-  //   if (confirmation) {
-  //     handleDelete(id)
-  //   } else {
-  //     alert("Suppression annulée.")
-  //   }
-  // }
+      if (response.ok) {
+        // If the deletion was successful, refetch the events
+        fetchEvents()
+        console.log('Event deleted successfully!');
+      } else {
+        // Handle deletion failure
+        const errorMessage = await response.text();
+        console.error('Error deleting event:', errorMessage);
+      }
+    } catch (error) {
+      console.error('An error occurred during the request.', error);
+    }
+  };
 
-  // // Fonction pour filtrer les EventManagers en fonction de la recherche
+  const confirmDelete = (id) => {
+    const confirmation = window.confirm(
+      "Are you sure you want to delete this event ?"
+    );
 
-
-  
+    if (confirmation) {
+      handleDelete(id);
+    } else {
+      alert("ignore the deleting");
+    }
+  };
 
   return (
     <div className="relative">
       <Sidebar className='absolute'/>
-{/* //   Events:
-//   {events.map(event => (
-//     <div key={event}>
-//       {event.eventTitle}
-//     </div>
-//   ))}
-// </div> */}
 
       <div className="p-4 pl-60 absolute top-5 w-full">
         <div className="w-full m-auto p-4 border rounded-lg bg-white overflow-y-auto">
@@ -92,22 +95,25 @@ const Events = () => {
             <span>Identifiant</span>
             <span className="hidden md:grid">Event Title</span>
             <span className="hidden md:grid ">Sector</span>
-            <span className="hidden md:grid">Nombre exposants</span>
+            <span className="hidden md:grid"></span>
             <span className="hidden sm:grid"></span>
             <span className="hidden sm:grid"></span>
           </div>
 
           <ul>
-          {events.map(event => (
+          {events?.map(event => (
             
-              <li 
+              <Link
+                href={`/eventManager/events/${event.id}`}
                 key={event.id}
                 className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-5 items-center justify-between"
               >
+                
                 <div className="flex items-center">
+
                   <div className="bg-purple-100 p-3 rounded-lg">
-                    
-                    <BsPersonFill className="text-purple-800" />
+                    {/* <BsPersonFill className="text-purple-800" /> */}
+                     {event.id}
                   </div>
                  
                 </div>
@@ -119,15 +125,23 @@ const Events = () => {
                 <p className="hidden md:flex">
                   {event.sector}
                 </p>
-                <p className="pl-4">
-                  n
+                {/* <p className="pl-4">
+                  
                 </p>
-                
+                 */}
                 <div className="flex ">
-                  <p className="pl-4">
-                  <Button>Delete</Button>
-                </p>
-                <p className="pl-4">
+                  <div className="pl-4">
+                    <Button onClick={() => confirmDelete(event.id)}>Delete</Button>
+                  </div>
+
+                  {/* <div className="pl-4">
+                    <Button onClick={() => handleShow(event.id)}>Show</Button>
+                  </div> */}
+
+                  <div className="pl-4">
+                    <Button onClick={() => confirmDelete(event.id)}>edit</Button>
+                  </div>
+                {/* <p className="pl-4">
                 <Popover>
                     <PopoverTrigger>
                       <Button>view</Button> 
@@ -136,14 +150,12 @@ const Events = () => {
                       <EventInfo/>
                     </PopoverContent>
                 </Popover>
-
-                  
-                </p>
+                </p> */}
                 </div>
-                
+{/*                 
                 <div className="sm:flex hidden justify-between items-center">
-              </div>
-              </li>
+              </div> */}
+              </Link>
             ))}
           </ul>
           
