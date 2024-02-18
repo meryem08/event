@@ -10,8 +10,14 @@ import { data } from 'autoprefixer';
 import { useParams } from "next/navigation";
 import {useEffect } from "react";
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+
 
 function RegisterExhibitor() {
+  const router = useRouter();
+  const { id } = router.query;
+  const [event, setEvent] = useState({});
+
 
   const [first_name, setFirst_name] = useState('');
   const [last_name, setLast_name] = useState('');
@@ -22,72 +28,156 @@ function RegisterExhibitor() {
   const [password, setPassword] = useState('');
   const [password_confirmation, setPassword_confirmation] = useState('');
 
-  const { id } = useParams();
-  const [event, setEvent] = useState({});
+  // const { id } = useParams();
+  // const [event, setEvent] = useState({});
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`http://127.0.0.1:8000/api/event/${id}`);
 
-        if (response.ok) {
-          const eventData = await response.json(); // Removed array destructuring
-          setEvent(eventData);
-        } else {
-          console.error("Error fetching data:", response.status);
-        }
-      } catch (error) {
-        console.error("An error occurred:", error);
-      }
-    };
+  //   const router = useRouter();
+  //   const { id } = router.query;
+  //   const [event, setEvent] = useState({});
+  
+  // console.log(id)
+  
+  //   useEffect(() => {
+  //     const fetchData = async () => {
+  //       try {
+         
+  //         if (id) {
+  //           const response = await fetch(`http://127.0.0.1:8000/api/event/${id}`);
+  
+  //         if (response.ok) {
+  //           const eventData = await response.json(); // Removed array destructuring
+  //           setEvent(eventData);
+  //         } else {
+  //           console.error("Error fetching data:", response.status);
+  //         }}
+  //       } catch (error) {
+  //         console.error("An error occurred:", error);
+  //       }
+  //     };
+  
+  //     fetchData();
+  //   }, [id] );
+  // console.log(id)
 
-    fetchData();
-  }, [id]);
+// ... (previous code)
 
+// const HandleRegister = async (e) => {
+//   e.preventDefault();
+  // const router = useRouter();
+  // const { id } = router.query;
+  // const [event, setEvent] = useState({});
+  // const { id } = router.query;
+
+// console.log(id)
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+       
+//         if (id) {
+//           const response = await fetch(`http://127.0.0.1:8000/api/event/${id}`);
+
+//         if (response.ok) {
+//           const eventData = await response.json(); // Removed array destructuring
+//           setEvent(eventData);
+//         } else {
+//           console.error("Error fetching data:", response.status);
+//         }}
+//       } catch (error) {
+//         console.error("An error occurred:", error);
+//       }
+//     };
+// console.log(id)
+//     fetchData();
+//   }, [id] );
+
+
+  
+  // Data to send to the API
+//   const formData = {
+//     first_name,
+//     last_name,
+//     birthday,
+//     phone,
+//     organization,
+//     email,
+//     password,
+//     password_confirmation,
+//   };
+
+//   try {
+       
+//     if (id) {
+//       const response = await fetch(`http://127.0.0.1:8000/api/event/${id}/register`);
+
+//     if (response.ok) {
+//       const eventData = await response.json(); // Removed array destructuring
+//       setEvent(eventData);
+//     } else {
+//       console.error("Error fetching data:", response.status);
+//     }}
+//   } catch (error) {
+//     console.error("An error occurred:", error);
+//   }
+// };
+// // ... (remaining code)
+// import { useRouter } from 'next/router';
+// import { useState } from 'react';
+
+// const EventRegisterPage = () => {
+  // const router = useRouter();
+  // const { id } = router.query;
+
+
+  // const handleInputChange = (e) => {
+  //   setFormData({
+  //     ...formData,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
   const handleRegister = async (e) => {
     e.preventDefault();
-  
-    // Les données à envoyer à l'API
-    const formData = {
-        first_name,
-        last_name,
-        birthday,
-        phone,
-        organization,
-        email,
-        password,
-        password_confirmation
-    };
-  
+
     try {
       const response = await fetch(`http://127.0.0.1:8000/api/event/${id}/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
+          Accept: 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          first_name,
+          last_name,
+          birthday,
+          email,
+          phone,
+          password,
+          organization,
+          password_confirmation,
+        }
+          
+        ),
       });
-        if (response.ok) {
+
+      if (response.ok) {
         const result = await response.json();
         const token = result.token;
         localStorage.setItem('token', token);
-  
-        // Authentification réussie : redirigez l'utilisateur
-        window.location.href = '/Exhibitor/dashboard'; // Redirigez vers la page du tableau de bord
+
+        // Successful registration: redirect the user
+        router.push('/exhibitor/profile'); // Redirect to the dashboard page
       } else {
-        // Authentification échouée : affichez le message d'erreur
-        const errorMessage = await response.text(); // Récupérez le message d'erreur depuis la réponse
-        const errorMessageElement = document.getElementById('error-message');
-        errorMessageElement.textContent = errorMessage;
+        // Registration failed: display the error message
+        const errorMessage = await response.text();
+        console.error(errorMessage);
       }
     } catch (error) {
-      console.error('Une erreur s\'est produite lors de la demande.', error);
+      console.error('An error occurred during the registration request.', error);
     }
- 
-console.log(formData); 
-}
+  };
+
   return (
     <>
     <div>
@@ -111,7 +201,8 @@ console.log(formData);
              <div className='flex'>
                <div className="m-2 rounded ">
                 <input
-                  placeholder='first_name'
+                  placeholder='first name'
+                  name='first_name'
                   type="text"
                   className="p-2 text-white bg-transparent rounded w-full focus:outline-none border-b-2 border-white focus:border-purple-600 transition duration-500 px-3 pb-3 hover: bg-transparent"
                   value={first_name}
@@ -121,7 +212,7 @@ console.log(formData);
 
               <div className="m-2 rounded">
                 <input
-                  placeholder='last_name'
+                  placeholder='last name'
                   type="text"
                   className="p-2 text-white bg-transparent rounded w-full focus:outline-none border-b-2 border-white focus:border-purple-600 transition duration-500 px-3 pb-3 hover: bg-transparent"
                   value={last_name}

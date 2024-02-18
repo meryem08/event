@@ -33,6 +33,7 @@ const Home = () => {
     fetchData();
   }, [id] );
 console.log(event)
+
   return (
     <div className="">
       {event && (
@@ -41,10 +42,11 @@ console.log(event)
           <div>
       <div>
         <div className='md:flex'>
-          <Image alt='' src="/Images/slider2.jpg" width={250} height={150} className='w-[100%] md:w-[100%] p-2 m-2 rounded-md'/>
+        {/* {event?.event?.photo} */}
+          {/* <img alt={event?.event?.photo} src={`data:image/png,${event?.event?.photo}`} width={250} height={150} className='w-[100%] md:w-[100%] p-2 m-2 rounded-md'/> */}
           <div>
               <h1 className='text-4xl font-semibold p-2 m-2'>{event?.event?.eventTitle}</h1>
-              <p className='p-2 m-2 text-purple-600 font-semibold'>20 july 2024</p>
+              <p className='p-2 m-2 text-purple-600 font-semibold'>{event?.event?.startingDate}</p>
               <h1 className='font-bold p-2 m-2'>summary </h1>
               <p className='w-96 p-2 m-2'>
                 {event?.event?.summary}
@@ -99,7 +101,9 @@ console.log(event)
       </div>  
       <div className='p-12 m-2 absolute right-0 font-semibold'>
           Are you an exhibitor ?
-          <Link href={`./${event.id}/Register`} className='hover:text-purple-600 hover:underline decoration-solid'>
+          <Link        
+                href={`/eventManager/events/${event?.event?.id}/Register`}
+                key={event.id} className='hover:text-purple-600 hover:underline decoration-solid'>
             Register in this event!
           </Link>
 

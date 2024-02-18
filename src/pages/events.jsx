@@ -7,6 +7,7 @@ import DeleteButton from "@/components/Dashboard/DeleteButton.jsx"
 // Importez la data.js si nécessaire
 // import { data } from "../data/data.js";
 
+
 const Events = () => {
   const [events, setEvents] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
@@ -42,10 +43,37 @@ const Events = () => {
   //         Accept: "application/json",
   //       },
   //     })
+  // const fetchEvent = async (managerId) => {
+  //   try {
+  //     const res = await fetch(`http://127.0.0.1:8000/api/events/${managerId}`, {
+  //       method: "GET",
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem('token')}`,
+  //         "Content-Type": "application/json",
+  //         Accept: "application/json",
+  //       },
+  //     })
 
   //     if (!res.ok) {
   //       throw new Error("Réponse de l'API pour les événements non valide")
   //     }
+  //     if (!res.ok) {
+  //       throw new Error("Réponse de l'API pour les événements non valide")
+  //     }
+
+  //     const eventsData = await res.json()
+  //     // Mettez à jour l'état des événements pour ce gestionnaire d'événements
+  //     setEvents((prevEvents) => ({
+  //       ...prevEvents,
+  //       [managerId]: eventsData,
+  //     }))
+  //   } catch (error) {
+  //     console.error(
+  //       "Une erreur s'est produite lors de la récupération des événements :",
+  //       error,
+  //     )
+  //   }
+  // }
 
   //     const eventsData = await res.json()
   //     // Mettez à jour l'état des événements pour ce gestionnaire d'événements
@@ -65,17 +93,20 @@ const Events = () => {
   useEffect(() => {
     // fetchEventManagers()
     fetchEvents()
+    
   }, [])
 
   const handleDelete = (id) => {
+
     const updatedEvents = events.filter(
-      (events) => event.id !== id,
+      (event) => event.id !== id,
     )
     setEvents(updatedEvents)
+   
     alert("L'élément a été supprimé !")
   }
 
-  const confirmDelete = (id) => {
+  
     const confirmation = window.confirm(
       "Êtes-vous sûr de vouloir supprimer cet élément ?",
     )
@@ -84,7 +115,7 @@ const Events = () => {
     } else {
       alert("Suppression annulée.")
     }
-  }
+  
   // Fonction pour filtrer les EventManagers en fonction de la recherche
   // const filteredEvents = events.filter(
   //   (event) =>
@@ -107,7 +138,7 @@ const Events = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
 
-          <div className=" p-2 grid grid-cols-9 items-center justify-between cursor-pointer">
+          <div className=" p-2 grid grid-cols-6 items-center justify-between cursor-pointer">
             <span>Identifiant</span>
             <span className="">Event Title</span>
             <span className="hidden md:grid">Event Manager</span>
@@ -120,6 +151,7 @@ const Events = () => {
           </div>
           <ul>
             {events.map((event) => (
+           
               <li
                 key={event.id}
                 className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-9 items-center justify-between"
@@ -130,6 +162,7 @@ const Events = () => {
                   </div>
                   <p className="pl-4">{event.event.id}</p>
                 </div>
+                <p className="hidden md:flex">{event.event.eventTitle}</p>
                 <p className="hidden md:flex">{event.event.eventTitle}</p>
                 <p className="text-gray-600 sm:text-left text-right">
                 {event?.eventManager?.first_name + " " + event?.eventManager.last_name}
@@ -159,7 +192,7 @@ const Events = () => {
 
                 {/* <div className="sm:flex hidden justify-between items-center">
                   <DeleteButton
-                    onClick={() => confirmDelete(eventsManager.id)}
+                    onClick={() => confirmDelete(events.id)}
                   />
                 </div> */}
                 <Link href=''>
@@ -172,6 +205,6 @@ const Events = () => {
       </div>
     </Layout>
   )
-}
+              }
 
 export default Events

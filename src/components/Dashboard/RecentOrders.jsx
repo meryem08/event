@@ -38,6 +38,7 @@ const RecentOrders = () => {
   return (
     <div className="w-full col-span-1 relative lg:h-[70vh] h-[50vh] m-auto p-4 border rounded-lg bg-white overflow-scroll">
       <h1>Recent Requests </h1>
+
       <ul>
         {requests.map((request, id) => (
           <li
@@ -47,6 +48,7 @@ const RecentOrders = () => {
             <div className="bg-purple-100 rounded-lg p-3">
               <FaShoppingBag className="text-purple-800" />
             </div>
+
             <div className="pr-20">
               <p className="text-gray-800 font-bold">
                 {request.first_name + " " + request.last_name}

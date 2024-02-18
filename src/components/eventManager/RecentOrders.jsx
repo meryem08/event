@@ -7,14 +7,14 @@ import { useState , useEffect } from 'react';
     const [exposants, setExposants] = useState([]);
   
     const fetchExposants = async () => {
-      const token = "20|C2X1k4yhZh65UIfTBnKg8mv2FWht47RqG8yrGo5b35b459ab";
       try {
-        const res = await fetch(`http://127.0.0.1:8000/api/exposantShow`, {
+        const res = await fetch(`http://127.0.0.1:8000/api/exhibitors/requests`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
             Accept: "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
   
@@ -34,13 +34,13 @@ import { useState , useEffect } from 'react';
     }, []);
 
   return (
-    <div className='w-full col-span-1 lg:h-[70vh] h-[50vh] m-1 p-4 border rounded-lg bg-white overflow-scroll '>
+    <div className='w-full relative col-span-1 lg:h-[60vh] h-[50vh] m-1 p-2 border rounded-lg bg-white overflow-scroll '>
       <h1>Recent exposants</h1>
       <ul>
       {exposants.map((exposant) => (
           <li
             key={exposant.id} // Ensure each item has a unique key
-            className='w-900 bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 flex items-center cursor-pointer'
+            className=' bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 flex items-center cursor-pointer'
           >
             <div className='bg-purple-100 rounded-lg p-3'>
               <FaShoppingBag className='text-purple-800' />

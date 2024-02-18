@@ -114,7 +114,7 @@ function BarChart() {
           border: "1 px" ,
           borderRadius: "5px",
           marginRight:"20px",
-          width: "800px",
+          width: "700px",
           height: "400px",
           padding: "20px",
           cursor: "pointer",

@@ -95,14 +95,30 @@ const SideBar = forwardRef(({ showNav }, ref) => {
   return (
     <div ref={ref} className=" w-56 fixed bg-white ">
       <div className="flex justify-center mt-2 mb-3  ">
-        <h1 className="text-4xl font-bold  text-purple-500">MyEvent</h1>
+        <h1 className="text-4xl font-bold  text-blue-400">MyEvent</h1>
       </div>
 
-      <div className="flex flex-col rounded-tr-3xl  h-screen bg-purple-300 p-4">
-        <Link href="/eventManager/dashboard">
+      <div className="flex flex-col rounded-tr-3xl  h-screen bg-blue-200 p-4">
+      <Link href="/exhibitor/profile">
           <div
             className={`pl-6 py-3 mx-5 rounded-3xl text-center cursor-pointer mb-3 flex items-center transition-colors ${
-              router.pathname == "eventManager/dashboard"
+              router.pathname == "/exhibitor/profile"
+              ? "bg-white text-black"
+              : "text-black hover:bg-white hover:text-blue-950"
+          }`}
+          >
+            <div className="mr-2">
+              <BriefcaseIcon className="h-5 w-5" />
+            </div>
+            <div>
+              <p>Profile</p>
+            </div>
+          </div>
+        </Link>
+        <Link href="/exhibitor/account">
+          <div
+            className={`pl-6 py-3 mx-5 rounded-3xl text-center cursor-pointer mb-3 flex items-center transition-colors ${
+              router.pathname == "/exhibitor/account"
                 ? "bg-white text-black"
                 : "text-black hover:bg-white hover:text-purple-950"
             }`}
@@ -111,27 +127,28 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               <HomeIcon className="h-5 w-5" />
             </div>
             <div>
-              <p>Dashboard</p>
-            </div>
-          </div>
-        </Link>
-        <Link href="/eventManager/account">
-          <div
-            className={`pl-6 py-3 mx-5 rounded-3xl text-center cursor-pointer mb-3 flex items-center transition-colors ${
-              router.pathname == "/eventManager/account"
-              ? "bg-white text-black"
-              : "text-black hover:bg-white hover:text-purple-950"
-          }`}
-          >
-            <div className="mr-2">
-              <BriefcaseIcon className="h-5 w-5" />
-            </div>
-            <div>
               <p>Account</p>
             </div>
           </div>
         </Link>
-        <Link href="/eventManager/events">
+        <Link href="/exhibitor/products">
+          <div
+            className={`pl-6 py-3 mx-5 rounded-3xl text-center cursor-pointer mb-3 flex items-center transition-colors ${
+              router.pathname == "/exhibitor/products"
+                ? "bg-white text-black"
+                : "text-black hover:bg-white hover:text-purple-950"
+            }`}
+          >
+            <div className="mr-2">
+              <HomeIcon className="h-5 w-5" />
+            </div>
+            <div>
+              <p>Products</p>
+            </div>
+          </div>
+        </Link>
+        
+        {/* <Link href="/eventManager/events">
           <div
             className={`pl-6 py-3 mx-5 rounded-3xl text-center cursor-pointer mb-3 flex items-center transition-colors ${
               router.pathname == "/eventManager/events"
@@ -146,8 +163,8 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               <p>Events</p>
             </div>
           </div>
-        </Link>
-        <Link href="/eventManager/exhibitors">
+        </Link> */}
+        {/* <Link href="/eventManager/exhibitors">
           <div
             className={`pl-6 py-3 mx-5 rounded-3xl text-center cursor-pointer mb-3 flex items-center transition-colors ${
               router.pathname == "/eventManager/exhibitors"
@@ -162,8 +179,8 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               <p>Exhibitors</p>
             </div>
           </div>
-        </Link>
-        <Link href="/eventManager/requests">
+        </Link> */}
+        {/* <Link href="/eventManager/requests">
           <div
             className={`pl-6 py-3 mx-5 rounded-3xl text-center cursor-pointer mb-3 flex items-center transition-colors ${
               router.pathname == "/eventManager/requests"
@@ -178,7 +195,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               <p>Requests</p>
             </div>
           </div>
-        </Link>
+        </Link> */}
       </div>
     </div>
   )

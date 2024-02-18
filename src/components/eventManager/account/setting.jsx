@@ -205,10 +205,10 @@ export const EditForm = () => {
   };
   
   return (
-    <div>
-        
+    <div className='m-10 p-4  bg-white border-solid border-2 border-gray-100 rounded-md'>
         <form onSubmit={onSubmit} className="space-y-4 lg:w-90">
-        <div className="flex align-items space-x-2">
+        <p className='text-2xl font-bold'> Edit your Informations </p>
+        <div className="flex align-items space-x-2">                     
             <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="first_name">First Name</Label>
         <Input

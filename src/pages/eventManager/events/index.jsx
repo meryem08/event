@@ -10,6 +10,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import EventInfo from "../eventInfo"
+import Layout from "@/components/eventManager/layout"
 
 
 const Events = () => {
@@ -85,10 +86,11 @@ const Events = () => {
   };
 
   return (
-    <div className="relative">
-      <Sidebar className='absolute'/>
+    <Layout>
+    <div >
+      {/* <Sidebar className='absolute'/> */}
 
-      <div className="p-4 pl-60 absolute top-5 w-full">
+      <div className="p-4 top-5 w-full">
         <div className="w-full m-auto p-4 border rounded-lg bg-white overflow-y-auto">
 
           <div className=" p-2 grid grid-cols-5 items-center justify-around cursor-pointer">
@@ -138,9 +140,9 @@ const Events = () => {
                     <Button onClick={() => handleShow(event.id)}>Show</Button>
                   </div> */}
 
-                  <div className="pl-4">
+                  {/* <div className="pl-4">
                     <Button onClick={() => confirmDelete(event.id)}>edit</Button>
-                  </div>
+                  </div> */}
                 {/* <p className="pl-4">
                 <Popover>
                     <PopoverTrigger>
@@ -170,6 +172,7 @@ const Events = () => {
       </div>
       
     </div>
+    </Layout>
   )
 }
 
