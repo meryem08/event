@@ -7,7 +7,6 @@ import DeleteButton from "@/components/Dashboard/DeleteButton.jsx"
 // Importez la data.js si nécessaire
 // import { data } from "../data/data.js";
 
-
 const Events = () => {
   const [events, setEvents] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
@@ -17,7 +16,7 @@ const Events = () => {
       const res = await fetch(`http://127.0.0.1:8000/api/allevents`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
           Accept: "application/json",
         },
@@ -89,33 +88,30 @@ const Events = () => {
   //   }
   // }
 
-
   useEffect(() => {
     // fetchEventManagers()
     fetchEvents()
-    
   }, [])
 
-  const handleDelete = (id) => {
+  // const handleDelete = (id) => {
 
-    const updatedEvents = events.filter(
-      (event) => event.id !== id,
-    )
-    setEvents(updatedEvents)
-   
-    alert("L'élément a été supprimé !")
-  }
+  //   const updatedEvents = events.filter(
+  //     (event) => event.id !== id,
+  //   )
+  //   setEvents(updatedEvents)
 
-  
-    const confirmation = window.confirm(
-      "Êtes-vous sûr de vouloir supprimer cet élément ?",
-    )
-    if (confirmation) {
-      handleDelete(id)
-    } else {
-      alert("Suppression annulée.")
-    }
-  
+  //   alert("L'élément a été supprimé !")
+  // }
+
+  //   const confirmation = window.confirm(
+  //     "Êtes-vous sûr de vouloir supprimer cet élément ?",
+  //   )
+  //   if (confirmation) {
+  //     handleDelete(id)
+  //   } else {
+  //     alert("Suppression annulée.")
+  //   }
+
   // Fonction pour filtrer les EventManagers en fonction de la recherche
   // const filteredEvents = events.filter(
   //   (event) =>
@@ -138,7 +134,7 @@ const Events = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
 
-          <div className=" p-2 grid grid-cols-6 items-center justify-between cursor-pointer">
+          <div className=" p-2 grid grid-cols-9 items-center justify-between cursor-pointer">
             <span>Identifiant</span>
             <span className="">Event Title</span>
             <span className="hidden md:grid">Event Manager</span>
@@ -151,7 +147,6 @@ const Events = () => {
           </div>
           <ul>
             {events.map((event) => (
-           
               <li
                 key={event.id}
                 className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-9 items-center justify-between"
@@ -163,12 +158,16 @@ const Events = () => {
                   <p className="pl-4">{event.event.id}</p>
                 </div>
                 <p className="hidden md:flex">{event.event.eventTitle}</p>
-                <p className="hidden md:flex">{event.event.eventTitle}</p>
+
                 <p className="text-gray-600 sm:text-left text-right">
-                {event?.eventManager?.first_name + " " + event?.eventManager.last_name}
+                  {event?.eventManager?.first_name +
+                    " " +
+                    event?.eventManager.last_name}
                 </p>
-                <p className="hidden md:flex">{event?.eventManager?.email + "  "}</p>
-                <p className="hidden md:flex ">{" "}{event?.event?.sector}</p>
+                <p className="hidden md:flex">
+                  {event?.eventManager?.email + "  "}
+                </p>
+                <p className="hidden md:flex "> {event?.event?.sector}</p>
                 <p className="hidden md:flex"> {event?.event?.country}</p>
                 <p className="hidden md:flex">{event?.event?.startingDate}</p>
                 <p className="hidden md:flex">{event?.event?.endingDate}</p>
@@ -195,8 +194,10 @@ const Events = () => {
                     onClick={() => confirmDelete(events.id)}
                   />
                 </div> */}
-                <Link href=''>
-                <button className="bg-green-300 text-white px-4 py-2 rounded hover:bg-green-400 w-24">Visit</button>
+                <Link href="">
+                  <button className="bg-green-300 text-white px-4 py-2 rounded hover:bg-green-400 w-24">
+                    Visit
+                  </button>
                 </Link>
               </li>
             ))}
@@ -205,6 +206,6 @@ const Events = () => {
       </div>
     </Layout>
   )
-              }
+}
 
 export default Events
