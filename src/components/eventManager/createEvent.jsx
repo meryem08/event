@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Button } from '@/components/ui/button'
-import Packages from '../Dashboard/packages'
+// import React, { useState } from 'react'
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Button } from "@/components/ui/button"
+import Packages from "../Dashboard/packages"
 import {
   Popover,
   PopoverContent,
@@ -339,17 +339,34 @@ export const MyForm = () => {
           type="date"/>
       </div>
 
-        <Button type="submit">Submit</Button>
-
-        <div className="w-full">
-     
-      </div>
-      
-    </form>
+        <div className="mb-4">
+          <label
+            htmlFor="photo"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Photo de l événement
+          </label>
+          <input
+            type="file"
+            id="photo"
+            name="photo"
+            onChange={(e) => handleFileChange(e.target.files)}
+            className="mt-1 p-2 border rounded-md w-full"
+          />
+        </div>
+        <div className="mb-4">
+          <button
+            type="submit"
+            className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+          >
+            Créer l événement
+          </button>
+        </div>
+      </form>
     </div>
     </div>
     </>
   );
 }
 
-export default MyForm;
+export default CreateEvent

@@ -47,10 +47,10 @@ export const RegisterForm = () => {
         },
       )
       if (res.ok) {
-        const result = await res.json();
-        const token = result.token;
-        localStorage.setItem('token', token);
-  
+        const result = await res.json()
+        const token = result.token
+        localStorage.setItem("token", token)
+
         window.location.href = "/eventManager/dashboard"
       } else {
         setError((await res.json()).error)
