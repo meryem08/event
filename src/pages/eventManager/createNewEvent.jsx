@@ -168,6 +168,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import MyForm from "@/components/eventManager/createEvent"
+import Layout from "@/components/eventManager/layout"
 
 function CreateNewEvent() {
   const [eventManagers, setEventManagers] = useState([])
@@ -203,6 +204,7 @@ function CreateNewEvent() {
   }, [])
 
   return (
+    <Layout> 
     <div>
       {/* <Link href="/eventManager/dashboard">
         <button
@@ -217,10 +219,10 @@ function CreateNewEvent() {
           {/* Utilisation de l'objet 'manager' pour vérifier le statut d'approbation */}
           {eventManagers.approved ? (
             <>
-              {/* <p className="text-center text-black text-xl pt-6">
+              <p className="text-center text-black text-xl pt-6">
                 Félicitations ! Vous êtes approuvé pour créer votre page d
                 événement.
-              </p> */}
+              </p>
               <MyForm key={eventManagers.id} />
             </>
           ) : (
@@ -234,6 +236,7 @@ function CreateNewEvent() {
         </div>
       
     </div>
+    </Layout>
   )
 }
 

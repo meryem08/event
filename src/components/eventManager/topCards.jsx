@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 const TopCards = () => {
   const fetchExposants = async () => {
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/approvedExibitorsCount`, {
+      const res = await fetch(`http://127.0.0.1:8000/api/numberOfExhibitors`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -24,7 +24,8 @@ const TopCards = () => {
     } catch (error) {
       console.error("Une erreur s'est produite :", error)
     }
-  }
+  }; 
+
   const fetchEvents = async () => {
     try {
       const res = await fetch(`http://127.0.0.1:8000/api/EventCountOfTheCurrentUser`, {
@@ -94,7 +95,7 @@ const TopCards = () => {
   const [exposants, setExposants] = useState("")
   const [events, setEvents] = useState("")
   const [requests, setRequests] = useState("")
-
+  console.log(exposants);
   //console.log(managers)
   useEffect(() => {
     fetchExposants()
@@ -115,7 +116,13 @@ const TopCards = () => {
         </div>
         <div className='lg:col-span-2 col-span-1 bg-purple-100 flex justify-between w-full border p-4 rounded-lg'>
             <div className='flex flex-col w-full pb-4'>
-                <p className='text-2xl font-bold'>{exposants}</p>
+                <p className='text-2xl font-bold'>
+                <ul>
+                  {/* {exposants?.map((exposant, index) => (
+                    <li key={index}>{exposant}</li>
+                  ))} */}
+                </ul>
+                </p>
                 <p className='text-gray-600'>Exhibitors</p>
             </div>
             {/* <p className='bg-green-200 flex justify-center items-center p-2 rounded-lg'>

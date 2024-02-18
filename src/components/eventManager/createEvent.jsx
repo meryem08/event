@@ -193,7 +193,7 @@ export const MyForm = () => {
 
 
   return (
-  <Layout>
+  <>
     <div className='flex justify-between'>
       
       <div  className='flex justify-around border border-stone-400 rounded-3xl w-[80%] m-12'>
@@ -348,7 +348,7 @@ export const MyForm = () => {
     </form>
     </div>
     </div>
-    </Layout>
+    </>
   );
 }
 

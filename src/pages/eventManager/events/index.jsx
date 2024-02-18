@@ -4,6 +4,8 @@ import { data } from "autoprefixer"
 import React, { useState, useEffect } from "react"
 import { BsPersonFill, BsThreeDotsVertical } from "react-icons/bs"
 import Link from "next/link"
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+
 import {
   Popover,
   PopoverContent,
@@ -12,10 +14,17 @@ import {
 import EventInfo from "../eventInfo"
 import Layout from "@/components/eventManager/layout"
 
+import DropdownMenuDemo from "@/components/exhibitor/menu"
+
+
 
 const Events = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const [deleting , setDeleting] = useState('')
+  const [bookmarksChecked, setBookmarksChecked] = React.useState(true);
+  const [urlsChecked, setUrlsChecked] = React.useState(false);
+  const [person, setPerson] = React.useState('pedro');
+
  
 
   const fetchEvents = async () => {
@@ -93,71 +102,128 @@ const Events = () => {
       <div className="p-4 top-5 w-full">
         <div className="w-full m-auto p-4 border rounded-lg bg-white overflow-y-auto">
 
-          <div className=" p-2 grid grid-cols-5 items-center justify-around cursor-pointer">
+          <div className=" p-2 grid grid-cols-8 items-center justify-around cursor-pointer">
             <span>Identifiant</span>
-            <span className="hidden md:grid">Event Title</span>
+            <span className="hidden md:grid">Event</span>
             <span className="hidden md:grid ">Sector</span>
-            <span className="hidden md:grid"></span>
+            <span className="hidden md:grid">Start in</span>
             <span className="hidden sm:grid"></span>
             <span className="hidden sm:grid"></span>
           </div>
 
           <ul>
           {events?.map(event => (
-            
-              <Link
-                href={`/eventManager/events/${event.id}`}
-                key={event.id}
-                className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-5 items-center justify-between"
+              <li key={event.id}
+               className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-8 items-center justify-between"
               >
-                
-                <div className="flex items-center">
+              {/* <div className="p2">                  
+                <Button >
+                  <Link href={`/eventManager/events/${event.id}`}
+                  > 
+                    Show
+                  </Link>
+                </Button>
+              </div>              */}
 
-                  <div className="bg-purple-100 p-3 rounded-lg">
-                    {/* <BsPersonFill className="text-purple-800" /> */}
-                     {event.id}
-                  </div>
-                 
-                </div>
+              <p className="hidden md:flex">
+              <BsPersonFill/>
+              </p> 
 
-                <p className="text-gray-600 sm:text-left text-right">
+               <p className="hidden md:flex">
                   {event.eventTitle}
-                </p>
+               </p>
 
-                <p className="hidden md:flex">
+               <p className="hidden md:flex">
                   {event.sector}
-                </p>
-                {/* <p className="pl-4">
+               </p>
+               <p className="hidden md:flex">
+                  {event.startingDate}
+               </p> 
+
+               <Button className='w-16'>
+                  <Link href={`/eventManager/events/${event.id}`}
+                  > 
+                    Show
+                  </Link>
+                </Button>
+                <Button className='w-16'>
+                  <Link href={`/eventManager/events/${event.id}`}
+                  > 
+                    edit 
+                  </Link>
+                </Button>
+
+                <Button onClick={() => confirmDelete(event.id)} className='w-16'>
+                  Delete
+                </Button>
                   
-                </p>
-                 */}
-                <div className="flex ">
-                  <div className="pl-4">
-                    <Button onClick={() => confirmDelete(event.id)}>Delete</Button>
-                  </div>
 
-                  {/* <div className="pl-4">
-                    <Button onClick={() => handleShow(event.id)}>Show</Button>
-                  </div> */}
-
-                  {/* <div className="pl-4">
-                    <Button onClick={() => confirmDelete(event.id)}>edit</Button>
-                  </div> */}
-                {/* <p className="pl-4">
-                <Popover>
-                    <PopoverTrigger>
-                      <Button>view</Button> 
-                    </PopoverTrigger>
-                    <PopoverContent>
-                      <EventInfo/>
-                    </PopoverContent>
-                </Popover>
+                {/* <p className="pl-14 w-2">
+                  <BsThreeDotsVertical/>
                 </p> */}
-                </div>
-{/*                 
-                <div className="sm:flex hidden justify-between items-center">
-              </div> */}
-              </Link>
+
+                
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger asChild>
+        <button className='w-4'>
+            <BsThreeDotsVertical />
+        </button>
+          
+        
+      </DropdownMenu.Trigger>
+
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content
+          className="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+          sideOffset={5}
+        >
+          <Link href={`/exhibitor/requests/${event.id}`}>
+          <DropdownMenu.Item
+            className="group text-base m-2 font-semibold text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+            disabled
+          >
+            <button>
+                Requests
+            </button>
+            
+          </DropdownMenu.Item>
+          </Link>
+
+          <Link href={`approveExhibitor/${event.id}`}>
+          
+          <DropdownMenu.Item
+            className="group text-base m-2 font-semibold text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+            disabled
+          >
+            <button>
+                Exhibitors
+            </button>
+            
+          </DropdownMenu.Item>
+          </Link>
+          <DropdownMenu.Arrow className="fill-white" />
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
+
+                </li>  
+                // <div className="flex items-center">
+
+                //   <div className="bg-purple-100 p-3 rounded-lg">
+                //   </div>
+                 
+                // </div>
+
+               
+
+               
+                
+                
+                
+               
+                
+                
+              
             ))}
           </ul>
           
