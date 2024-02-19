@@ -127,11 +127,13 @@ const Events = () => {
                 </Button>
               </div>              */}
 
-                  <p className="hidden md:flex">
-                    <span className="pl-5"> {event.id}</span>
-                  </p>
+              <p className="hidden md:flex">
+              <BsPersonFill/>
+              </p> 
 
-                  <p className="hidden md:flex">{event.eventTitle}</p>
+               <p className="hidden md:flex">
+                  {event.eventTitle}
+               </p>
 
                   <p className="hidden md:flex">{event.sector}</p>
                   <p className="hidden md:flex">{event.summary}</p>
@@ -187,33 +189,46 @@ const Events = () => {
                           </DropdownMenu.Item>
                         </Link>
 
-                        <Link href={`approveExhibitor/${event.id}`}>
-                          <DropdownMenu.Item
-                            className="group text-base m-2 font-semibold text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                            disabled
-                          >
-                            <button>Exhibitors</button>
-                          </DropdownMenu.Item>
-                        </Link>
-                        <DropdownMenu.Arrow className="fill-white" />
-                      </DropdownMenu.Content>
-                    </DropdownMenu.Portal>
-                  </DropdownMenu.Root>
-                </li>
+          <Link href={`approveExhibitor/${event.id}`}>
+          
+          <DropdownMenu.Item
+            className="group text-base m-2 font-semibold text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+            disabled
+          >
+            <button>
+                Exhibitors
+            </button>
+            
+          </DropdownMenu.Item>
+          </Link>
+          <DropdownMenu.Arrow className="fill-white" />
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
+
+                </li>  
                 // <div className="flex items-center">
 
                 //   <div className="bg-purple-100 p-3 rounded-lg">
                 //   </div>
 
                 // </div>
-              ))}
-            </ul>
-          </div>
 
-          <Link href="/eventManager/createNewEvent">
-            <Button className="m-6">Create Event</Button>
-          </Link>
+               
+
+               
+                
+                
+                
+               
+                
+                
+              
+            ))}
+          </ul>
+          
         </div>
+      </div>
       </div>
     </Layout>
   )

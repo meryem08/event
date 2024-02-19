@@ -4,14 +4,13 @@ import { FaShoppingBag } from 'react-icons/fa';
 import { useState , useEffect } from 'react';
 
   const RecentOrders = () => {
-    const [exposants, setExposants] = useState([]);
+    const [events, setEvents] = useState([]);
   
-    const fetchExposants = async () => {
+    const fetchEvents = async () => {
       try {
-        const res = await fetch(`http://127.0.0.1:8000/api/exhibitors/requests`, {
+        const res = await fetch(`http://127.0.0.1:8000/api/events`, {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
             Accept: "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -23,7 +22,7 @@ import { useState , useEffect } from 'react';
         }
   
         const json = await res.json();
-        setExposants(json);
+        setEvents(json);
       } catch (error) {
         console.error("Une erreur s'est produite :", error);
       }
@@ -35,7 +34,7 @@ import { useState , useEffect } from 'react';
 
   return (
     <div className='w-full relative col-span-1 lg:h-[60vh] h-[50vh] m-1 p-2 border rounded-lg bg-white overflow-scroll '>
-      <h1>Recent exposants</h1>
+      <h1>Recent events</h1>
       <ul>
       {exposants.map((exposant) => (
           <li
@@ -46,7 +45,7 @@ import { useState , useEffect } from 'react';
               <FaShoppingBag className='text-purple-800' />
             </div>
             <div className='pl-4'>
-              <p className='text-gray-800 font-bold'>{exposant.name}</p>
+              <p className='text-gray-800 font-bold'>{exposant?.eventTitle}</p>
               {/* Add other details as needed */}
             </div>
           </li>

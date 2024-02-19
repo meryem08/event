@@ -43,7 +43,7 @@ console.log(event)
       <div>
         <div className='md:flex'>
         {/* {event?.event?.photo} */}
-          {/* <img alt={event?.event?.photo} src={`data:image/png,${event?.event?.photo}`} width={250} height={150} className='w-[100%] md:w-[100%] p-2 m-2 rounded-md'/> */}
+          <Image alt="wrong" src={`/images/slider1.jpg`} width={250} height={150} className='w-[100%] md:w-[100%] p-2 m-2 rounded-md'/>
           <div>
               <h1 className='text-4xl font-semibold p-2 m-2'>{event?.event?.eventTitle}</h1>
               <p className='p-2 m-2 text-purple-600 font-semibold'>{event?.event?.startingDate}</p>

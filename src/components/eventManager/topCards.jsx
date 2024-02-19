@@ -117,11 +117,12 @@ const TopCards = () => {
         <div className='lg:col-span-2 col-span-1 bg-purple-100 flex justify-between w-full border p-4 rounded-lg'>
             <div className='flex flex-col w-full pb-4'>
                 <p className='text-2xl font-bold'>
-                <ul>
-                  {/* {exposants?.map((exposant, index) => (
+                {/* <ul>
+                  {exposants?.map((exposant, index) => (
                     <li key={index}>{exposant}</li>
-                  ))} */}
-                </ul>
+                  ))}
+                </ul> */}
+                {exposants}
                 </p>
                 <p className='text-gray-600'>Exhibitors</p>
             </div>

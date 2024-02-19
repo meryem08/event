@@ -177,7 +177,7 @@ function CreateNewEvent() {
   useEffect(() => {
     const fetchEventManagers = async () => {
       try {
-        const res = await fetch(`http://127.0.0.1:8000/api/showUser`, {
+        const res = await fetch(`http://127.0.0.1:8000/api/showEventManager`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -219,10 +219,10 @@ function CreateNewEvent() {
           {/* Utilisation de l'objet 'manager' pour vérifier le statut d'approbation */}
           {eventManagers.approved ? (
             <>
-              <p className="text-center text-black text-xl pt-6">
+              {/* <p className="text-center text-black text-xl pt-6">
                 Félicitations ! Vous êtes approuvé pour créer votre page d
                 événement.
-              </p>
+              </p> */}
               <MyForm key={eventManagers.id} />
             </>
           ) : (
@@ -240,4 +240,4 @@ function CreateNewEvent() {
   )
 }
 
-export default CreateNewEvent
+export default CreateNewEvent ;

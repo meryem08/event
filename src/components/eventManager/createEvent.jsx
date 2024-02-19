@@ -1,4 +1,4 @@
-// import React, { useState } from 'react'
+import React, { useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
@@ -205,7 +205,7 @@ export const MyForm = () => {
           </p>
         </div>
 
-    <form onSubmit={onSubmit} className='p-6'>
+    <form onSubmit={onSubmit} className='p-6' enctype="multipart/form-data" >
     
     <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="eventTitle">Event title</Label>
@@ -267,6 +267,7 @@ export const MyForm = () => {
           placeholder ="chose a photo"
           className="w-full"
           value={photo}
+          
           onChange={(e) => setPhoto(e.target.value)}
           // onChange={(e) => setPhoto(e.target.value)}
           id="photo"
@@ -339,7 +340,7 @@ export const MyForm = () => {
           type="date"/>
       </div>
 
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label
             htmlFor="photo"
             className="block text-sm font-medium text-gray-600"
@@ -353,7 +354,7 @@ export const MyForm = () => {
             onChange={(e) => handleFileChange(e.target.files)}
             className="mt-1 p-2 border rounded-md w-full"
           />
-        </div>
+        </div> */}
         <div className="mb-4">
           <button
             type="submit"
@@ -369,4 +370,4 @@ export const MyForm = () => {
   );
 }
 
-export default CreateEvent
+export default MyForm
