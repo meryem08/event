@@ -17,7 +17,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
   return (
     <div ref={ref} className="fixed w-56 h-full bg-white shadow-sm">
       <div className="flex justify-center mt-6 mb-14">
-        <h1 className="text-4xl font-bold  text-purple-500">MyEvent</h1>
+        <h1 className="text-4xl font-bold  text-gray-500">MyEvent</h1>
       </div>
 
       <div className="flex flex-col">

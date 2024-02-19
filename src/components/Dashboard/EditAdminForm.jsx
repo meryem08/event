@@ -1,29 +1,29 @@
 // // import { signIn } from 'next-auth/react'
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import React, { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 export const EditAdminForm = () => {
-  const [first_name, setFisrtName] = useState('');
-  const [last_name, setLastName] = useState('');
-  const [birthday, setBirthday] = useState('');
+  const [first_name, setFisrtName] = useState("")
+  const [last_name, setLastName] = useState("")
+  const [birthday, setBirthday] = useState("")
   // const [gender, setGender] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
-  const [password_confirmation, setPassword_confirmation] = useState('');
+  const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
+  const [password, setPassword] = useState("")
+  const [password_confirmation, setPassword_confirmation] = useState("")
 
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(null)
 
   const onSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     // Uncomment the next line and replace the token value
     // const token = "your_access_token_here";
 
     try {
       const res = await fetch(`http://127.0.0.1:8000/api/update`, {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify({
           first_name,
           last_name,
@@ -35,28 +35,30 @@ export const EditAdminForm = () => {
           password_confirmation,
         }),
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
-      });
+      })
       if (res.ok) {
-        window.location.href = '/account';
+        window.location.href = "/account"
       } else {
-        setError((await res.json()).error);
+        setError((await res.json()).error)
       }
     } catch (error) {
-      setError(error?.message);
+      setError(error?.message)
     }
     console.log(error)
-  };
-  
+  }
+
   return (
-    <div>
-        
+    <div className="flex justify-center items-center h-screen">
+      <div className=" bg-white rounded-lg p-8 pb-10">
+        <h2 className="text-2xl mb-10 text-center">EDIT YOUR PASSWORD</h2>
+
         <form onSubmit={onSubmit} className="space-y-4 lg:w-90">
-        <div className="flex align-items space-x-2">
-            <div className="grid w-full items-center gap-1.5">
+          {/* <div className="flex align-items space-x-2"> */}
+          {/* <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="first_name">First Name</Label>
         <Input
           className="w-full"
@@ -115,42 +117,45 @@ export const EditAdminForm = () => {
           id="phone"
           type="number"
         />
-      </div>
+      </div> */}
 
-      <div className="flex align-items space-x-2">
-        <div className="grid w-full items-center gap-1.5">
-                <Label htmlFor="password">New Password</Label>
-                <Input
+          <div className="flex align-items space-x-2">
+            <div className="grid w-full items-center gap-1.5">
+              <Label htmlFor="password">New Password</Label>
+              <Input
                 className="w-full"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 id="password"
                 type="password"
-                />
+              />
             </div>
-            
-            <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor=" password_confirmation">Confirm your new password</Label>
-        <Input
-          className="w-full"
-          required
-          value={ password_confirmation}
-          onChange={(e) => setPassword_confirmation(e.target.value)}
-          id=" password_confirmation"
-          type="password"
-        />
-      </div>
-      </div>
 
-      {/* {error && <Alert>{error}</Alert>} */}
-      <div className="w-full">
-        <Button className="w-full" size="lg" type="submit">
-          save changes
-        </Button>
+            <div className="grid w-full items-center gap-1.5">
+              <Label htmlFor=" password_confirmation">
+                Confirm your new password
+              </Label>
+              <Input
+                className="w-full"
+                required
+                value={password_confirmation}
+                onChange={(e) => setPassword_confirmation(e.target.value)}
+                id=" password_confirmation"
+                type="password"
+              />
+            </div>
+          </div>
+
+          {/* {error && <Alert>{error}</Alert>} */}
+          <div className="w-full">
+            <Button className="w-full" size="lg" type="submit">
+              save changes
+            </Button>
+          </div>
+        </form>
       </div>
-    </form>
+      /
     </div>
   )
 }
-

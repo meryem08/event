@@ -36,7 +36,7 @@ const RecentOrders = () => {
   }, []) // Empty dependency array ensures the effect runs once when the component mounts
 
   return (
-    <div className="w-full col-span-1 relative lg:h-[70vh] h-[50vh] m-auto p-4 border rounded-lg bg-white overflow-scroll">
+    <div className="w-full col-span-1 relative lg:h-[70vh] h-[50vh] m-auto p-4 border rounded-lg bg-green-50 overflow-scroll">
       <h1>Recent Requests </h1>
 
       <ul>

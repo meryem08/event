@@ -7,6 +7,7 @@ import RecentOrders from "../components/Dashboard/RecentOrders";
 import Sidebar from "@/components/Dashboard/Sidebar";
 import TopBar from "@/components/Dashboard/TopBar";
 import Layout from "@/components/Dashboard/Layout";
+import EventsManagerTable from "@/components/Dashboard/EventManagerTable";
 
 
 function dashboard() {
@@ -23,7 +24,7 @@ function dashboard() {
      <Layout>
       <TopCards/>
       <div className="p-4 grid md:grid-cols-3 grid-cols-1 gap-4">
-          <BarChart />
+          <EventsManagerTable/>
           <RecentOrders />
         </div>
      </Layout>

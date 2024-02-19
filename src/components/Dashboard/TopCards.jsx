@@ -83,36 +83,36 @@ const TopCards = () => {
 
   return (
     <div className="grid lg:grid-cols-5 gap-4 p-4">
-      <div className="lg:col-span-2 col-span-1 bg-white flex justify-between w-full border p-4 rounded-lg">
+      <div className="lg:col-span-2 col-span-1 bg-purple-50 flex justify-between w-full border p-4 rounded-lg">
         <Link href="/eventsManagers">
           <div className="flex flex-col w-full pb-4">
             <p className="text-2xl font-bold">{managers}</p>
             <p className="text-gray-600">Events Managers</p>
           </div>
         </Link>
-        <p className="bg-purple-200 flex justify-center items-center p-2 rounded-lg">
+        <p className="bg-white flex justify-center items-center p-2 rounded-lg">
           <span className="text-green-700 text-lg"></span>
         </p>
       </div>
-      <div className="lg:col-span-2 col-span-1 bg-white flex justify-between w-full border p-4 rounded-lg">
+      <div className="lg:col-span-2 col-span-1 bg-orange-50 flex justify-between w-full border p-4 rounded-lg">
         <Link href="/events">
           <div className="flex flex-col w-full pb-4">
             <p className="text-2xl font-bold">{events}</p>
             <p className="text-gray-600">Events</p>
           </div>
         </Link>
-        <p className="bg-purple-200 flex justify-center items-center p-2 rounded-lg">
+        <p className="bg-white flex justify-center items-center p-2 rounded-lg">
           <span className="text-green-700 text-lg"></span>
         </p>
       </div>
-      <div className=" bg-white flex justify-between w-full border p-4 rounded-lg">
+      <div className=" bg-pink-50 flex justify-between w-full border p-4 rounded-lg">
         <Link href="/requests">
           <div className="flex flex-col w-full pb-4">
             <p className="text-2xl font-bold">{requests}</p>
             <p className="text-gray-600">Requests</p>
           </div>
         </Link>
-        <p className="bg-purple-200 flex justify-center items-center p-2 rounded-lg">
+        <p className="bg-white flex justify-center items-center p-2 rounded-lg">
           <span className="text-green-700 text-lg"></span>
         </p>
       </div>

@@ -48,7 +48,7 @@ function Account() {
       </Head>
       <main className="bg-purple-50 min-h-screen">
         <Layout>
-          <div className="flex ">
+          {/* <div className="flex ">
             <div className="lg:cols-span-3 md:col-span-4 bg-white rounded-lg shadow-lg p-6 mt-10 flex">
               <div className="mb-2 pl- text-center pr-100 ">
                 <Image
@@ -84,11 +84,10 @@ function Account() {
                 </>
              
             </div>
-          </div>
-          <div className="p-6 mt-4 mb-4 bg-white rounded-lg shadow-xl min-h-screen">
-            <h2 className="text-2xl font-bold text-gray-800 mt-4 p-4">Edit your infos</h2>
+          </div> */}
+          
             <EditAdminForm/>
-          </div>
+          
         </Layout>
       </main>  
     </>
