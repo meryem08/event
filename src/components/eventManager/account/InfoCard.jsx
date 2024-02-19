@@ -50,9 +50,9 @@ function InfoCard() {
             <div className='m-5 pt-9'>
               <div className='font-bold text-lg'>
                 {/* {eventManagerData.first_name} */}
-                {eventManagerData.first_name} {eventManagerData.last_name}
+                {eventManagerData?.first_name} {eventManagerData?.last_name}
               </div>
-              <div className='font-sans text-sm text-gray-400'>{eventManagerData.email}</div>
+              <div className='font-sans text-sm text-gray-400'>{eventManagerData?.email}</div>
             </div>
           </div>
           <div>

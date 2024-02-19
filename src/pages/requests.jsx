@@ -298,7 +298,7 @@ const Requests = () => {
       }
 
       // Rafraîchissez la liste des événements après l'approbation
-      fetchEventManagers()
+      fetchEventManagers();
     } catch (error) {
       console.error(
         "Une erreur s'est produite lors de l'approbation de l'événement :",

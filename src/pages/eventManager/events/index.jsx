@@ -126,7 +126,8 @@ const Events = () => {
               </div>              */}
 
               <p className="hidden md:flex">
-              <BsPersonFill/>
+              {/* <BsPersonFill/> */}
+              {event.id}
               </p> 
 
                <p className="hidden md:flex">
@@ -189,7 +190,7 @@ const Events = () => {
           </DropdownMenu.Item>
           </Link>
 
-          <Link href={`approveExhibitor/${event.id}`}>
+          <Link href={`/exhibitor/exhibitors/${event.id}`}>
           
           <DropdownMenu.Item
             className="group text-base m-2 font-semibold text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
@@ -214,16 +215,6 @@ const Events = () => {
                  
                 // </div>
 
-               
-
-               
-                
-                
-                
-               
-                
-                
-              
             ))}
           </ul>
           

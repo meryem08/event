@@ -99,7 +99,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
       </div>
 
       <div className="flex flex-col rounded-tr-3xl  h-screen bg-blue-200 p-4">
-      <Link href="/exhibitor/profile">
+      {/* <Link href="/exhibitor/profile">
           <div
             className={`pl-6 py-3 mx-5 rounded-3xl text-center cursor-pointer mb-3 flex items-center transition-colors ${
               router.pathname == "/exhibitor/profile"
@@ -114,7 +114,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               <p>Profile</p>
             </div>
           </div>
-        </Link>
+        </Link> */}
         <Link href="/exhibitor/account">
           <div
             className={`pl-6 py-3 mx-5 rounded-3xl text-center cursor-pointer mb-3 flex items-center transition-colors ${
@@ -131,7 +131,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
             </div>
           </div>
         </Link>
-        <Link href="/exhibitor/products">
+        {/* <Link href="/exhibitor/products">
           <div
             className={`pl-6 py-3 mx-5 rounded-3xl text-center cursor-pointer mb-3 flex items-center transition-colors ${
               router.pathname == "/exhibitor/products"
@@ -146,7 +146,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               <p>Products</p>
             </div>
           </div>
-        </Link>
+        </Link> */}
         
         {/* <Link href="/eventManager/events">
           <div

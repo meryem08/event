@@ -24,7 +24,7 @@ export default function Home() {
           <Layout>
             <TopCards />
               <div className="flex justify-evenly">
-                <BarChart />
+                {/* <BarChart /> */}
                 <RecentOrders />
               </div>  
           </Layout>
