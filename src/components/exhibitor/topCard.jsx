@@ -3,10 +3,12 @@ import { Text } from "components";
 import Layout from "./Layout";
 import ProfileCard from "./profileCard";
 import { Button } from "../ui/button";
+import Add from "./popup";
 
 const TopCard = () => {
 
   const [exhibitorData, setExhibitorData] = useState(null);
+  const [event, setEvent] = useState(null);
 
   useEffect(() => {
     const fetchExhibitorData = async () => {
@@ -24,8 +26,12 @@ const TopCard = () => {
           throw new Error('Failed to fetch exhibitor  manager data');
         }
 
+        // const exhibitorData = await response.json();
+        // setExhibitorData(exhibitorData);
         const exhibitorData = await response.json();
         setExhibitorData(exhibitorData);
+        setEvent(exhibitorData.events[0]);
+        
       } catch (error) {
         console.error('An error occurred:', error);
       }
@@ -49,14 +55,28 @@ const TopCard = () => {
             
             <div className="lg:ml-6">
               <div className="  font-bold">{exhibitorData?.first_name} {exhibitorData?.last_name}</div>
-              <div className="  text-gray-600">{exhibitorData?.email} </div>
+              <div className="  text-gray-600">{exhibitorData?.email}  </div>
 
             </div>
-          </div> 
-          <Button className='m-2'> Edit </Button>       
-            <Button className='m-2'> Add Product</Button>
           </div>
-          
+          <div className="flex">
+                {exhibitorData?.approved ? (
+                  
+                    <Add className='m-2'/>
+                  
+                ) : (
+                 
+                    <p className="text-center text-black text-xl pt-6">
+                    <Button className="bg-slate-700">Add product</Button>
+                    </p>
+                  
+                )}
+
+          {/* <Add className='m-2'/> */}
+          {/* <Button className='m-2 '> <Add/> </Button>        */}
+            <Button className="mt-6">Edit profile</Button>
+          </div>
+          </div>
   
         </div>
       

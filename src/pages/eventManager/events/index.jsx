@@ -141,9 +141,9 @@ const Events = () => {
                   <p className="hidden md:flex">{event.startingDate}</p>
                   <p className="hidden md:flex">{event.endingDate}</p>
 
-                  <Button className="w-16">
+                  {/* <Button className="w-16">
                     <Link href={`/eventManager/events/${event.id}`}>Show</Link>
-                  </Button>
+                  </Button> */}
                   {/* <Button
                     onClick={() => setshowEditEvent(true)}
                     className="w-16"
@@ -157,16 +157,24 @@ const Events = () => {
                     eventId={event.id}
                   />
 
+                <Link href={`/exhibitor/requests/${event.id}`}>
                   <Button
-                    onClick={() => confirmDelete(event.id)}
+                    // onClick={() => confirmDelete(event.id)}
                     className="w-16"
                   >
-                    Delete
+                    Requests
                   </Button>
+                </Link>
+                <Link href={`/exhibitor/exhibitors/${event.id}`}>
+                <Button
+                    // onClick={() => confirmDelete(event.id)}
+                    className="w-16"
+                  >
+                    Exhibitor
+                  </Button>
+                </Link>
 
-                  {/* <p className="pl-14 w-2">
-                  <BsThreeDotsVertical/>
-                </p> */}
+              
 
                   <DropdownMenu.Root>
                     <DropdownMenu.Trigger asChild>
@@ -180,49 +188,56 @@ const Events = () => {
                         className="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
                         sideOffset={5}
                       >
-                        <Link href={`/exhibitor/requests/${event.id}`}>
+                        <Link href={`/eventManager/events/${event.id}`}>
                           <DropdownMenu.Item
                             className="group text-base m-2 font-semibold text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
                             disabled
                           >
-                            <button>Requests</button>
+                            <button>Show</button>
                           </DropdownMenu.Item>
                         </Link>
 
-          <Link href={`approveExhibitor/${event.id}`}>
+          {/* <Link href={`/eventManager/events/${event.id}`}> */}
+          
+                      <DropdownMenu.Item
+                        className="group text-base m-2 font-semibold text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+                        disabled
+                      >
+
+                        <button onClick={() => confirmDelete(event.id)}>
+                            Delete
+                        </button>
+                        
+                      </DropdownMenu.Item>
+
+                      
+          {/* </Link> */}
+
+          {/* <Link href={`/eventManager/events/${event.id}`}> */}
           
           <DropdownMenu.Item
             className="group text-base m-2 font-semibold text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
             disabled
           >
-            <button>
-                Exhibitors
-            </button>
+
+            <Button>
+              Edit
+            <EditEvent
+                    onClose={handleOnClose}
+                    visible={showEditEvent}
+                    eventId={event.id}
+                  />
+            </Button>
             
           </DropdownMenu.Item>
-          </Link>
+          {/* </Link> */}
           <DropdownMenu.Arrow className="fill-white" />
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
 
                 </li>  
-                // <div className="flex items-center">
 
-                //   <div className="bg-purple-100 p-3 rounded-lg">
-                //   </div>
-
-                // </div>
-
-               
-
-               
-                
-                
-                
-               
-                
-                
               
             ))}
           </ul>
@@ -230,6 +245,10 @@ const Events = () => {
         </div>
       </div>
       </div>
+      <Link href={'/eventManager/createNewEvent'}>     
+       <Button >create event</Button>
+
+      </Link>
     </Layout>
   )
 }

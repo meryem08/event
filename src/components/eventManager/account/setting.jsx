@@ -152,7 +152,7 @@
 // }
 
 // // import { signIn } from 'next-auth/react'
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -165,6 +165,8 @@ export const EditForm = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
+  const [organization, setorganization] = useState('');
+
   const [password_confirmation, setPassword_confirmation] = useState('');
 
   const [error, setError] = useState(null);
@@ -185,6 +187,7 @@ export const EditForm = () => {
           email,
           phone,
           password,
+          organization,
           password_confirmation,
         }),
         headers: {
@@ -204,6 +207,34 @@ export const EditForm = () => {
     console.log(error)
   };
   
+  const [eventManagerData, setEventManagerData] = useState(null);
+
+  useEffect(() => {
+    const fetchEventManagerData = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/showEventManager', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch event manager data');
+        }
+
+        const eventManagerData = await response.json();
+        setEventManagerData(eventManagerData);
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    fetchEventManagerData();
+  }, ); // Added dependency to re-run the effect when the token changes
+
   return (
     <div className='m-10 p-4  bg-white border-solid border-2 border-gray-100 rounded-md'>
         <form onSubmit={onSubmit} className="space-y-4 lg:w-90">
@@ -217,6 +248,7 @@ export const EditForm = () => {
           onChange={(e) => setFisrtName(e.target.value)}
           id="first_name"
           type="text"
+          placeholder = {eventManagerData?.first_name} 
         />
       </div>
       <div className="grid w-full items-center gap-1.5">
@@ -227,23 +259,25 @@ export const EditForm = () => {
           onChange={(e) => setLastName(e.target.value)}
           id="last_name"
           type="text"
+          placeholder = {eventManagerData?.last_name}
         />
       </div>
         </div>
         
       
       <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="birthday">Birthday</Label>
+        <Label htmlFor="birthday">Organization</Label>
         <Input
           className="w-full"
-          value={birthday}
-          onChange={(e) => setBirthday(e.target.value)}
-          id="birthday"
-          type="date"     
-          
+          value={organization}
+          onChange={(e) => setorganization(e.target.value)}
+          id="organization"
+          type="text"     
+          placeholder = {eventManagerData?.organization}
+
         />
       </div>
-      <div className="grid w-full items-center gap-1.5">
+      {/* <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="email">Email</Label>
         <Input
           className="w-full"
@@ -251,8 +285,10 @@ export const EditForm = () => {
           onChange={(e) => setEmail(e.target.value)}
           id="email"
           type="email"
+          placeholder = {eventManagerData?.e}
+
         />
-      </div>
+      </div> */}
 
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="phone">Phone</Label>
@@ -263,6 +299,8 @@ export const EditForm = () => {
           onChange={(e) => setPhone(e.target.value)}
           id="phone"
           type="number"
+          placeholder = {eventManagerData?.phone}
+
         />
       </div>
 

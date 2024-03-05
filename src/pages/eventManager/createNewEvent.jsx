@@ -206,23 +206,10 @@ function CreateNewEvent() {
   return (
     <Layout> 
     <div>
-      {/* <Link href="/eventManager/dashboard">
-        <button
-          className="border-stone-400 rounded-3xl bg-gradient-to-tr from-pink-300 via-sky-300 via-40% to-purple-300 p-3 mt-2 ml-2"
-          title="Vous devez être approuvé pour pouvoir créer votre événement"
-        >
-          Retour au dashboard
-        </button>
-      </Link> */}
 
         <div>
-          {/* Utilisation de l'objet 'manager' pour vérifier le statut d'approbation */}
           {eventManagers.approved ? (
             <>
-              {/* <p className="text-center text-black text-xl pt-6">
-                Félicitations ! Vous êtes approuvé pour créer votre page d
-                événement.
-              </p> */}
               <MyForm key={eventManagers.id} />
             </>
           ) : (

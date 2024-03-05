@@ -4,6 +4,33 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
 function Products() {
+  const [ProductData, setProductData] = useState([]);
+
+  useEffect(() => {
+    const fetchProductData = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/showUserProducts', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch Product  manager data');
+        }
+
+        const ProductData = await response.json();
+        setProductData(ProductData);
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    fetchProductData();
+  }, );
   return (
     <Layout>
 
@@ -33,17 +60,20 @@ function Products() {
 
                 <div className="bg-purple-100 p-3 rounded-lg">
                     {/* <BsPersonFill className="text-purple-800" /> */}
-                     {/* {event.id} */}
+                     {ProductData?.id}
                   </div>
                  
                 </div>
 
                 <p className="text-gray-600 sm:text-left text-right">
-                  {/* {event.eventTitle} */}
+                  {ProductData?.name}
                 </p>
 
                 <p className="hidden md:flex">
-                  {/* {event.sector} */}
+                  {ProductData?.price}
+                </p>
+                <p className="hidden md:flex">
+                  {ProductData?.quantity}
                 </p>
                 {/* <p className="pl-4">
                   

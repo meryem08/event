@@ -6,15 +6,15 @@ import Layout from "@/components/eventManager/layout";
 
 const Requests = () => {
 
-  const [exhibitors, setExhibitors] = useState([])
+  // const [exhibitors, setExhibitors] = useState([])
   const [events, setEvents] = useState([])
-  const [searchQuery, setSearchQuery] = useState("")
+  // const [searchQuery, setSearchQuery] = useState("")
 
 
     const fetchRequests = async () => {
       try {
         const res = await fetch(
-          'http://127.0.0.1:8000/api/exhibitors/requests',
+          'http://127.0.0.1:8000/api/allRequests',
           {
             method: "GET",
             headers: {
@@ -30,16 +30,28 @@ const Requests = () => {
         }
 
         const json = await res.json()
-        setExhibitors(json)
+        setEvents(json)
       } catch (error) {
         console.error("Une erreur s'est produite :", error)
       }
-    }
+     
 
-    // fetchRequests()
+    }
+ console.log(events)
+    fetchRequests()
     // fetchEvents();
   // Run the effect once on component mount
-// useEffect(()=> fetchRequests(),[])
+
+
+useEffect(() => {
+  fetchRequests()
+  return () => {
+    fetchRequests()
+  };
+}, []);
+
+
+useEffect(()=> fetchRequests(),[])
   const handleApprove = async (id) => {
     try {
       const res = await fetch(
@@ -68,10 +80,11 @@ const Requests = () => {
     }
   }
 
+  // useEffect(()=> fetchRequests(),[])
   // const handleReject = async (id) => {
   //   try {
   //     const res = await fetch(
-  //       `http://127.0.0.1:8000/api/rejectEventManager/${id}`,
+  //       `http://127.0.0.1:8000/api/rejectExhibitor/${id}`,
   //       {
   //         method: "POST",
   //         headers: {
@@ -83,19 +96,18 @@ const Requests = () => {
   //     )
 
   //     if (!res.ok) {
-  //       throw new Error("Réponse de l'API pour le rejet non valide")
+  //       throw new Error("Réponse de l'API pour l'approbation non valide")
   //     }
 
-  //     // Rafraîchissez la liste des événements après le rejet
-  //     fetchEventManagers()
+  //     // Rafraîchissez la liste des événements après l'approbation
+  //     fetchRequests()
   //   } catch (error) {
   //     console.error(
-  //       "Une erreur s'est produite lors du rejet de l'événement :",
+  //       "Une erreur s'est produite lors de l'approbation de l'événement :",
   //       error,
   //     )
   //   }
   // }
-
   return ( 
     <Layout> 
     {/* <div className="relative"> */}
@@ -105,47 +117,56 @@ const Requests = () => {
         <div className="w-full m-auto p-4 border rounded-lg bg-white overflow-y-auto">
 
           <div className=" p-2 grid grid-cols-5 items-center justify-around cursor-pointer">
-            <span>Identifiant</span>
             <span className="hidden md:grid">Name</span>
-            <span className="hidden md:grid ">Organization</span>
+            {/* <span className="hidden md:grid ">Organization</span> */}
+            <span className="hidden sm:grid"> Event</span>
+
             <span className="hidden md:grid">Email</span>
             <span className="hidden sm:grid"></span>
             <span className="hidden sm:grid"></span>
+
           </div>
 
+          <div>
+      {events.map(event => (
+        <div key={event.id}>
           <ul>
-          {exhibitors?.map(exhibitor => (
+          {event?.exhibitors?.map((exhibitor) => (
+             <li key={exhibitor.id}  
+              className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-5 items-center justify-between"
 
-                <li
-                key={exhibitor?.id} 
-                className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-5 items-center justify-between"
-              >
-             
+             >
+              {exhibitor?.id} 
                 <div className="flex items-center">
-                  <div className="bg-purple-100 p-3 rounded-lg">
-                    
+                  <div className=" rounded-lg">
+                   {exhibitor.first_name} {exhibitor?.last_name}
                     {/* <BsPersonFill className="text-purple-800" /> */}
                   </div>
                  
                 </div>
-
+{/* 
                 <p className="text-gray-600 sm:text-left text-right">
-                  {exhibitor.first_name} {exhibitor.last_name}
-                </p>
+                   {exhibitor?.organization}
+
+                </p> */}
 
                 <p className="hidden md:flex">
-                 {exhibitor.organization}
+                  {event?.eventTitle}
                 </p>
                 <p className="pl-4">
-                {exhibitor.email}
+                {exhibitor?.email}
+
                 </p>
                 
                 <div className="flex ">
                   <div className="pl-4">
-                    <Button onClick={() => confirmDelete(exhibitor.id)}>Delete</Button>
+                    <Button onClick={() => handleApprove(exhibitor?.id)}>Approve</Button>
                   </div>
                   <div className="pl-4">
-                    <Button onClick={() => handleApprove(exhibitor.id)}>approve</Button>
+                    {/* <Button onClick={() => handleReject(exhibitor?.id)}>Reject</Button> */}
+                  </div>
+                  <div className="pl-4">
+                    <Button onClick={() => handleShow(exhibitor?.id)}>Show</Button>
                   </div>
 
                 {/* <p className="pl-4">
@@ -166,14 +187,11 @@ const Requests = () => {
               // </Link>
             ))}
           </ul>
+          </div>
+      ))}
+    </div>
           
         </div>
-        
-        {/* <Link href='/eventManager/createNewEvent'>
-            <Button className='m-6'>
-               Create Event
-            </Button>
-        </Link> */}
         
       </div>
       
