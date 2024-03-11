@@ -40,10 +40,19 @@ console.log(event)
         <ul>
           <li>
           <div>
-      <div>
+         <div> 
         <div className='md:flex'>
         {/* {event?.event?.photo} */}
-          <Image alt="wrong" src={`/images/slider1.jpg`} width={250} height={150} className='w-[100%] md:w-[100%] p-2 m-2 rounded-md'/>
+          {/* <Image alt="wrong" src={`/images/slider1.jpg`} width={250} height={150} className='w-[100%] md:w-[100%] p-2 m-2 rounded-md'/> */}
+          <div className="w-[81%]">
+                          {event?.event?.summary && (
+                            <Image
+                              src={`http://127.0.0.1:8000/storage/${event?.event?.photo}`}
+                              alt={event?.event?.photo}
+                              className="w-full h-[136px] object-cover rounded"
+                            />
+                          )}
+                        </div>
           <div>
               <h1 className='text-4xl font-semibold p-2 m-2'>{event?.event?.eventTitle}</h1>
               <p className='p-2 m-2 text-purple-600 font-semibold'>{event?.event?.startingDate}</p>
@@ -79,7 +88,7 @@ console.log(event)
                 The manager : {event?.eventManager?.first_name} {event?.eventManager?.last_name}
                 </li>
               <li className='font-semibold'> Organization : {event?.eventManager?.organization} </li>
-            </ul>
+            </ul> 
           </div>
 
           <div className=' m-8 p-4 bg-gradient-to-r from-pink-200 to-pink-300 w-72 rounded-3xl shadow-2xl'>

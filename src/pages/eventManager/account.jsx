@@ -37,7 +37,7 @@ function account() {
       {/* <div className=" bg-white p-6 m-3 rounded-lg">
         
       </div> */}
- <EditForm />
+     <EditForm />
 
     </div>
     </Layout>

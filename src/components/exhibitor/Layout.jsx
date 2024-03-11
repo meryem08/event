@@ -31,7 +31,7 @@ export default function Layout({ children }) {
 
   return (
     <>
-      <TopBar showNav={showNav} setShowNav={setShowNav} />
+      {/* <TopBar showNav={showNav} setShowNav={setShowNav} /> */}
       <Transition
         as={Fragment}
         show={showNav}

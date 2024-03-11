@@ -86,7 +86,7 @@ function Account() {
             </div>
           </div> */}
           
-            <EditAdminForm/>
+            {/* <EditAdminForm/> */}
           
         </Layout>
       </main>  

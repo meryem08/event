@@ -21,117 +21,6 @@ import {
  import Sidebar from './sideBar'
 import Layout from '../exhibitor/Layout'
 
-// function MyForm() {
-
-
-// const [formData, setFormData] = useState({
-//   eventTitle: '',
-//   country: '',
-//   tags: '',
-//   sector: '',
-//   summary: '',
-//   description: '',
-//   startingDate: '',
-//   endingDate: '',
-//   photo: null, // Use null for file input
-  
-// });
-
-// const handleInputChange = (e) => {
-//   const { name, value, type, files } = e.target;
-
-//   if (type === 'file') {
-//     // Handle file input separately
-//     const selectedFile = files[0];
-//     setFormData((prevData) => ({
-//       ...prevData,
-//       [name]: selectedFile,
-//       // photoName: selectedFile ? selectedFile.name : '', // Store the file name
-//     }));
-//   } else {
-//     // Handle other input types
-//     setFormData((prevData) => ({
-//       ...prevData,
-//       [name]: value,
-//     }));
-//   }
-// };
-
-
-// const handleSubmit = async (e) => {
-//   e.preventDefault();
-
-//   try {
-//     const res = await fetch("http://127.0.0.1:8000/api/eventCreate", {
-//       method: "POST",
-//       body: JSON.stringify(formData),
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${localStorage.getItem("token")}`,
-//       },
-//     });
-
-//     if (res.ok) {
-//       window.location.href = "/eventManager/dashboard";
-//     } else {
-//       const errorData = await res.json();
-//       setError(errorData.error);
-//     }
-//   } catch (error) {
-//     console.error("Error submitting form:", error.message);
-//     // Handle other errors if needed
-//   }
-// };
-
-// function MyForm() {
-//   const [error, setError] = useState(null);
-//   const [formData, setFormData] = useState({
-//     eventTitle: '',
-//     country: '',
-//     tags: '',
-//     sector: '',
-//     summary: '',
-//     description: '',
-//     startingDate: '',
-//     endingDate: '',
-//     photo: '', // Remove this line if you don't want to handle file input
-//   });
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-  
-//     setFormData((prevData) => ({
-//       ...prevData,
-//       [name]: value,
-//     }));
-//   };
-// console.log(formData)
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-    
-//     try {
-//       const res = await fetch("http://127.0.0.1:8000/api/eventCreate", {
-//         method: 'POST',
-//         body: JSON.stringify(formData),
-//         headers: {
-//           'Content-Type': 'application/json',
-//           Authorization: `Bearer ${localStorage.getItem("token")}`,
-//           Accept: 'application/json',
-//         },
-//       });
-
-//       if (res.ok) {
-//         window.location.href = "/eventManager/dashboard";
-//       } else {
-//         const errorData = await res.json();
-//         setError(errorData.error);
-//       }
-//     } catch (error) {
-//       console.error("Error submitting form:", error.message);
-//       // Handle other errors if needed
-//     }
-//   };
-
 export const MyForm = () => {
   const [eventTitle, setEventTitle] = useState("")
   const [country, setCountry] = useState("")
@@ -144,28 +33,44 @@ export const MyForm = () => {
   const [photo, setPhoto] = useState("")
   const [error, setError] = useState(null)
 
+  const handleFileChange = (e) => {
+    setPhoto(e.target.files[0]);
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault()
 
     try {
+      const formData = new FormData();
+      formData.append('eventTitle', eventTitle);
+      formData.append('country', country);
+      formData.append('tags', tags);
+      formData.append('sector', sector);
+      formData.append('summary', summary);
+      formData.append('description', description);
+      formData.append('startingDate', startingDate);
+      formData.append('endingDate', endingDate);
+      formData.append('photo', photo);
+
       const res = await fetch(
        "http://127.0.0.1:8000/api/eventCreate",
         {
           method: "POST",
-          body: JSON.stringify({
-            eventTitle,
-            country,
-            tags,
-            sector,
-            summary,
-            description,
-            startingDate,
-            endingDate,
-            photo,
-          }),
+          // body: JSON.stringify({
+          //   eventTitle,
+          //   country,
+          //   tags,
+          //   sector,
+          //   summary,
+          //   description,
+          //   startingDate,
+          //   endingDate,
+          //   photo,
+          // }),
+          body: formData,
           headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
+            // "Content-Type": "application/json",
+            // Accept: "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
 
           },
@@ -205,7 +110,7 @@ export const MyForm = () => {
           </p>
         </div>
 
-    <form onSubmit={onSubmit} className='p-6' enctype="multipart/form-data" >
+    <form onSubmit={onSubmit} className='p-6' encType="multipart/form-data" >
     
     <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="eventTitle">Event title</Label>
@@ -266,13 +171,13 @@ export const MyForm = () => {
         <Input
           placeholder ="chose a photo"
           className="w-full"
-          value={photo}
+          name='photo' type='file' onChange={handleFileChange}
           
-          onChange={(e) => setPhoto(e.target.value)}
+          // onChange={(e) => setPhoto(e.target.value)}
           // onChange={(e) => setPhoto(e.target.value)}
           id="photo"
-          name="photo"
-          type="file"
+          // name="photo"
+          // type="file"
         />
       </div>
 
@@ -358,6 +263,7 @@ export const MyForm = () => {
         <div className="mb-4">
           <button
             type="submit"
+            onClick={onSubmit}
             className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
           >
             Créer l événement
