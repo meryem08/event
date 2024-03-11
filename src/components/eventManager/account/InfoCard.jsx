@@ -40,12 +40,13 @@ function InfoCard() {
         <div className='flex justify-between'>
           <div className='flex justify-start'>
           <div className="mb-2 pl- text-center pr-100 ">
-                <Image
-                  src="/images/adminProfile.jpg"
-                  alt="User Profile"
-                  width={200}
-                  height={200}
-                />
+          
+              <img
+                src={`http://127.0.0.1:8000/storage/${eventManagerData?.profile_photo}`}
+                alt={eventManagerData?.profile_photo}
+                className="w-full h-[136px] object-cover rounded-full"
+              />
+            
               </div>
             <div className='m-5 pt-9'>
               <div className='font-bold text-lg'>

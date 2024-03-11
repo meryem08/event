@@ -72,8 +72,8 @@ function ProfileCard() {
                             />
                           )}
                         </div>
-                        {/* <div className="bg-gray-100 h-[136px] w-[81%]"></div> */}
-                        <div className='flex justify-start w-[80%]'><h1 className='font-semibold'>price</h1>{product?.price} </div>
+
+                        <div className='flex justify-start w-[80%]'><h1 className='font-semibold'>{product?.price} </h1> </div>
                   </div>
                 </li>
                 

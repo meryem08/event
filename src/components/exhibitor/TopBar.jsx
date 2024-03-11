@@ -12,6 +12,38 @@ import { Menu, Transition, Popover } from "@headlessui/react"
 import Link from "next/link"
 
 export default function TopBar({ showNav, setShowNav }) {
+
+
+  const [exhibitorData, setExhibitorData] = useState(null);
+
+  useEffect(() => {
+    const fetchExhibitorData = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/showExhibitor', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch event manager data');
+        }
+
+        const exhibitorData = await response.json();
+        setExhibitorData(exhibitorData);
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    fetchExhibitorData();
+  }, );
+
+
+
   const handleLogOut = async (e) => {
     e.preventDefault();
     // console.log(formData);
@@ -145,11 +177,11 @@ export default function TopBar({ showNav, setShowNav }) {
           <div>
             <Menu.Button className="inline-flex w-full justify-center items-center">
               <picture>
-                <img
-                  src="./images/adminProfile.jpg"
-                  className="rounded-full h-8 md:mr-4 border-2 border-orange-200 shadow-sm"
-                  alt="profile picture"
-                />
+              <img
+                src={`http://127.0.0.1:8000/storage/${exhibitorData?.profile_photo}`}
+                alt={exhibitorData?.profile_photo}
+                className="rounded-full h-8 md:mr-4 border-2 border-blue-200 shadow-sm"
+              />
               </picture>
               <span className="hidden md:block font-medium text-gray-700">
                 Exhibitor

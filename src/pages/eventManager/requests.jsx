@@ -3,111 +3,188 @@ import { useState , useEffect } from "react";
 import Sidebar from "@/components/eventManager/sideBar";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/eventManager/layout";
+import popOver from "@/components/popOver";
 
-const Requests = () => {
+// const Requests = () => {
 
-  // const [exhibitors, setExhibitors] = useState([])
-  const [events, setEvents] = useState([])
+//   // const [exhibitors, setExhibitors] = useState([])
+//   const [events, setEvents] = useState([])
   // const [searchQuery, setSearchQuery] = useState("")
 
 
-    const fetchRequests = async () => {
-      try {
-        const res = await fetch(
-          'http://127.0.0.1:8000/api/allRequests',
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          },
-        )
+//     const fetchRequests = async () => {
+//       try {
+//         const res = await fetch(
+//           'http://127.0.0.1:8000/api/allRequests',
+//           {
+//             method: "GET",
+//             headers: {
+//               Authorization: `Bearer ${localStorage.getItem('token')}`,
+//               "Content-Type": "application/json",
+//               Accept: "application/json",
+//             },
+//           },
+//         )
 
-        if (!res.ok) {
-          throw new Error("Réponse de l'API non valide")
-        }
+//         if (!res.ok) {
+//           throw new Error("Réponse de l'API non valide")
+//         }
 
-        const json = await res.json()
-        setEvents(json)
-      } catch (error) {
-        console.error("Une erreur s'est produite :", error)
-      }
+//         const json = await res.json()
+//         setEvents(json)
+//       } catch (error) {
+//         console.error("Une erreur s'est produite :", error)
+//       }
      
 
-    }
- console.log(events)
-    fetchRequests()
-    // fetchEvents();
-  // Run the effect once on component mount
+//     }
+//  console.log(events)
+//     fetchRequests()
+//     // fetchEvents();
+//   // Run the effect once on component mount
 
 
-useEffect(() => {
-  fetchRequests()
-  return () => {
-    fetchRequests()
-  };
-}, []);
+// useEffect(() => {
+//   fetchRequests()
+//   return () => {
+//     fetchRequests()
+//   };
+// }, []);
 
 
-useEffect(()=> fetchRequests(),[])
-  const handleApprove = async (id) => {
+// useEffect(()=> fetchRequests(),[])
+//   const handleApprove = async (id) => {
+//     try {
+//       const res = await fetch(
+//         `http://127.0.0.1:8000/api/approveExhibitor/${id}`,
+//         {
+//           method: "POST",
+//           headers: {
+//             Authorization: `Bearer ${localStorage.getItem('token')}`,
+//             "Content-Type": "application/json",
+//             Accept: "application/json",
+//           },
+//         },
+//       )
+
+//       if (!res.ok) {
+//         throw new Error("Réponse de l'API pour l'approbation non valide")
+//       }
+
+//       // Rafraîchissez la liste des événements après l'approbation
+//       fetchRequests()
+//     } catch (error) {
+//       console.error(
+//         "Une erreur s'est produite lors de l'approbation de l'événement :",
+//         error,
+//       )
+//     }
+//   }
+
+//   useEffect(()=> fetchRequests(),[])
+//   const handleReject = async (id) => {
+//     try {
+//       const res = await fetch(
+//         `http://127.0.0.1:8000/api/rejectExhibitor/${id}`,
+//         {
+//           method: "POST",
+//           headers: {
+//             Authorization: `Bearer ${localStorage.getItem('token')}`,
+//             "Content-Type": "application/json",
+//             Accept: "application/json",
+//           },
+//         },
+//       )
+
+//       if (!res.ok) {
+//         throw new Error("Réponse de l'API pour l'approbation non valide")
+//       }
+
+//       // Rafraîchissez la liste des événements après l'approbation
+//       fetchRequests()
+//     } catch (error) {
+//       console.error(
+//         "Une erreur s'est produite lors de l'approbation de l'événement :",
+//         error,
+//       )
+//     }
+//   }
+
+const Requests = () => {
+  const [events, setEvents] = useState([]);
+
+  const fetchRequests = async () => {
     try {
-      const res = await fetch(
-        `http://127.0.0.1:8000/api/approveExhibitor/${id}`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
+      const res = await fetch('http://127.0.0.1:8000/api/allRequests', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-      )
+      });
 
       if (!res.ok) {
-        throw new Error("Réponse de l'API pour l'approbation non valide")
+        throw new Error("Réponse de l'API non valide");
       }
 
-      // Rafraîchissez la liste des événements après l'approbation
-      fetchRequests()
+      const json = await res.json();
+      setEvents(json);
     } catch (error) {
-      console.error(
-        "Une erreur s'est produite lors de l'approbation de l'événement :",
-        error,
-      )
+      console.error("Une erreur s'est produite :", error);
     }
-  }
+  };
 
-  // useEffect(()=> fetchRequests(),[])
-  // const handleReject = async (id) => {
-  //   try {
-  //     const res = await fetch(
-  //       `http://127.0.0.1:8000/api/rejectExhibitor/${id}`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem('token')}`,
-  //           "Content-Type": "application/json",
-  //           Accept: "application/json",
-  //         },
-  //       },
-  //     )
+  useEffect(() => {
+    // Run fetchRequests on component mount
+    fetchRequests();
+  }, []);
 
-  //     if (!res.ok) {
-  //       throw new Error("Réponse de l'API pour l'approbation non valide")
-  //     }
+  const handleApprove = async (id) => {
+    try {
+      const res = await fetch(`http://127.0.0.1:8000/api/approveExhibitor/${id}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      });
 
-  //     // Rafraîchissez la liste des événements après l'approbation
-  //     fetchRequests()
-  //   } catch (error) {
-  //     console.error(
-  //       "Une erreur s'est produite lors de l'approbation de l'événement :",
-  //       error,
-  //     )
-  //   }
-  // }
+      if (!res.ok) {
+        throw new Error("Réponse de l'API pour l'approbation non valide");
+      }
+
+      // Refresh the list of events after approval
+      fetchRequests();
+    } catch (error) {
+      console.error("Une erreur s'est produite lors de l'approbation de l'événement :", error);
+    }
+  };
+
+  const handleReject = async (id) => {
+    try {
+      const res = await fetch(`http://127.0.0.1:8000/api/rejectExhibitor/${id}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("Réponse de l'API pour l'approbation non valide");
+      }
+
+      // Refresh the list of events after rejection
+      fetchRequests();
+    } catch (error) {
+      console.error("Une erreur s'est produite lors de l'approbation de l'événement :", error);
+    }
+  };
+  console.log(events)
+
   return ( 
     <Layout> 
     {/* <div className="relative"> */}
@@ -160,13 +237,14 @@ useEffect(()=> fetchRequests(),[])
                 
                 <div className="flex ">
                   <div className="pl-4">
-                    <Button onClick={() => handleApprove(exhibitor?.id)}>Approve</Button>
+                    <Button onClick={() => handleApprove(exhibitor.user_id)}>Approve</Button>
                   </div>
                   <div className="pl-4">
-                    {/* <Button onClick={() => handleReject(exhibitor?.id)}>Reject</Button> */}
+                    <Button onClick={() => handleReject(exhibitor.user_id)}>Reject</Button>
                   </div>
                   <div className="pl-4">
-                    <Button onClick={() => handleShow(exhibitor?.id)}>Show</Button>
+                    {/* <Button onClick={() => handleShow(exhibitor.user_id)}>Show</Button> */}
+                    <popOver/>
                   </div>
 
                 {/* <p className="pl-4">

@@ -2,6 +2,7 @@ import Layout from '@/components/exhibitor/Layout'
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { useState , useEffect } from 'react'
 
 function Products() {
   const [ProductData, setProductData] = useState([]);
@@ -48,11 +49,11 @@ function Products() {
           </div>
 
           <ul>
-          {/* {events?.map(event => ( */}
+          {ProductData?.map(Product => (
             
               <Link
                 href={`/eventManager/events`}
-                // key={event.id}
+                key={Product.id}
                 className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid grid-cols-5 items-center justify-between"
               >
                 
@@ -60,20 +61,20 @@ function Products() {
 
                 <div className="bg-purple-100 p-3 rounded-lg">
                     {/* <BsPersonFill className="text-purple-800" /> */}
-                     {ProductData?.id}
+                     {Product?.id}
                   </div>
                  
                 </div>
 
                 <p className="text-gray-600 sm:text-left text-right">
-                  {ProductData?.name}
+                  {Product?.name}
                 </p>
 
                 <p className="hidden md:flex">
-                  {ProductData?.price}
+                  {Product?.price}
                 </p>
                 <p className="hidden md:flex">
-                  {ProductData?.quantity}
+                  {Product?.quantity}
                 </p>
                 {/* <p className="pl-4">
                   
@@ -81,34 +82,14 @@ function Products() {
                  */}
                 <div className="flex ">
                   <div className="pl-4">
-                    {/* <Button 
-                    // onClick={() => confirmDelete(event.id)}
-                    >Delete</Button> */}
+                     
                   </div>
 
-                  {/* <div className="pl-4">
-                    <Button onClick={() => handleShow(event.id)}>Show</Button>
-                  </div> */}
-
-                  {/* <div className="pl-4">
-                    <Button onClick={() => confirmDelete(event.id)}>edit</Button>
-                  </div> */}
-                {/* <p className="pl-4">
-                <Popover>
-                    <PopoverTrigger>
-                      <Button>view</Button> 
-                    </PopoverTrigger>
-                    <PopoverContent>
-                      <EventInfo/>
-                    </PopoverContent>
-                </Popover>
-                </p> */}
+                 
                 </div>
-{/*                 
-                <div className="sm:flex hidden justify-between items-center">
-              </div> */}
+
               </Link>
-            {/* ))} */}
+            ))}
           </ul>
           
         </div>

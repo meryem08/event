@@ -12,6 +12,35 @@ import { Menu, Transition, Popover } from "@headlessui/react"
 import Link from "next/link"
 
 export default function TopBar({ showNav, setShowNav }) {
+  const [eventManagerData, setEventManagerData] = useState(null);
+
+  useEffect(() => {
+    const fetchEventManagerData = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/showEventManager', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch event manager data');
+        }
+
+        const eventManagerData = await response.json();
+        setEventManagerData(eventManagerData);
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    fetchEventManagerData();
+  }, );
+
+  
   const handleLogOut = async (e) => {
     e.preventDefault();
     // console.log(formData);
@@ -137,7 +166,7 @@ export default function TopBar({ showNav, setShowNav }) {
                 </li>
                 ))}
                 </ul>
-              </div>
+              </div> 
             </Popover.Panel>
           </Transition>
         </Popover>
@@ -145,11 +174,11 @@ export default function TopBar({ showNav, setShowNav }) {
           <div>
             <Menu.Button className="inline-flex w-full justify-center items-center">
               <picture>
-                <img
-                  src="./images/adminProfile.jpg"
-                  className="rounded-full h-8 md:mr-4 border-2 border-orange-200 shadow-sm"
-                  alt="profile picture"
-                />
+              <img
+                src={`http://127.0.0.1:8000/storage/${eventManagerData?.profile_photo}`}
+                alt={eventManagerData?.profile_photo}
+                className="rounded-full h-8 md:mr-4 border-2 border-blue-200 shadow-sm"
+              />
               </picture>
               <span className="hidden md:block font-medium text-gray-700">
                 Event Manager
@@ -166,7 +195,7 @@ export default function TopBar({ showNav, setShowNav }) {
             leaveFrom="transform scale-100"
             leaveTo="transform scale-95"
           >
-            <Menu.Items className="absolute right-0 w-56 z-50 mt-2 origin-top-right bg-white rounded shadow-sm">
+            <Menu.Items className="absolute right-0 w-56 z-50 mt-2 origin-top-right bg-purple-300 rounded shadow-sm">
               <div className="p-1">
                 <Menu.Item>
                   <Link

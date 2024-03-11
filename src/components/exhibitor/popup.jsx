@@ -189,7 +189,7 @@ export default function Add() {
 
   return (
     <>
-      <Button onClick={toggleModal}>Add product</Button>
+      <Button className =' mt-6'onClick={toggleModal}>Add product</Button>
       {modal && (
         <div className='w-screen h-screen fixed top-0 right-0 bottom-0 left-0'>
           <div

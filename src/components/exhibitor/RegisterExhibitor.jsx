@@ -27,138 +27,38 @@ function RegisterExhibitor() {
   const [organization, setOrganization] = useState('');
   const [password, setPassword] = useState('');
   const [password_confirmation, setPassword_confirmation] = useState('');
-
-  // const { id } = useParams();
-  // const [event, setEvent] = useState({});
+  const [profile_photo, setprofile_photo] = useState('')
 
 
-  //   const router = useRouter();
-  //   const { id } = router.query;
-  //   const [event, setEvent] = useState({});
-  
-  // console.log(id)
-  
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       try {
-         
-  //         if (id) {
-  //           const response = await fetch(`http://127.0.0.1:8000/api/event/${id}`);
-  
-  //         if (response.ok) {
-  //           const eventData = await response.json(); // Removed array destructuring
-  //           setEvent(eventData);
-  //         } else {
-  //           console.error("Error fetching data:", response.status);
-  //         }}
-  //       } catch (error) {
-  //         console.error("An error occurred:", error);
-  //       }
-  //     };
-  
-  //     fetchData();
-  //   }, [id] );
-  // console.log(id)
+  const handleFileChange = (e) => {
+    setprofile_photo(e.target.files[0]);
+  };
 
-// ... (previous code)
-
-// const HandleRegister = async (e) => {
-//   e.preventDefault();
-  // const router = useRouter();
-  // const { id } = router.query;
-  // const [event, setEvent] = useState({});
-  // const { id } = router.query;
-
-// console.log(id)
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-       
-//         if (id) {
-//           const response = await fetch(`http://127.0.0.1:8000/api/event/${id}`);
-
-//         if (response.ok) {
-//           const eventData = await response.json(); // Removed array destructuring
-//           setEvent(eventData);
-//         } else {
-//           console.error("Error fetching data:", response.status);
-//         }}
-//       } catch (error) {
-//         console.error("An error occurred:", error);
-//       }
-//     };
-// console.log(id)
-//     fetchData();
-//   }, [id] );
-
-
-  
-  // Data to send to the API
-//   const formData = {
-//     first_name,
-//     last_name,
-//     birthday,
-//     phone,
-//     organization,
-//     email,
-//     password,
-//     password_confirmation,
-//   };
-
-//   try {
-       
-//     if (id) {
-//       const response = await fetch(`http://127.0.0.1:8000/api/event/${id}/register`);
-
-//     if (response.ok) {
-//       const eventData = await response.json(); // Removed array destructuring
-//       setEvent(eventData);
-//     } else {
-//       console.error("Error fetching data:", response.status);
-//     }}
-//   } catch (error) {
-//     console.error("An error occurred:", error);
-//   }
-// };
-// // ... (remaining code)
-// import { useRouter } from 'next/router';
-// import { useState } from 'react';
-
-// const EventRegisterPage = () => {
-  // const router = useRouter();
-  // const { id } = router.query;
-
-
-  // const handleInputChange = (e) => {
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
     try {
+
+      const formData = new FormData();
+      formData.append('first_name', first_name);
+      formData.append('last_name', last_name);
+      formData.append('birthday', birthday);
+      formData.append('email', email);
+      formData.append('phone', phone);
+      formData.append('organization', organization);
+      formData.append('password', password);
+      formData.append('profile_photo', profile_photo);
+      formData.append('password_confirmation', password_confirmation);
+
       const response = await fetch(`http://127.0.0.1:8000/api/event/${id}/register`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          // 'Content-Type': 'application/json',
           Accept: 'application/json',
         },
-        body: JSON.stringify({
-          first_name,
-          last_name,
-          birthday,
-          email,
-          phone,
-          password,
-          organization,
-          password_confirmation,
-        }
-          
-        ),
+        body: formData,
+   
       });
 
       if (response.ok) {
@@ -197,7 +97,8 @@ function RegisterExhibitor() {
 
           <section className="m-2">
             <form className="flex flex-col" 
-                  onSubmit={handleRegister}>
+                  onSubmit={handleRegister}
+                  encType="multipart/form-data" >
              <div className='flex'>
                <div className="m-2 rounded ">
                 <input
@@ -242,7 +143,8 @@ function RegisterExhibitor() {
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
-              <div className="m-2 rounded">
+              <div>
+                <div className="m-2 rounded">
                 {/* <Label className="block text-sm font-bold mb-2 ml-3" htmlFor="username">Email</Label> */}
                 <input
                   placeholder='organization'
@@ -252,6 +154,18 @@ function RegisterExhibitor() {
                   onChange={(e) => setOrganization(e.target.value)}
                 />
               </div>
+              <div className="grid w-full items-center gap-1.5">
+                <input
+                  required
+                  className="p-2 text-white bg-transparent rounded w-full focus:outline-none border-b-2 border-white focus:border-purple-600 transition duration-500 px-3 pb-3 hover: bg-transparent"
+                  onChange={handleFileChange}
+                  id="profile_photo"
+                  name="profile_photo"
+                  type="file"
+                />
+              </div>
+              </div>
+              
 
               <div className="m-2 rounded">
                 <input

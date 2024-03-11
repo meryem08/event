@@ -45,14 +45,15 @@ console.log(event)
         {/* {event?.event?.photo} */}
           {/* <Image alt="wrong" src={`/images/slider1.jpg`} width={250} height={150} className='w-[100%] md:w-[100%] p-2 m-2 rounded-md'/> */}
           <div className="w-[81%]">
-                          {event?.event?.summary && (
-                            <Image
-                              src={`http://127.0.0.1:8000/storage/${event?.event?.photo}`}
-                              alt={event?.event?.photo}
-                              className="w-full h-[136px] object-cover rounded"
-                            />
-                          )}
-                        </div>
+            {event?.event?.summary && (
+              <img
+              
+                src={`http://127.0.0.1:8000/storage/${event?.event?.photo}`}
+                alt={event?.event?.photo}
+                className="w-full h-[136px] object-cover rounded"
+              />
+            )}
+            </div>
           <div>
               <h1 className='text-4xl font-semibold p-2 m-2'>{event?.event?.eventTitle}</h1>
               <p className='p-2 m-2 text-purple-600 font-semibold'>{event?.event?.startingDate}</p>

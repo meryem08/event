@@ -189,11 +189,11 @@ const Events = () => {
                   </React.Fragment>
                 )} */}
 
-                {/* <div className="sm:flex hidden justify-between items-center">
+                <div className="sm:flex hidden justify-between items-center">
                   <DeleteButton
                     onClick={() => confirmDelete(events.id)}
                   />
-                </div> */}
+                </div>
                 <Link href="">
                   <button className="bg-green-300 text-white px-4 py-2 rounded hover:bg-green-400 w-24">
                     Visit

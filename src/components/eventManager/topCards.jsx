@@ -132,7 +132,7 @@ const TopCards = () => {
         </div>
         <div className='bg-blue-100 flex justify-between w-full border p-4 rounded-lg'>
             <div className='flex flex-col w-full pb-4'>
-                <p className='text-2xl font-bold'>{requests?.count}</p>
+                <p className='text-2xl font-bold'>{requests}</p>
                 <p className='text-gray-600'>Requests</p>
             </div>
             {/* <p className='bg-green-200 flex justify-center items-center p-2 rounded-lg'>

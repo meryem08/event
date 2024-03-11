@@ -131,9 +131,15 @@ function LandingPage() {
                 style={{ maxWidth: 300 }}
                 className="p-2 m-2 rounded-lg border-black bg-orange-600"
               >
-                <div className="block object-cover w-full h-130 bg-orange-500 rounded-5">
+                {/* <div className="block object-cover w-full h-130 bg-orange-500 rounded-5">
                   {event.event.photo}
-                </div>
+                </div> */}
+                <img
+              
+              src={`http://127.0.0.1:8000/storage/${event?.event?.photo}`}
+              alt={event?.event?.photo}
+              className="w-full h-[136px] object-cover rounded"
+            />
                 <h1 className="text-white font-semibold text-lg pt-1 pl-1">
                   {event.event.summary}
                 </h1>

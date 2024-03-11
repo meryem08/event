@@ -51,7 +51,13 @@ const TopCard = () => {
 
           <div className="lg:flex justify-start">
 
-            <div className="bg-gray-100 h-[86px] ml-[45px] mt-[-33px] rounded-[50%] w-[86px] "></div> 
+            <div className="bg-white  ml-[45px] mt-[-33px] rounded-full ">
+            <img
+                src={`http://127.0.0.1:8000/storage/${exhibitorData?.profile_photo}`}
+                alt={exhibitorData?.profile_photo}
+                className="w-24 object-cover rounded-full"
+              />
+            </div> 
             
             <div className="lg:ml-6">
               <div className="  font-bold">{exhibitorData?.first_name} {exhibitorData?.last_name}</div>
@@ -62,7 +68,7 @@ const TopCard = () => {
           <div className="flex">
                 {exhibitorData?.approved ? (
                   
-                    <Add className='m-2'/>
+                    <Add className=' pt-6 m-2'/>
                   
                 ) : (
                  

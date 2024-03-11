@@ -1,6 +1,5 @@
 "use client"
 
-// import { Alert } from '@/components/ui/alert'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -10,40 +9,45 @@ export const RegisterForm = () => {
   const [first_name, setFirstName] = useState("")
   const [last_name, setLastName] = useState("")
   const [birthday, setBirthday] = useState("")
-  const [gender, setGender] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
   const [organization, setOrganization] = useState("")
   const [password, setPassword] = useState("")
+  const [profile_photo, setprofile_photo] = useState('')
   const [password_confirmation, setPassword_confirmation] = useState("")
   const [error, setError] = useState(null)
 
-  const handleCheckboxChange = (e) => {
-    setGender(e.target.value)
-  }
+
+  const handleFileChange = (e) => {
+    setprofile_photo(e.target.files[0]);
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault()
 
     try {
+
+      const formData = new FormData();
+      formData.append('first_name', first_name);
+      formData.append('last_name', last_name);
+      formData.append('birthday', birthday);
+      formData.append('email', email);
+      formData.append('phone', phone);
+      formData.append('organization', organization);
+      formData.append('password', password);
+      formData.append('profile_photo', profile_photo);
+      formData.append('password_confirmation', password_confirmation);
+
       const res = await fetch(
         "http://127.0.0.1:8000/api/eventManager/register",
         {
           method: "POST",
-          body: JSON.stringify({
-            first_name,
-            last_name,
-            birthday,
-            gender,
-            email,
-            phone,
-            password,
-            organization,
-            password_confirmation,
-          }),
+          
           headers: {
-            "Content-Type": "application/json",
+            // "Content-Type": "application/json",
             Accept: "application/json",
           },
+          body: formData,
         },
       )
       if (res.ok) {
@@ -62,7 +66,7 @@ export const RegisterForm = () => {
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4 w-full sm:w-[400px]">
+    <form onSubmit={onSubmit} encType="multipart/form-data" className="space-y-4 w-full sm:w-[400px]">
       <div className="flex align-items space-x-2">
         <div className="grid w-full items-center gap-1.5">
           <Label htmlFor="first_name">First Name</Label>
@@ -109,7 +113,8 @@ export const RegisterForm = () => {
           type="email"
         />
       </div>
-      <div className="grid w-full items-center gap-1.5">
+      <div className="flex align-items space-x-2">
+        <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="email">Organization</Label>
         <Input
           className="w-full"
@@ -120,6 +125,20 @@ export const RegisterForm = () => {
           type="text"
         />
       </div>
+      <div className="grid w-full items-center gap-1.5">
+        <Label htmlFor="email">profile photo</Label>
+        <Input
+          className="w-full"
+          required
+          onChange={handleFileChange}
+          id="profile_photo"
+          name="profile_photo"
+          type="file"
+        />
+      </div>
+      
+      </div>
+      
       {/* <div className="flex justify-between w-1/3">
         <Label>
           <input
