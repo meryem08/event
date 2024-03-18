@@ -19,7 +19,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
   
-      <main className=" min-h-screen">
+      <main className=" min-h-screen bg-black">
         {/* <div className="grid grid-col justify-between"> */}
           <Layout>
             <TopCards />

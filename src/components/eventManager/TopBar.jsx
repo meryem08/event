@@ -113,19 +113,19 @@ export default function TopBar({ showNav, setShowNav }) {
   }, [])
     return (
     <div
-      className={`fixed w-full h-16 flex justify-between items-center bg-white transition-all duration-[400ms] ${
+      className={`fixed w-full h-16 flex justify-between items-center bg-blue-950 transition-all duration-[400ms] ${
         showNav ? "pl-56" : ""
       }`}
     >
       <div className="pl-4 md:pl-16">
         <Bars3CenterLeftIcon
-          className="h-8 w-8 text-gray-700 cursor-pointer"
+          className="h-6 w-6 text-white cursor-pointer"
           onClick={() => setShowNav(!showNav)}
         />
       </div>
       <div className="flex items-center pr-4 md:pr-16">
         <Popover className="relative">
-          <Popover.Button className="outline-none mr-5 md:mr-8 cursor-pointer text-gray-700">
+          <Popover.Button className="outline-none mr-5 md:mr-8 cursor-pointer text-white">
             <BellIcon className="h-6 w-6" />
           </Popover.Button>
           <Transition
@@ -180,10 +180,10 @@ export default function TopBar({ showNav, setShowNav }) {
                 className="rounded-full h-8 md:mr-4 border-2 border-blue-200 shadow-sm"
               />
               </picture>
-              <span className="hidden md:block font-medium text-gray-700">
+              <span className="hidden md:block font-medium text-white">
                 Event Manager
               </span>
-              <ChevronDownIcon className="ml-2 h-4 w-4 text-gray-700" />
+              <ChevronDownIcon className="ml-2 h-4 w-4 text-white" />
             </Menu.Button>
           </div>
           <Transition

@@ -143,9 +143,9 @@ const Events = () => {
                   <Link href={`/exhibitor/exhibitors/${event.id}`}>
                     <Button className="w-16">Exhibitor</Button>
                   </Link>
-                  {/* <div >
+                  <div >
                   <EditEvent id ={event.id} />
-                  </div> */}
+                  </div>
 
                   <DropdownMenu.Root>
                     <DropdownMenu.Trigger asChild>

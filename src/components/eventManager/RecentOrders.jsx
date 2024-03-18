@@ -33,28 +33,28 @@ import { useState , useEffect } from 'react';
     }, []);
 
   return (
-    <div className='w-full relative col-span-1 lg:h-[60vh] h-[50vh] m-1 p-2 border rounded-lg bg-white overflow-scroll '>
-      <h1>Recent events</h1>
+    <div className='w-full relative col-span-1 lg:h-[60vh] h-[50vh] m-1 p-2 border rounded-lg bg-blue-950 overflow-scroll '>
+      <h1 className='text-white'>Recent events</h1>
       <ul>
       {events.map((event) => (
           <li
             key={event.id} // Ensure each item has a unique key
-            className=' bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 flex items-center cursor-pointer'
+            className='border bg-black border-white hover:bg-blue-950 rounded-lg my-3 p-2 flex items-center cursor-pointer'
           >
-            <div className='bg-purple-100 rounded-lg p-3'>
+            <div className='bg-purple-400 rounded-lg p-3'>
               <FaShoppingBag className='text-purple-800' />
             </div>
             <div className='pl-4'>
-              <p className='text-gray-800 font-bold'>{event?.eventTitle}</p>
+              <p className='text-white font-bold'>{event?.eventTitle}</p>
               {/* Add other details as needed */}
             </div>
             <div className='pl-4'>
-              <p className='text-gray-800 font-bold'>{event?.startingDate}</p>
+              <p className='text-white font-bold'>{event?.startingDate}</p>
               {/* Add other details as needed */}
             </div>
 
             <div className='pl-4'>
-              <p className='text-gray-800 font-bold'>{event?.sector}</p>
+              <p className='text-white font-bold'>{event?.sector}</p>
               {/* Add other details as needed */}
             </div>
           </li>

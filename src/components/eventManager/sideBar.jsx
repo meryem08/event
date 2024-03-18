@@ -15,22 +15,22 @@ const SideBar = forwardRef(({ showNav }, ref) => {
   const router = useRouter()
 
   return (
-    <div ref={ref} className=" w-56 fixed bg-white ">
-      <div className="flex justify-center mt-2 mb-3  ">
-        <h1 className="text-4xl font-bold  text-purple-500">MyEvent</h1>
+    <div ref={ref} className=" w-56 fixed bg-blue-950 ">
+      <div className="flex justify-center mt-2 mb-3 bg-blue-950 ">
+        <h1 className="text-4xl font-bold text-sky-400">eventure</h1>
       </div>
 
-      <div className="flex flex-col rounded-tr-3xl  h-screen bg-purple-300 p-4">
+      <div className="flex flex-col rounded-tr-3xl  h-screen bg-blue-950 p-4">
         <Link href="/eventManager/dashboard">
           <div
             className={`pl-6 py-3 mx-5 rounded-3xl text-center cursor-pointer mb-3 flex items-center transition-colors ${
               router.pathname == "eventManager/dashboard"
-                ? "bg-white text-black"
-                : "text-black hover:bg-white hover:text-purple-950"
+                ? "bg-blue-950 text-sky-400"
+                : "text-sky-400 hover:bg-white hover:text-purple-950"
             }`}
           >
             <div className="mr-2">
-              <HomeIcon className="h-5 w-5" />
+              <HomeIcon className="h-5 w-5 bg" />
             </div>
             <div>
               <p>Dashboard</p>
@@ -41,8 +41,8 @@ const SideBar = forwardRef(({ showNav }, ref) => {
           <div
             className={`pl-6 py-3 mx-5 rounded-3xl text-center cursor-pointer mb-3 flex items-center transition-colors ${
               router.pathname == "/eventManager/account"
-              ? "bg-white text-black"
-              : "text-black hover:bg-white hover:text-purple-950"
+              ? "bg-white text-sky-400"
+              : "text-sky-400 hover:bg-white hover:text-purple-950"
           }`}
           >
             <div className="mr-2">
@@ -58,7 +58,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
             className={`pl-6 py-3 mx-5 rounded-3xl text-center cursor-pointer mb-3 flex items-center transition-colors ${
               router.pathname == "/eventManager/events"
               ? "bg-white text-black"
-              : "text-black hover:bg-white hover:text-purple-950"
+              : "text-sky-400 hover:bg-white hover:text-purple-950"
           }`}
           >
             <div className="mr-2">
@@ -74,7 +74,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
             className={`pl-6 py-3 mx-5 rounded-3xl text-center cursor-pointer mb-3 flex items-center transition-colors ${
               router.pathname == "/eventManager/exhibitors"
               ? "bg-white text-black"
-              : "text-black hover:bg-white hover:text-purple-950"
+              : "text-sky-400 hover:bg-white hover:text-purple-950"
           }`}
           >
             <div className="mr-2">
@@ -90,7 +90,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
             className={`pl-6 py-3 mx-5 rounded-3xl text-center cursor-pointer mb-3 flex items-center transition-colors ${
               router.pathname == "/eventManager/requests"
               ? "bg-white text-black"
-              : "text-black hover:bg-white hover:text-purple-950"
+              : "text-sky-400 hover:bg-white hover:text-purple-950"
           }`}
           >
             <div className="mr-2">

@@ -24,7 +24,7 @@ import Layout from '../exhibitor/Layout'
 export const MyForm = () => {
   const [eventTitle, setEventTitle] = useState("")
   const [country, setCountry] = useState("")
-  const [tags, setTags] = useState("")
+  const [tags, setTags] = useState('')
   const [sector, setSector] = useState("")
   const [summary, setSummary] = useState("")
   const [description, setDescription] = useState("")
@@ -44,29 +44,22 @@ export const MyForm = () => {
       const formData = new FormData();
       formData.append('eventTitle', eventTitle);
       formData.append('country', country);
-      formData.append('tags', tags);
+      // formData.append('tags', tags);
       formData.append('sector', sector);
       formData.append('summary', summary);
       formData.append('description', description);
       formData.append('startingDate', startingDate);
       formData.append('endingDate', endingDate);
       formData.append('photo', photo);
+      formData.append('tags', tags.split(','));
+
+      // Append photo only if it exists
+
 
       const res = await fetch(
        "http://127.0.0.1:8000/api/eventCreate",
         {
           method: "POST",
-          // body: JSON.stringify({
-          //   eventTitle,
-          //   country,
-          //   tags,
-          //   sector,
-          //   summary,
-          //   description,
-          //   startingDate,
-          //   endingDate,
-          //   photo,
-          // }),
           body: formData,
           headers: {
             // "Content-Type": "application/json",
@@ -154,13 +147,25 @@ export const MyForm = () => {
                   food
               </option>
               <option value='technology'>
-                  tech
+                  Technology
               </option>
-              <option value='culture'>
-                  culture
+              <option value='Health'>
+                  Health 
               </option>
-              <option value='technology'>
-                  tech
+              <option value='Arts & crafts'>
+                  Arts & crafts
+              </option>
+              <option value='Environment & waste'>
+                  Environment & waste
+              </option>
+              <option value='Fashion & beauty'>
+                  Fashion & beauty
+              </option>
+              <option value='Medical & Pharma'>
+                  Medical & Pharma
+              </option>
+              <option value='Travel & Tourism'>
+                  Travel & Tourism
               </option>
 
           </select>
@@ -188,7 +193,7 @@ export const MyForm = () => {
                 
                 value={tags}
                 // onChange={handleInputChange}
-                onChange={(e) => setTags(e.target.value)}
+                onChange={(e) => setTags(e.target.value)} 
                 id="tags"
                 name = "tags"
                 type="text"

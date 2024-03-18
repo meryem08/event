@@ -4,6 +4,7 @@ import Sidebar from "@/components/eventManager/sideBar";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/eventManager/layout";
 import popOver from "@/components/popOver";
+// import PopOver from '@/components/PopOver';
 
 // const Requests = () => {
 
@@ -243,9 +244,8 @@ const Requests = () => {
                     <Button onClick={() => handleReject(exhibitor.user_id)}>Reject</Button>
                   </div>
                   <div className="pl-4">
-                    {/* <Button onClick={() => handleShow(exhibitor.user_id)}>Show</Button> */}
-                    <popOver/>
-                  </div>
+                  <popOver content={renderPopoverContent(exhibitor)} />
+                </div>
 
                 {/* <p className="pl-4">
                 <Popover>
@@ -277,5 +277,10 @@ const Requests = () => {
     </Layout>
   );
 };
-
+const renderPopoverContent = (exhibitor) => (
+  <div>
+    <p>ID: {exhibitor?.id}</p>
+    {/* Other exhibitor info... */}
+  </div>
+);
 export default Requests

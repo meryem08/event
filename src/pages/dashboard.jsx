@@ -23,10 +23,15 @@ function dashboard() {
      
      <Layout>
       <TopCards/>
-      <div className="p-4 grid md:grid-cols-3 grid-cols-1 gap-4">
-          <EventsManagerTable/>
-          <RecentOrders />
+      {/* <div className="p-4 grid md:grid-cols-3 grid-cols-1 gap-4"> */}
+          {/* <EventsManagerTable/> */}
+          
+          <div className="flex justify-rounded">
+          <BarChart/>
+          
+          <RecentOrders/>
         </div>
+        {/* </div> */}
      </Layout>
         
         {/* <div className="flex-grow">

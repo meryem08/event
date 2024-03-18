@@ -105,18 +105,18 @@ const TopCards = () => {
 
   return (
     <div className='grid lg:grid-cols-5 gap-4 p-4'>
-        <div className='lg:col-span-2 col-span-1 bg-pink-100 flex justify-between w-full border p-4 rounded-lg'>
+        <div className='lg:col-span-2 col-span-1 bg-blue-950 flex justify-between w-full border p-4 rounded-lg'>
             <div className='flex flex-col w-full pb-4'>
-                <p className='text-2xl font-bold'>{events}</p>
-                <p className='text-gray-600'>Events</p>
+                <p className='text-2xl font-bold text-pink-400'>{events}</p>
+                <p className='text-white'>Events</p>
             </div>
             {/* <p className='bg-green-200 flex justify-center items-center p-2 rounded-lg'>
                 <span className='text-green-700 text-lg'>+18%</span>
             </p> */}
         </div>
-        <div className='lg:col-span-2 col-span-1 bg-purple-100 flex justify-between w-full border p-4 rounded-lg'>
+        <div className='lg:col-span-2 col-span-1 bg-blue-950 flex justify-between w-full border p-4 rounded-lg'>
             <div className='flex flex-col w-full pb-4'>
-                <p className='text-2xl font-bold'>
+                <p className='text-2xl font-bold text-purple-500'>
                 {/* <ul>
                   {exposants?.map((exposant, index) => (
                     <li key={index}>{exposant}</li>
@@ -124,16 +124,16 @@ const TopCards = () => {
                 </ul> */}
                 {exposants}
                 </p>
-                <p className='text-gray-600'>Exhibitors</p>
+                <p className='text-white'>Exhibitors</p>
             </div>
             {/* <p className='bg-green-200 flex justify-center items-center p-2 rounded-lg'>
                 <span className='text-green-700 text-lg'>+11%</span>
             </p> */}
         </div>
-        <div className='bg-blue-100 flex justify-between w-full border p-4 rounded-lg'>
+        <div className='bg-blue-950 flex justify-between w-full border p-4 rounded-lg'>
             <div className='flex flex-col w-full pb-4'>
-                <p className='text-2xl font-bold'>{requests}</p>
-                <p className='text-gray-600'>Requests</p>
+                <p className='text-2xl font-bold text-sky-500'>{requests}</p>
+                <p className='text-white'>Requests</p>
             </div>
             {/* <p className='bg-green-200 flex justify-center items-center p-2 rounded-lg'>
                 <span className='text-green-700 text-lg'>+17%</span>
