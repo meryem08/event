@@ -17,6 +17,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import Image from 'next/image'
+import { Textarea } from '../ui/textarea'
 
 // import React, { useState } from "react";  
 import { TagsInput } from "react-tag-input-component"; 
@@ -26,6 +27,8 @@ import Layout from '../exhibitor/Layout'
 export const MyForm = () => {
   const [eventTitle, setEventTitle] = useState("")
   const [country, setCountry] = useState("")
+  const [city, setCity] = useState("")
+  const [address, setAddress] = useState("")
   const [tags, setTags] = useState([]);
   const [sector, setSector] = useState("")
   const [summary, setSummary] = useState("")
@@ -46,6 +49,8 @@ export const MyForm = () => {
       const formData = new FormData();
       formData.append('eventTitle', eventTitle);
       formData.append('country', country);
+      formData.append('city', city);
+      formData.append('address', address);
       // formData.append('tags', tags);
       formData.append('sector', sector);
       formData.append('summary', summary);
@@ -66,7 +71,7 @@ export const MyForm = () => {
           body: formData,
           headers: {
             // "Content-Type": "application/json",
-            // Accept: "application/json",
+            Accept: "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
 
           },
@@ -75,16 +80,18 @@ export const MyForm = () => {
       
       if (res.ok) {
         const result = await res.json();
-        console.log(result)
-        // const token = result.token;
-        // localStorage.setItem('token', token);
-
-  
         window.location.href = "/eventManager/events"
       } else {
-        setError((await res.json()).error)
+        const responseData = await res.json();
+        if (res.status === 422) {
+          // Handle validation errors
+          setError(responseData.errors);
+        } else {
+          // Handle other errors
+          setError(responseData.error);
+        }
       }
-    } 
+    }
     catch (error) {
       setError(error?.message)
       console.log(error)
@@ -99,7 +106,7 @@ export const MyForm = () => {
     <div className='flex justify-between'>
       
       <div  className='flex justify-around border border-stone-200 rounded-3xl w-[90%] m-12'>
-        <div className=' text-blue-500 font-semibold w-[50%] p-12 border border-stone-400 rounded-3xl bg-gradient-to-tr from-pink-100 via-sky-100 via-40% to-purple-100 '>
+        <div className='hidden lg:block text-blue-500 font-semibold w-[50%] p-12 border border-stone-400 rounded-3xl  '>
           <p className=' flex items-center justify-center text-xl'>
           Provide us with more 
           </p>
@@ -116,7 +123,7 @@ export const MyForm = () => {
             />
         </div>
 
-    <form onSubmit={onSubmit} className='p-6' encType="multipart/form-data" >
+    <form onSubmit={onSubmit} className='p-6 w-[50%]' encType="multipart/form-data" >
     
     <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="eventTitle">Event title</Label>
@@ -130,6 +137,7 @@ export const MyForm = () => {
           type="text" 
           
         />
+         {error && error.eventTitle && ( <p className="text-red-500 font-medium">{error.eventTitle[0]}</p>)}
       </div>
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="country">Country</Label>
@@ -143,13 +151,42 @@ export const MyForm = () => {
           type="text" 
           
         />
+        {error && error.country && ( <p className="text-red-500 font-medium">{error.country[0]}</p>)}
+      </div>
+      <div className="grid w-full items-center gap-1.5">
+        <Label htmlFor="country">City</Label>
+        <Input
+          className="w-full"
+          
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          id="city"
+          name="city"
+          type="text" 
+          
+        />
+        {error && error.city && ( <p className="text-red-500 font-medium">{error.city[0]}</p>)}
+      </div>
+      <div className="grid w-full items-center gap-1.5">
+        <Label htmlFor="country">Address</Label>
+        <Input
+          className="w-full"
+          
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          id="address"
+          name="address"
+          type="text" 
+          
+        />
+        {error && error.address && ( <p className="text-red-500 font-medium">{error.address[0]}</p>)}
       </div>
       <div>
       <Label htmlFor="sector">Sector</Label>
       <select         
               name="sector"
               
-              className='rtl:ml-0 md:w-[34rem] lg:w-[27rem] w-full  md:ml-[7.4rem] rtl:md:mr-[6.2rem] rtl:md:min-w-[21.5rem] rtl:md:w-[28.5rem] rtl:lg:w-[21.5rem] border border-gray-300 h-12 bg-white pl-4 rounded-3xl p-2 focus:outline-none focus:border-Teal focus:ring-Teal invalid:border-red-500 invalid:text-red-500 peer cursor-pointer'
+              className=' w-full border border-gray-300 rounded-3xl p-2 focus:outline-none focus:border-Teal focus:ring-Teal invalid:border-red-500 invalid:text-red-500 peer cursor-pointer'
               value={sector}
               onChange={(e) => setSector(e.target.value)}
           >   
@@ -182,6 +219,7 @@ export const MyForm = () => {
               </option>
 
           </select>
+          {error && error.sector && ( <p className="text-red-500 font-medium">{error.sector[0]}</p>)}
           </div>
 
       <div className="grid w-full items-center gap-1.5">
@@ -192,6 +230,7 @@ export const MyForm = () => {
           name='photo' type='file' onChange={handleFileChange}
           id="photo"
         />
+        {error && error.photo && ( <p className="text-red-500 font-medium">{error.photo[0]}</p>)}
       </div>
 
         {/* <div className="grid w-full items-center gap-1.5">
@@ -220,7 +259,7 @@ export const MyForm = () => {
       </div> */}
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="summary">Summary</Label>
-        <Input
+        <Textarea
           className="w-full"
           value={summary}
           // onChange={handleInputChange}
@@ -230,11 +269,12 @@ export const MyForm = () => {
           
           max="2000"
         />
+        {error && error.summary && ( <p className="text-red-500 font-medium">{error.summary[0]}</p>)}
       </div>
 
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="description" id="Description">Description</Label>
-        <Input
+        <Textarea
           className="w-full"
           value={description}
           // onChange={handleInputChange}
@@ -243,18 +283,20 @@ export const MyForm = () => {
           name="description"
           type="text"
         />
+        {error && error.description && ( <p className="text-red-500 font-medium">{error.description[0]}</p>)}
       </div>
 
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="startingDate">Starting Date</Label>
         <Input 
           value={startingDate}
+          
           // onChange={handleInputChange}
           onChange={(e) => setStartingDate(e.target.value)}
           id="startingDate"
           name="startingDate"
           type="date"/>
-          
+          {error && error.startingDate && ( <p className="text-red-500 font-medium">{error.startingDate[0]}</p>)}
       </div>
 
       <div className="grid w-full items-center gap-1.5">
@@ -266,6 +308,7 @@ export const MyForm = () => {
           id="endingDate"
           name = "endingDate"
           type="date"/>
+          {error && error.endingDate && ( <p className="text-red-500 font-medium">{error.endingDate[0]}</p>)}
       </div>
 
         <div className="mb-4">

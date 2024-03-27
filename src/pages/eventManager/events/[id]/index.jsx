@@ -44,14 +44,16 @@ console.log(event)
         <div className='md:flex'>
         {/* {event?.event?.photo} */}
           {/* <Image alt="wrong" src={`/images/slider1.jpg`} width={250} height={150} className='w-[100%] md:w-[100%] p-2 m-2 rounded-md'/> */}
-          <div className="w-[81%]">
+          <div className="w-[60%]">
             {event?.event?.summary && (
               <img
-              
+              width={100}
+              height={100}
                 src={`http://127.0.0.1:8000/storage/${event?.event?.photo}`}
                 alt={event?.event?.photo}
-                className="w-full h-[136px] object-cover rounded"
+                className="w-full h-[100%] object-cover rounded"
               />
+              
             )}
             </div>
           <div>
@@ -109,7 +111,7 @@ console.log(event)
           </div>
         </div>
       </div>  
-      <div className='p-12 m-2 absolute right-0 font-semibold'>
+      {/* <div className='p-12 m-2 absolute right-0 font-semibold'>
           Are you an exhibitor ?
           <Link        
                 href={`/eventManager/events/${event?.event?.id}/Register`}
@@ -117,8 +119,8 @@ console.log(event)
             Register in this event!
           </Link>
 
-          {/* <Link href="./${event.id}/Register" className='hover:text-purple-600 hover:underline decoration-solid'>Register in this event !</Link>  */}
-        </div>       
+          <Link href="./${event.id}/Register" className='hover:text-purple-600 hover:underline decoration-solid'>Register in this event !</Link> 
+        </div>        */}
     </div>
           </li>
           {/* <li>{event.title}</li>
