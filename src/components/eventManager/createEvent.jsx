@@ -16,15 +16,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import Image from 'next/image'
 
-
+// import React, { useState } from "react";  
+import { TagsInput } from "react-tag-input-component"; 
  import Sidebar from './sideBar'
 import Layout from '../exhibitor/Layout'
 
 export const MyForm = () => {
   const [eventTitle, setEventTitle] = useState("")
   const [country, setCountry] = useState("")
-  const [tags, setTags] = useState('')
+  const [tags, setTags] = useState([]);
   const [sector, setSector] = useState("")
   const [summary, setSummary] = useState("")
   const [description, setDescription] = useState("")
@@ -51,10 +53,11 @@ export const MyForm = () => {
       formData.append('startingDate', startingDate);
       formData.append('endingDate', endingDate);
       formData.append('photo', photo);
-      formData.append('tags', tags.split(','));
+      formData.append('tags', tags.join(','));
 
       // Append photo only if it exists
 
+      
 
       const res = await fetch(
        "http://127.0.0.1:8000/api/eventCreate",
@@ -69,6 +72,7 @@ export const MyForm = () => {
           },
         },
       )
+      
       if (res.ok) {
         const result = await res.json();
         console.log(result)
@@ -80,7 +84,8 @@ export const MyForm = () => {
       } else {
         setError((await res.json()).error)
       }
-    } catch (error) {
+    } 
+    catch (error) {
       setError(error?.message)
       console.log(error)
     }
@@ -89,18 +94,26 @@ export const MyForm = () => {
 
 
 
-
   return (
   <>
     <div className='flex justify-between'>
       
-      <div  className='flex justify-around border border-stone-400 rounded-3xl w-[80%] m-12'>
-        <div className='w-[50%] p-12 border border-stone-400 rounded-3xl bg-gradient-to-tr from-pink-300 via-sky-300 via-40% to-purple-300 '>
-          <p className='text-3xl mt-40'>
-          Provide us with more informations
-           <span > about your event !</span>
-
+      <div  className='flex justify-around border border-stone-200 rounded-3xl w-[90%] m-12'>
+        <div className=' text-blue-500 font-semibold w-[50%] p-12 border border-stone-400 rounded-3xl bg-gradient-to-tr from-pink-100 via-sky-100 via-40% to-purple-100 '>
+          <p className=' flex items-center justify-center text-xl'>
+          Provide us with more 
           </p>
+          <p className=' flex items-center justify-center text-xl'>
+            informations about 
+          </p>
+          <span className=' flex items-center justify-center text-xl'>your event  !</span>
+          <Image
+              src="/pic3.png"
+              alt="welcom"
+              width={650}
+              height={500}
+              
+            />
         </div>
 
     <form onSubmit={onSubmit} className='p-6' encType="multipart/form-data" >
@@ -177,16 +190,11 @@ export const MyForm = () => {
           placeholder ="chose a photo"
           className="w-full"
           name='photo' type='file' onChange={handleFileChange}
-          
-          // onChange={(e) => setPhoto(e.target.value)}
-          // onChange={(e) => setPhoto(e.target.value)}
           id="photo"
-          // name="photo"
-          // type="file"
         />
       </div>
 
-        <div className="grid w-full items-center gap-1.5">
+        {/* <div className="grid w-full items-center gap-1.5">
                 <Label htmlFor="tags">Tags</Label>
                 <Input
                 className="w-full"
@@ -198,8 +206,18 @@ export const MyForm = () => {
                 name = "tags"
                 type="text"
                 />
-            </div>
-            
+            </div> */}
+            {/* <div> 
+      <h1>Add Tags</h1> 
+      <pre>{JSON.stringify(tags)}</pre> 
+      <TagsInput 
+        value={tags} 
+        onChange={setTags} 
+        name="tags"
+        placeHolder="tags"
+      /> 
+      <em>Enter tags</em> 
+      </div> */}
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="summary">Summary</Label>
         <Input
@@ -250,28 +268,13 @@ export const MyForm = () => {
           type="date"/>
       </div>
 
-        {/* <div className="mb-4">
-          <label
-            htmlFor="photo"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Photo de l événement
-          </label>
-          <input
-            type="file"
-            id="photo"
-            name="photo"
-            onChange={(e) => handleFileChange(e.target.files)}
-            className="mt-1 p-2 border rounded-md w-full"
-          />
-        </div> */}
         <div className="mb-4">
           <button
             type="submit"
             onClick={onSubmit}
             className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
           >
-            Créer l événement
+            create event
           </button>
         </div>
       </form>

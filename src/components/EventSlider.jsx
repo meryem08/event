@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import EventCard from "./EventCard"
 import Slider from "react-slick"
+import Link from "next/link"
 
 // const events = [
 //   {img: "/images/event3.jpg"},
@@ -84,9 +85,12 @@ const EventSlider = () => {
         Découvrez Notre Univers d&apos;Événements{" "}
       </h2>
      <div className="reletive ">
+      {/* <Link href={`eventManager/events/${event.id}`}> */}
       <Slider {...settings}>{
-        events.map((event)=><EventCard key={event.id} img={event.img} eventTitle={event.event.eventTitle} summary={event.event.summary} country={event.event.country} startingDate={event.event.startingDate}/>)
+        events.map((event)=><EventCard key={event.id} id = {event.event.id} img={event.event.photo} eventTitle={event.event.eventTitle} summary={event.event.summary} country={event.event.country} startingDate={event.event.startingDate}/>)
       }</Slider>
+      {/* </Link> */}
+      
       
      </div>
     </>

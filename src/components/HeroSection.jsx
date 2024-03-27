@@ -68,7 +68,7 @@ function HeroSection() {
           </p>
         </div>
         <Link className="px-auto pt-6 mx-auto " href={"/eventManager/registerPage"}>
-        <Button className="bg-blue-700 py-6 px-10 hover:bg-pink-400">S&apos;inscrire</Button>
+        <Button className="bg-gradient-to-r from-blue-400 to-pink-500 hover:from-blue-300 hover:to-pink-400 mx-auto p-6">S&apos;inscrire</Button>
         </Link>
       
       </div>

@@ -169,6 +169,8 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import MyForm from "@/components/eventManager/createEvent"
 import Layout from "@/components/eventManager/layout"
+import Approvel from "@/components/eventManager/approvel"
+
 
 function CreateNewEvent() {
   const [eventManagers, setEventManagers] = useState([])
@@ -214,10 +216,11 @@ function CreateNewEvent() {
             </>
           ) : (
             <>
-              <p className="text-center text-black text-xl pt-6">
+            <Approvel/>
+              {/* <p className="text-center text-black text-xl pt-6">
                 Vous devez être approuvé par l administrateur pour créer votre
                 page d événement.
-              </p>
+              </p> */}
             </>
           )}
         </div>

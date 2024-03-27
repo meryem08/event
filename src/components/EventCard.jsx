@@ -2,12 +2,12 @@ import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
-const EventCard = ({ img , eventTitle, summary, country, startingDate}) => {
+const EventCard = ({ id , img , eventTitle, summary, country, startingDate}) => {
   return (
     <div className="w-[95%] shodow-xl  m-10 bg-pink-700">
       <div>
         <img
-          src={`http://127.0.0.1:8000/storage/${event?.event?.photo}`}
+          src={`http://127.0.0.1:8000/storage/${img}`}
           alt="event"
           className="h-[250px] w-[100%] object-cover"
         />
@@ -20,7 +20,7 @@ const EventCard = ({ img , eventTitle, summary, country, startingDate}) => {
                  {country} / {startingDate}
              </p>
           <div>
-            <Link className="text-white text-left border rounded-xl p-1 bg-blue-500 border-blue-500 px-2" href="#">
+            <Link className="text-white text-left border rounded-xl p-1 bg-gradient-to-r from-blue-400 to-pink-500 hover:from-blue-300 hover:to-pink-400px-2" href={`eventManager/events/${id}`}>
               Visiter
             </Link>
           </div>

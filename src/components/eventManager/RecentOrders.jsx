@@ -34,7 +34,7 @@ import { useState , useEffect } from 'react';
 
   return (
     <div className='w-full relative col-span-1 lg:h-[60vh] h-[50vh] m-1 p-2 border rounded-lg bg-blue-950 overflow-scroll '>
-      <h1 className='text-white'>Recent events</h1>
+      <h1 className='text-white font-bold text-lg'>Recent events</h1>
       <ul>
       {events.map((event) => (
           <li
